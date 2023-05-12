@@ -1956,17 +1956,6 @@ body::before {
   margin-bottom: 1rem;
   line-height: 1.5;
 }
-.site-author-status {
-  position: absolute;
-  height: 1.8rem;
-  width: 1.8rem;
-  bottom: 0;
-  right: 0;
-  line-height: 1.8rem;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  background-color: #fff;
-}
 .site-name {
   color: var(--hty-text-color);
   font-family: 'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif;
@@ -2051,6 +2040,26 @@ body::before {
 }
 .progress-circle-container {
   position: absolute;
+}
+#comment {
+  margin: 0 1rem;
+  padding: 1rem;
+  background-color: var(--post-block-bg-color);
+}
+@media screen and (max-width: 768px) {
+  #comment {
+    margin: 0;
+  }
+}
+.comment-tooltip {
+  font-size: 0.8rem;
+  color: var(--hty-text-color);
+  padding: 0.5rem;
+  border: 1px solid #f0f0f0;
+  margin-bottom: 1rem;
+}
+#github-issues {
+  margin: 1rem;
 }
 #say {
   color: var(--hty-text-color);

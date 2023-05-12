@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="iroha"><meta name="copyright" content="iroha"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>C++类 | iroha</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="C++ 类​        类的基本思想是数据抽象和封装，依赖于接口和实现分离的编程技术。用户只能使用接口而无法访问实现部分。 定义一个类​        定义之前首先我们要设计出这个类，以Sales_data类为例，我们需要有以下接口：  一个isbn成员函数，返回对象的ISBN编号。 一个combine成员函数，用于将一个Sales_data对象加到另一个对象上。 一个add函数，执行两个Sa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++类">
+<meta property="og:url" content="http://example.com/post/C-%E7%B1%BB.html">
+<meta property="og:site_name" content="iroha">
+<meta property="og:description" content="C++ 类​        类的基本思想是数据抽象和封装，依赖于接口和实现分离的编程技术。用户只能使用接口而无法访问实现部分。 定义一个类​        定义之前首先我们要设计出这个类，以Sales_data类为例，我们需要有以下接口：  一个isbn成员函数，返回对象的ISBN编号。 一个combine成员函数，用于将一个Sales_data对象加到另一个对象上。 一个add函数，执行两个Sa">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-13T12:46:25.000Z">
+<meta property="article:modified_time" content="2023-05-12T14:36:32.050Z">
+<meta property="article:author" content="iroha">
+<meta name="twitter:card" content="summary"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">12</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">5</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">12</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">C++ 类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%B1%BB"><span class="toc-number">1.1.</span> <span class="toc-text">定义一个类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">类成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#const%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">const成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.</span> <span class="toc-text">外部成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9Ethis%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.3.</span> <span class="toc-text">返回this对象的成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E7%B1%BB%E7%9B%B8%E5%85%B3%E7%9A%84%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.4.</span> <span class="toc-text">定义类相关的非成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.5.</span> <span class="toc-text">构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">拷贝构造函数</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/C-%E7%B1%BB.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">C++类</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2023-02-13 20:46:25" itemprop="dateCreated datePublished" datetime="2023-02-13T20:46:25+08:00">2023-02-13</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-05-12 22:36:32" itemprop="dateModified" datetime="2023-05-12T22:36:32+08:00">2023-05-12</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/C/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">C++</span></a></span></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="C-类"><a href="#C-类" class="headerlink" title="C++ 类"></a>C++ 类</h1><p>​        类的基本思想是<strong>数据抽象</strong>和<strong>封装</strong>，依赖于<strong>接口</strong>和<strong>实现</strong>分离的编程技术。用户只能使用接口而无法访问实现部分。</p>
+<h2 id="定义一个类"><a href="#定义一个类" class="headerlink" title="定义一个类"></a>定义一个类</h2><p>​        定义之前首先我们要设计出这个类，以Sales_data类为例，我们需要有以下接口：</p>
+<ul>
+<li>一个isbn成员函数，返回对象的ISBN编号。</li>
+<li>一个combine成员函数，用于将一个Sales_data对象加到另一个对象上。</li>
+<li>一个add函数，执行两个Sales_data的加法。</li>
+<li>一个read函数，将数据从istream读入到Sales_data对象中。</li>
+<li>一个print函数，将Sales_data对象输出到ostream。</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Sales_data&#123;
+    public:
+        string isbn() const&#123; return bookNo;&#125;
+        Sales_data&amp; combine(const Sales_data&amp; );
+        double avg_price() const;
+    	string bookNo;
+    unsigned units_sold &#x3D; 0;
+    double revenue &#x3D; 0;
+    
+&#125;;</code></pre>
+<h2 id="类成员函数"><a href="#类成员函数" class="headerlink" title="类成员函数"></a>类成员函数</h2><h3 id="const成员函数"><a href="#const成员函数" class="headerlink" title="const成员函数"></a>const成员函数</h3><p>​        可以看到几个函数的形参列表后跟着一个const关键字，这是把this指针声明成为一个指向常量的指针，而this指针本身就是一个指针常量，所以下面这个例子中，this指针是一个指向常量的指针常量。this指针默认指向当前对象。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">string isbn() const &#123;
+    return this-&gt;bookNo;
+&#125;
+&#x2F;&#x2F;可以理解成
+string isbn(const Sales_data * const this) &#123;
+    return this-&gt;bookNo;
+&#125;</code></pre>
+<p>​        而如果这个对象本身就是一个常量，那么这个对象只能调用常量成员函数。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Cat&#123;
+    public:
+        void meow1() const&#123;
+            printf(&quot;const meow~&quot;);
+        &#125;
+        void meow2() &#123;
+            printf(&quot;meow~&quot;);
+        &#125;
+&#125;;
+
+int main(int argc, char const *argv[])
+&#123;
+        const Cat mimi;
+        Cat miao;
+    	mimi.meow1();&#x2F;&#x2F;正确，这是一个常量成员函数
+        mimi.meow2();&#x2F;&#x2F;报错，常量对象不能调用非常量成员函数
+        miao.meow1();&#x2F;&#x2F;正确
+    	miao.meow2();&#x2F;&#x2F;正确
+        return 0;
+&#125;</code></pre>
+<h3 id="外部成员函数"><a href="#外部成员函数" class="headerlink" title="外部成员函数"></a>外部成员函数</h3><p>​        类的成员函数定义在类的作用域之内，编译器先编译成员的声明，再编译成员函数体，所以不会因为前面的成员函数调用声明在后面的成员函数而报错。</p>
+<p>​        还可以在类的外部定义成员函数，但在函数名之前，需要加上作用域，并且返回类型，参数，函数名需要与类内部的声明保持一致。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Sales_data&#123;
+    public:
+        string isbn() const&#123; return bookNo;&#125;
+        Sales_data&amp; combine(const Sales_data&amp; );
+        double avg_price() const;
+    	string bookNo;
+    unsigned units_sold &#x3D; 0;
+    double revenue &#x3D; 0;
+    
+&#125;;
+
+double Sales_data::avg_price() const&#123;
+    if(units_sold)
+        return revenue&#x2F;units_sold;
+   	else
+        return 0;
+&#125;</code></pre>
+<p>​         ::是作用域运算符，表示这个函数被声明在类Sales_data内。编译器看到函数名，就能理解这段代码是位于这个类的作用域内的，能够使用类中的成员。</p>
+<h3 id="返回this对象的成员函数"><a href="#返回this对象的成员函数" class="headerlink" title="返回this对象的成员函数"></a>返回this对象的成员函数</h3><p>​        在Sales_data中，有这样一个函数，返回的是一个对象。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">Sales_data&amp; combine(const Sales_data &amp;rhs)&#123;
+    units_sold +&#x3D; rhs.units_sold;
+    revenue +&#x3D; rhs.revenue;
+    return *this;
+&#125;
+Sales_data total,trans,shop;
+trans.revenue &#x3D; 1;&#x2F;&#x2F;total.revenue &#x3D; 0
+total.combine(trans);&#x2F;&#x2F;total &#x3D; 1
+shop &#x3D; total.combine(trans);&#x2F;&#x2F;shop.revenue &#x3D; total.revenue &#x3D; 2</code></pre>
+<p>​        当我们调用combine函数的时候，total被绑定到this上，而ths被绑定到了trans上。return直接作用于this，也就是total。</p>
+<h3 id="定义类相关的非成员函数"><a href="#定义类相关的非成员函数" class="headerlink" title="定义类相关的非成员函数"></a>定义类相关的非成员函数</h3><p>​        我们需要定义一些辅助函数，比如add，read，print，这些函数的声明一般和类声明在同一个头文件中。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">istream &amp;read(istream &amp;is,Sales_data &amp;item)&#123;
+    double price &#x3D; 0;
+    is &gt;&gt; item.bookNo &gt;&gt; item.units_sold &gt;&gt; price;
+    item.revenue &#x3D; price * item.units_sold;
+    return is;
+&#125;
+
+ostream &amp;print(ostream &amp;os,const Sales_data &amp;item)&#123;
+    os &lt;&lt; item.isbn() &lt;&lt; &quot; &quot; &lt;&lt; item.units_sold &lt;&lt; &quot; &quot;
+       &lt;&lt; item.revenue &lt;&lt; &quot; &quot; &lt;&lt; item.avg_price();
+    return os;
+&#125;</code></pre>
+<p>如果需要访问私有和被保护的成员，则需要设定为友元函数。</p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>​        构造函数没有返回类型，函数名与类名相同，不能声明为const。当我们设定一个对象为const的时候，当构造函数完成，这个对象才变为常量对象。</p>
+<p>​        如果没有显式声明构造函数，那么就会进行默认初始化，使用成员的初始值来初始化。但如果成员有指针成员这类需要显式初始化的，那么他们的值就是未定义的。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct Sales_data &#123;
+    Sales_data() &#x3D; default;&#x2F;&#x2F;默认构造函数
+    Sales_data(const std::string &amp;s):bookNo(s)&#123;&#125;&#x2F;&#x2F;带初始化列表的构造函数
+    Sales_data(const std::string &amp;s,unsigned n,double p):bookNo(s),units_sold(n),revenue(p*n)&#123;&#125;
+    Sales_data(std::istream &amp;is);
+&#125;;
+Sales::Sales_data(std::istream &amp;is)&#123;
+    read(is,*this);
+&#125;</code></pre>
+<p>​        在第二个构造函数中，没有被显式初始化的属性(revenue,units_sold)，被默认初始化了。</p>
+<h4 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h4></div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/C-%E7%B1%BB.html" title="C++类">http://example.com/post/C-%E7%B1%BB.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/post/NLP%E5%A4%84%E7%90%86%E5%B1%82%E6%AC%A1.html" rel="next" title="NLP处理层次"><span class="post-nav-text">NLP处理层次</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
