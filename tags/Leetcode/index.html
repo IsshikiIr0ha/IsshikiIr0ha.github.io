@@ -24,119 +24,7 @@ document.addEventListener("pjax:success", initScrollReveal);
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
 IconifyProviders = {
   // Empty prefix: overwrite default API provider configuration
   '': {
@@ -147,4 +35,4 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><div class="sidebar-panel sidebar-panel-active" id="site-overview-wrap"><div class="site-info"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">6</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">12</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div></aside><main class="sidebar-translate" id="content"><div class="hty-card" id="tag"><header class="post-header"><h1 class="post-title" itemprop="name headline"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span>Leetcode</h1></header><div class="post-collapse"><div class="collection-title"><h2 class="archive-year" id="archive-year-2023">2023</h2></div><article class="post-item" itemscope itemtype="https://schema.org/Article"><header class="post-header"><div class="post-meta"><time class="post-time" itemprop="dateCreated" datetime="2023-02-13T20:46:25+08:00" content="2023-02-13">02-13</time></div><h2 class="post-title" itemprop="name headline"><a class="post-title-link" itemprop="url" href="/post/%E4%BD%8D%E8%BF%90%E7%AE%97.html">位运算</a></h2></header></article><article class="post-item" itemscope itemtype="https://schema.org/Article"><header class="post-header"><div class="post-meta"><time class="post-time" itemprop="dateCreated" datetime="2023-02-13T20:46:25+08:00" content="2023-02-13">02-13</time></div><h2 class="post-title" itemprop="name headline"><a class="post-title-link" itemprop="url" href="/post/%E9%93%BE%E8%A1%A82.html">几道Leetcode链表</a></h2></header></article><article class="post-item" itemscope itemtype="https://schema.org/Article"><header class="post-header"><div class="post-meta"><time class="post-time" itemprop="dateCreated" datetime="2023-01-13T20:46:25+08:00" content="2023-01-13">01-13</time></div><h2 class="post-title" itemprop="name headline"><a class="post-title-link" itemprop="url" href="/post/2-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html">两数相加</a></h2></header></article></div><h5 class="last-word text-center">没有更多的黑历史了_(:з」∠)_</h5></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><div class="sidebar-panel sidebar-panel-active" id="site-overview-wrap"><div class="site-info"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">13</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div></aside><main class="sidebar-translate" id="content"><div class="hty-card" id="tag"><header class="post-header"><h1 class="post-title" itemprop="name headline"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span>Leetcode</h1></header><div class="post-collapse"><div class="collection-title"><h2 class="archive-year" id="archive-year-2023">2023</h2></div><article class="post-item" itemscope itemtype="https://schema.org/Article"><header class="post-header"><div class="post-meta"><time class="post-time" itemprop="dateCreated" datetime="2023-02-13T20:46:25+08:00" content="2023-02-13">02-13</time></div><h2 class="post-title" itemprop="name headline"><a class="post-title-link" itemprop="url" href="/post/%E4%BD%8D%E8%BF%90%E7%AE%97.html">位运算</a></h2></header></article><article class="post-item" itemscope itemtype="https://schema.org/Article"><header class="post-header"><div class="post-meta"><time class="post-time" itemprop="dateCreated" datetime="2023-02-13T20:46:25+08:00" content="2023-02-13">02-13</time></div><h2 class="post-title" itemprop="name headline"><a class="post-title-link" itemprop="url" href="/post/%E9%93%BE%E8%A1%A82.html">几道Leetcode链表</a></h2></header></article><article class="post-item" itemscope itemtype="https://schema.org/Article"><header class="post-header"><div class="post-meta"><time class="post-time" itemprop="dateCreated" datetime="2023-01-13T20:46:25+08:00" content="2023-01-13">01-13</time></div><h2 class="post-title" itemprop="name headline"><a class="post-title-link" itemprop="url" href="/post/2-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html">两数相加</a></h2></header></article></div><h5 class="last-word text-center">没有更多的黑历史了_(:з」∠)_</h5></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>

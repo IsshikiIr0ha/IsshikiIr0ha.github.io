@@ -8,12 +8,12 @@ document.addEventListener("pjax:success", initScrollReveal);
 </script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
     window.Yun = {}
     window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
-  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="性质 每一个节点都包含一个字符。 根节点到某一个节点的路径所经过的字符连接起来，就是该节点对应的字符串。 任意节点的子节点包含的字符不同。 遇到Terminal Point，说明组成的字符对于当前工作有意义。  用例 搜索自动补全 最长前缀匹配 词频统计  最基础实现class Trie &amp;#123;     Trie* children[26];     bool isEnd;     Trie">
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="性质 每一个节点都包含一个字符。 根节点到某一个节点的路径所经过的字符连接起来，就是该节点对应的字符串。 任意节点的子节点包含的字符不同。 遇到Terminal Point，说明组成的字符对于当前工作有意义。  用例 搜索自动补全 最长前缀匹配 词频统计  最基础实现class Trie {     Trie* children[26];     bool isEnd;     Trie* sea">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字典树">
 <meta property="og:url" content="http://example.com/post/%E5%AD%97%E5%85%B8%E6%A0%91.html">
 <meta property="og:site_name" content="iroha">
-<meta property="og:description" content="性质 每一个节点都包含一个字符。 根节点到某一个节点的路径所经过的字符连接起来，就是该节点对应的字符串。 任意节点的子节点包含的字符不同。 遇到Terminal Point，说明组成的字符对于当前工作有意义。  用例 搜索自动补全 最长前缀匹配 词频统计  最基础实现class Trie &amp;#123;     Trie* children[26];     bool isEnd;     Trie">
+<meta property="og:description" content="性质 每一个节点都包含一个字符。 根节点到某一个节点的路径所经过的字符连接起来，就是该节点对应的字符串。 任意节点的子节点包含的字符不同。 遇到Terminal Point，说明组成的字符对于当前工作有意义。  用例 搜索自动补全 最长前缀匹配 词频统计  最基础实现class Trie {     Trie* children[26];     bool isEnd;     Trie* sea">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-13T12:46:25.000Z">
 <meta property="article:modified_time" content="2023-05-12T14:41:19.808Z">
@@ -29,119 +29,7 @@ document.addEventListener("pjax:success", initScrollReveal);
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
 IconifyProviders = {
   // Empty prefix: overwrite default API provider configuration
   '': {
@@ -152,7 +40,7 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">6</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">12</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-number">1.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">用例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">最基础实现</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/%E5%AD%97%E5%85%B8%E6%A0%91.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">字典树</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2023-02-13 20:46:25" itemprop="dateCreated datePublished" datetime="2023-02-13T20:46:25+08:00">2023-02-13</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-05-12 22:41:19" itemprop="dateModified" datetime="2023-05-12T22:41:19+08:00">2023-05-12</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">数据结构与算法</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">字典树</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h1><ul>
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">13</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-number">1.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">用例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">最基础实现</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/%E5%AD%97%E5%85%B8%E6%A0%91.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">字典树</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2023-02-13 20:46:25" itemprop="dateCreated datePublished" datetime="2023-02-13T20:46:25+08:00">2023-02-13</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-05-12 22:41:19" itemprop="dateModified" datetime="2023-05-12T22:41:19+08:00">2023-05-12</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">数据结构与算法</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">字典树</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h1><ul>
 <li>每一个节点都包含一个字符。</li>
 <li>根节点到某一个节点的路径所经过的字符连接起来，就是该节点对应的字符串。</li>
 <li>任意节点的子节点包含的字符不同。</li>
@@ -163,46 +51,46 @@ IconifyProviders = {
 <li>最长前缀匹配</li>
 <li>词频统计</li>
 </ol>
-<h1 id="最基础实现"><a href="#最基础实现" class="headerlink" title="最基础实现"></a>最基础实现</h1><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Trie &#123;
+<h1 id="最基础实现"><a href="#最基础实现" class="headerlink" title="最基础实现"></a>最基础实现</h1><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Trie {
     Trie* children[26];
     bool isEnd;
-    Trie* searchPrefix(string prefix) &#123;
-        Trie* node &#x3D; this;
-        for (char ch : prefix) &#123;
-            ch -&#x3D; &#39;a&#39;;
-            if (node-&gt;children[ch] &#x3D;&#x3D; nullptr) &#123;
+    Trie* searchPrefix(string prefix) {
+        Trie* node = this;
+        for (char ch : prefix) {
+            ch -= 'a';
+            if (node-&gt;children[ch] == nullptr) {
                 return nullptr;
-            &#125;
-            node &#x3D; node-&gt;children[ch];
-        &#125;
+            }
+            node = node-&gt;children[ch];
+        }
         return node;
-    &#125;
+    }
 
-    Trie() : isEnd(false) &#123;
-        for(int i &#x3D; 0;i &lt; 26;i++)&#123;
-            children[i] &#x3D; nullptr;
-        &#125;
-    &#125;
+    Trie() : isEnd(false) {
+        for(int i = 0;i &lt; 26;i++){
+            children[i] = nullptr;
+        }
+    }
 
-    void insert(string word) &#123;
-        Trie* node &#x3D; this;
-        for (char ch : word) &#123;
-            ch -&#x3D; &#39;a&#39;;
-            if (node-&gt;children[ch] &#x3D;&#x3D; nullptr) &#123;
-                node-&gt;children[ch] &#x3D; new Trie();
-            &#125;
-            node &#x3D; node-&gt;children[ch];
-        &#125;
-        node-&gt;isEnd &#x3D; true;
-    &#125;
+    void insert(string word) {
+        Trie* node = this;
+        for (char ch : word) {
+            ch -= 'a';
+            if (node-&gt;children[ch] == nullptr) {
+                node-&gt;children[ch] = new Trie();
+            }
+            node = node-&gt;children[ch];
+        }
+        node-&gt;isEnd = true;
+    }
 
-    bool search(string word) &#123;
-        Trie* node &#x3D; this-&gt;searchPrefix(word);
-        return node !&#x3D; nullptr &amp;&amp; node-&gt;isEnd;
-    &#125;
+    bool search(string word) {
+        Trie* node = this-&gt;searchPrefix(word);
+        return node != nullptr &amp;&amp; node-&gt;isEnd;
+    }
 
-    bool startsWith(string prefix) &#123;
-        return this-&gt;searchPrefix(prefix) !&#x3D; nullptr;
-    &#125;
-&#125;;</code></pre>
+    bool startsWith(string prefix) {
+        return this-&gt;searchPrefix(prefix) != nullptr;
+    }
+};</code></pre>
 </div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/%E5%AD%97%E5%85%B8%E6%A0%91.html" title="字典树">http://example.com/post/%E5%AD%97%E5%85%B8%E6%A0%91.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF-1.html" rel="prev" title="SQL入门"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">SQL入门</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E9%A2%98.html" rel="next" title="环形链表"><span class="post-nav-text">环形链表</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
