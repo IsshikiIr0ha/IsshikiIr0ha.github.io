@@ -40,7 +40,7 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">13</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EMySQL%E7%9A%84%E6%9E%81%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">基于MySQL的极入门笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8-table"><span class="toc-number">1.1.1.</span> <span class="toc-text">表(table)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5%E5%88%86%E7%B1%BB"><span class="toc-number">1.1.2.</span> <span class="toc-text">SQL语句分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.2.</span> <span class="toc-text">选择语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SELECT"><span class="toc-number">1.2.1.</span> <span class="toc-text">SELECT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text">内连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.2.</span> <span class="toc-text">跨数据库连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text">自连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E8%A1%A8%E4%BB%A5%E4%B8%8A%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.4.</span> <span class="toc-text">两表以上的连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.5.</span> <span class="toc-text">复合连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.6.</span> <span class="toc-text">隐式连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E8%BF%9E%E6%8E%A5-OUTER-JOIN"><span class="toc-number">1.3.7.</span> <span class="toc-text">外连接 OUTER JOIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.8.</span> <span class="toc-text">多表外连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.9.</span> <span class="toc-text">自外连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USING%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.3.10.</span> <span class="toc-text">USING语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.11.</span> <span class="toc-text">自然连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.12.</span> <span class="toc-text">交叉连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E5%90%88"><span class="toc-number">1.3.13.</span> <span class="toc-text">联合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.14.</span> <span class="toc-text">列属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-number">1.3.15.</span> <span class="toc-text">插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E9%80%A0-%E5%A4%8D%E5%88%B6%E8%A1%A8"><span class="toc-number">1.3.16.</span> <span class="toc-text">创造 复制表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95"><span class="toc-number">1.3.17.</span> <span class="toc-text">更新记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UPDATE%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.3.18.</span> <span class="toc-text">UPDATE子查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.19.</span> <span class="toc-text">删除数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.4.</span> <span class="toc-text">事务</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/SQL.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">SQL入门</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2023-02-13 20:46:25" itemprop="dateCreated datePublished" datetime="2023-02-13T20:46:25+08:00">2023-02-13</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-05-12 22:29:18" itemprop="dateModified" datetime="2023-05-12T22:29:18+08:00">2023-05-12</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">数据库</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/SQL/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">SQL</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="基于MySQL的极入门笔记"><a href="#基于MySQL的极入门笔记" class="headerlink" title="基于MySQL的极入门笔记"></a>基于MySQL的极入门笔记</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>DB DBMS SQL之间的关系：</p>
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">13</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EMySQL%E7%9A%84%E6%9E%81%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">基于MySQL的极入门笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8-table"><span class="toc-number">1.1.1.</span> <span class="toc-text">表(table)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5%E5%88%86%E7%B1%BB"><span class="toc-number">1.1.2.</span> <span class="toc-text">SQL语句分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.2.</span> <span class="toc-text">选择语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SELECT"><span class="toc-number">1.2.1.</span> <span class="toc-text">SELECT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.1.</span> <span class="toc-text">内连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.2.</span> <span class="toc-text">跨数据库连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.3.</span> <span class="toc-text">自连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E8%A1%A8%E4%BB%A5%E4%B8%8A%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.4.</span> <span class="toc-text">两表以上的连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.5.</span> <span class="toc-text">复合连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.6.</span> <span class="toc-text">隐式连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E8%BF%9E%E6%8E%A5-OUTER-JOIN"><span class="toc-number">1.3.7.</span> <span class="toc-text">外连接 OUTER JOIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.8.</span> <span class="toc-text">多表外连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.9.</span> <span class="toc-text">自外连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USING%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.3.10.</span> <span class="toc-text">USING语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.11.</span> <span class="toc-text">自然连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.12.</span> <span class="toc-text">交叉连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E5%90%88"><span class="toc-number">1.3.13.</span> <span class="toc-text">联合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.14.</span> <span class="toc-text">列属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-number">1.3.15.</span> <span class="toc-text">插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E9%80%A0-%E5%A4%8D%E5%88%B6%E8%A1%A8"><span class="toc-number">1.3.16.</span> <span class="toc-text">创造 复制表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95"><span class="toc-number">1.3.17.</span> <span class="toc-text">更新记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UPDATE%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.3.18.</span> <span class="toc-text">UPDATE子查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.19.</span> <span class="toc-text">删除数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.4.</span> <span class="toc-text">事务</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/SQL.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">SQL入门</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2023-02-13 20:46:25" itemprop="dateCreated datePublished" datetime="2023-02-13T20:46:25+08:00">2023-02-13</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2023-05-12 22:29:18" itemprop="dateModified" datetime="2023-05-12T22:29:18+08:00">2023-05-12</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">数据库</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/SQL/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">SQL</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="基于MySQL的极入门笔记"><a href="#基于MySQL的极入门笔记" class="headerlink" title="基于MySQL的极入门笔记"></a>基于MySQL的极入门笔记</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>DB DBMS SQL之间的关系：</p>
 <p>​        DB是Data Base，是数据库的缩写，在硬盘上以文件的形式存在。DBMS是Data Base Management System（数据库管理系统）的缩写，例如MySQL、Oracle、DB2等就是一个DBMS，来管理DB中的数据。而SQL（结构化查询语言）是一种高级语言，编译由DBMS完成。简而言之，DBMS通过执行SQL语句来操作DB中的数据。</p>
 <h3 id="表-table"><a href="#表-table" class="headerlink" title="表(table)"></a>表(table)</h3><p>​        是数据库的基本组成单元，由表组织数据，可读性强。一个表包括行和列。行被称为数据/记录，列被称为字段(column)。</p>
 <div class="table-container">
@@ -81,10 +81,10 @@ IconifyProviders = {
 <p>​        WHERE column1 = <em>*</em>，可以选择字段1中值为对应值的数据。</p>
 <p>​        ORDER BY column1 能够以column1为依据对数据进行排序</p>
 <p>​        以下是一段简单的SQL：</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">USE sql_store;//选择Sql_store这个数据库
-SELECT *  //选中sql_store中所有的字段
-FROM customers //选中sql_store中的customers表格
-WHERE customer_id = 1 //选中customer_id为顾客</code></pre>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">USE sql_store;&#x2F;&#x2F;选择Sql_store这个数据库
+SELECT *  &#x2F;&#x2F;选中sql_store中所有的字段
+FROM customers &#x2F;&#x2F;选中sql_store中的customers表格
+WHERE customer_id &#x3D; 1 &#x2F;&#x2F;选中customer_id为顾客</code></pre>
 <p>​        在Windows平台上，Mysql的编译/执行快捷键是Ctrl+shift+enter。</p>
 <h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h3><p>​        如果我们想要从表格中获取指定的字段，可以使用SELECT语句。例如SELECT first_name,last_name,注意，DBMS中字段显示的顺序是与你输入的字段顺序相关的。</p>
 <div class="table-container">
@@ -124,7 +124,7 @@ WHERE customer_id = 1 //选中customer_id为顾客</code></pre>
 <center>SELECT last_name,first_name</center>
 
 <p>​        在SELECT语句中，可以写入一个关于字段的数学表达式，例如SELECT point + 10，就能列出表格中的point项 + 10后的数据，并且可以用<strong>AS</strong>来给这个新字段取名。例如：</p>
-<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT first_name,point +10 AS 'discount price'</code></pre>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT first_name,point +10 AS &#39;discount price&#39;</code></pre>
 <p>​        在这段语句中，<strong>AS</strong>关键字给point + 10这一字段取了一个discount price的别名，使用单引号能够让别称带有空格。</p>
 <p>​        <strong>DISTINCT</strong>关键字能够取出该字段所有的不同数据，舍去重复的数据。</p>
 <p>​        WHERE condition 能够筛选出符合条件的数据，使用关系运算符，需要注意的是，不等于(note equal)可以使用<strong>&lt;&gt;</strong>和<strong>!=</strong>来表示，而相等则是<strong>=</strong>，如果条件中有字符串，那么字符串需要用<strong>‘  ‘</strong>包含，值得一提的是，日期也需要以字符串来对待，即使他是一串数字，例如’1990-01-02’。</p>
@@ -132,46 +132,46 @@ WHERE customer_id = 1 //选中customer_id为顾客</code></pre>
 <p>​        <strong>IN</strong>关键字可以简化一串OR条件语句，请看下面的例子：</p>
 <pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT * 
 FROM customers
-WHERE state = 'VA' OR state = 'FL' OR state = 'GA'
---不能写成state = 'VA' OR 'FL' OR 'GA'的原因是，state = 'VA'这类语句的结果会得到一个布尔值用于判断，该剧中需要三个布尔值来确定最终值，而state = 'VA' OR 'FL' OR 'GA'无法实现。
+WHERE state &#x3D; &#39;VA&#39; OR state &#x3D; &#39;FL&#39; OR state &#x3D; &#39;GA&#39;
+--不能写成state &#x3D; &#39;VA&#39; OR &#39;FL&#39; OR &#39;GA&#39;的原因是，state &#x3D; &#39;VA&#39;这类语句的结果会得到一个布尔值用于判断，该剧中需要三个布尔值来确定最终值，而state &#x3D; &#39;VA&#39; OR &#39;FL&#39; OR &#39;GA&#39;无法实现。
 --简化后
 SELECT *
 FROM customers
-WHERE state IN('VA','FL','GA')</code></pre>
+WHERE state IN(&#39;VA&#39;,&#39;FL&#39;,&#39;GA&#39;)</code></pre>
 <p>​        同样的，如果想要得到给定范围之外的结果，只需要在IN前加上<strong>NOT</strong>,例如：</p>
-<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">WHERE state NOT IN('VA','FL','GA')</code></pre>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">WHERE state NOT IN(&#39;VA&#39;,&#39;FL&#39;,&#39;GA&#39;)</code></pre>
 <p>​        <strong>BETWEEN</strong>关键字可以简化AND语句，该关键字包含临界值。例子如下：</p>
-<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">WHERE points &gt;=1000 AND points &lt;=3000
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">WHERE points &gt;&#x3D;1000 AND points &lt;&#x3D;3000
 --
 WHERE points BETWEEN 1000 AND 3000</code></pre>
 <p>​        如果我们只想要以某个字符或者某个字符串开头的字段数据，又或者是包含某个字符的数据，可以使用<strong>LIKE</strong>关键字。例如：</p>
-<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">WHERE last_name LIKE 'b%' 
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">WHERE last_name LIKE &#39;b%&#39; 
 --姓氏以b开头的数据
-WHERE last_name LIKE 'BRUSH%'
+WHERE last_name LIKE &#39;BRUSH%&#39;
 --姓氏以brush开头的数据
-WHERE last_name LIKE '%B%'
+WHERE last_name LIKE &#39;%B%&#39;
 --姓氏中包含b的数据
-WHERE last_name LIKE '%B'
+WHERE last_name LIKE &#39;%B&#39;
 --姓氏中以B为结尾的数据
-WHERE last_name LIKE '_y'
+WHERE last_name LIKE &#39;_y&#39;
 --姓氏只包含两个字符并且第二个是y的数据,_代表一个字符。
-WHERE last_name LIKE 'b_y'
+WHERE last_name LIKE &#39;b_y&#39;
 --姓氏只包含三个字符并且第一个是b，第三个是y的数据,_代表一个字符。</code></pre>
 <p>​        以上的用法是比较古老的寻找包含相应字符串的数据的方法，通过这种方法可以找到任何你想要的数据。</p>
 <p>​        一种新方法，就是使用<strong>REGEXP</strong>，是正则表达式的缩写，允许搜索更复杂的形式。</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">WHERE last_name LIKE '%FIELD%'
-WHERE last_name REGEXP 'FIELD'
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">WHERE last_name LIKE &#39;%FIELD%&#39;
+WHERE last_name REGEXP &#39;FIELD&#39;
 # 这两个结果是相同的
 
-WHERE last_name REGEXP 'field|mac|rose'
+WHERE last_name REGEXP &#39;field|mac|rose&#39;
 #查找姓氏中含有以上三个任意一个的数据
-WHERE last_name REGEXP '^field|mac|rose'
+WHERE last_name REGEXP &#39;^field|mac|rose&#39;
 #查找姓氏中以field开头或含有后两个任意一个的数据
-WHERE last_name REGEXP 'field$|mac|rose'
+WHERE last_name REGEXP &#39;field$|mac|rose&#39;
 #查找姓氏中以field结尾或含有后两个任意一个的数据
-WHERE last_name REGEXP '[gim]e'
+WHERE last_name REGEXP &#39;[gim]e&#39;
 #查找姓氏中含有ge、ie、me的数据,后置方括号同理
-WHERE last_name REGEXP '[a-h]e'
+WHERE last_name REGEXP &#39;[a-h]e&#39;
 #查找姓氏中有xe的数据，其中x是a到h的任意一个字母,后置方括号同理，-可以代表范围。</code></pre>
 <p>​        有时我们需要搜索缺失某种属性的对象，那么我们可以使用<strong>IS NULL</strong>来查询缺失了某个字段的对象。</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">WHERE phone IS NULL 
@@ -179,8 +179,8 @@ WHERE last_name REGEXP '[a-h]e'
 WHERE phone IS NOT NULL 
 # phone没有缺失</code></pre>
 <p>​        在MySQL中，我们可以通过查看表属性(表旁边的小扳手)来查看表中的字段种类、主键列、数据类型，关系型数据库中，每个表有且只有一个主键列，能够唯一识别表中的记录。默认情况下，表按主键列字段来排序。如果我们想要改变排序规则，那就要使用<strong>ORDER BY</strong>关键字，可以设置多个属性作为排序规则，并且会按文本顺序确定优先级。</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">ORDER BY first_name //对名字进行升序排序
-ORDER BY first_name DESC // 对名字进行降序排序
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">ORDER BY first_name &#x2F;&#x2F;对名字进行升序排序
+ORDER BY first_name DESC &#x2F;&#x2F; 对名字进行降序排序
 ORDER BY state,first_name 
 #根据州来排列，相同州根据名字排列，DESC可以插入到你想要的位置</code></pre>
 <p>​        在MySQL中，排序的根据不一定是被SELECT的，例如：</p>
@@ -207,35 +207,35 @@ FROM customers
 LIMIT 3
 # 只需要前三个记录</code></pre>
 <p>​        在<strong>LIMIT</strong>语句中，可以增加offset(偏移量),这在数据分页中特别有用，我们常常为了简洁，会在一页中展示固定数量的记录，用法如下：</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">LIMIT 6,3 //跳过前六条记录，选择三条</code></pre>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">LIMIT 6,3 &#x2F;&#x2F;跳过前六条记录，选择三条</code></pre>
 <h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>​        我们常常把不同的记录放在不同表格中，但有时我们需要选中多张表的记录，可以使用<strong>JOIN</strong>，在SQL中有内连接和外连接，例子如下：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT *
 FROM orders
-INNER JOIN customers  //INNER可以省略
-ON orders.customer_id = customers.customers_id</code></pre>
+INNER JOIN customers  &#x2F;&#x2F;INNER可以省略
+ON orders.customer_id &#x3D; customers.customers_id</code></pre>
 <p>​        上述代码能够把两张表以联合顾客ID相同的记录展现出来，也就是，将两张表中顾客ID相同的记录合为一条记录，在这里，我们需要注意二义性的问题，例如：</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT customer_id  //error不明确是哪张表中的顾客ID
-SELECT orders.customer_id // correct
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT customer_id  &#x2F;&#x2F;error不明确是哪张表中的顾客ID
+SELECT orders.customer_id &#x2F;&#x2F; correct
 FROM orders
-INNER JOIN customers  //INNER可以省略
-ON orders.customer_id = customers.customers_id</code></pre>
+INNER JOIN customers  &#x2F;&#x2F;INNER可以省略
+ON orders.customer_id &#x3D; customers.customers_id</code></pre>
 <p>​        为了简化语句，我们可以给表格起别名，例如：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT *
 FROM orders o
-INNER JOIN customers c //INNER可以省略
-ON o.customer_id = c.customers_id</code></pre>
+INNER JOIN customers c &#x2F;&#x2F;INNER可以省略
+ON o.customer_id &#x3D; c.customers_id</code></pre>
 <h3 id="跨数据库连接"><a href="#跨数据库连接" class="headerlink" title="跨数据库连接"></a>跨数据库连接</h3><p>​        不仅能够进行内连接，还可以进行跨数据库的连接，只需要在需要被JOIN的表格加上数据库的前缀就能实现,并且只需要给当前未选中的数据库加前缀。</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">USE sql_inventory
 SELECT *
 FROM sql_store.orders o
 JOIN customers c 
-ON o.customer_id = c.customers_id</code></pre>
+ON o.customer_id &#x3D; c.customers_id</code></pre>
 <h3 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h3><p>​        有的时候需要表与自身连接，例如，表中有公司人员的ID，和他们的管理人员的ID，如果你想要把雇员和管理人员的记录联合起来，那么就需要使用自连接，因为管理人员也是公司的一员,同样，这里也需要注意二义性问题。</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">USE sql_hr
 SELECT *
 FROM employees e
 JOIN employees m 
-ON e.reports_to = m.employee_id</code></pre>
+ON e.reports_to &#x3D; m.employee_id</code></pre>
 <h3 id="两表以上的连接"><a href="#两表以上的连接" class="headerlink" title="两表以上的连接"></a>两表以上的连接</h3><p>​        两表以上的连接，只需要多加一条JOIN语句就行，同样需要注意二义性问题。</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT *
 FROM orders o
@@ -247,25 +247,25 @@ JOIN status s
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT *
 FROM order_items oi
 JOIN order_item_notes oin
-	ON oi.order_id = oin.order_id
-	AND oi.product_id = oin._product_id</code></pre>
+	ON oi.order_id &#x3D; oin.order_id
+	AND oi.product_id &#x3D; oin._product_id</code></pre>
 <h3 id="隐式连接"><a href="#隐式连接" class="headerlink" title="隐式连接"></a>隐式连接</h3><p>​        不出现JOIN关键字也能连接两个表，这里需要使用<strong>WHERE</strong>，如下：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT *
 FROM orders
-INNER JOIN customers  //INNER可以省略
-ON orders.customer_id = customers.customers_id
+INNER JOIN customers  &#x2F;&#x2F;INNER可以省略
+ON orders.customer_id &#x3D; customers.customers_id
 ---
 SELECT *
 FROM orders o,customers c
-WHERE o.customer_id = c.customer_id</code></pre>
+WHERE o.customer_id &#x3D; c.customer_id</code></pre>
 <p>​        这两种查询是等价的，但最好少用隐式连接，如果漏了WHERE，会造成交叉连接，意思是，第一个表的每一条记录会逐一连接第二个表的每一条记录。</p>
 <h3 id="外连接-OUTER-JOIN"><a href="#外连接-OUTER-JOIN" class="headerlink" title="外连接 OUTER JOIN"></a>外连接 OUTER JOIN</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT 
 	c.customer_id,
 	c.first_name,
 	o._order_id
 FROM customers c
-JOIN orders o  //有些customer并没有order
-	ON c.customer_id = o.customer_id
+JOIN orders o  &#x2F;&#x2F;有些customer并没有order
+	ON c.customer_id &#x3D; o.customer_id
 ORDER BY c.customer_id</code></pre>
 <p>​        这种情况会造成记录缺失，因为也许有些顾客没有订单，这些记录就被忽略了，这就需要用外连接，外连接分为左连接和右连接，<strong>LEFT JOIN,RIGHT JOIN</strong>。如果使用左连接，那么不管前一个（左表）表中的记录是否符合ON后的条件，都会被返回。如果使用右连接，所有JOIN的表不管是否符合条件，也都会被返回。例如：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT 
@@ -274,8 +274,8 @@ ORDER BY c.customer_id</code></pre>
 	o._order_id
 FROM customers c
 LEFT JOIN orders o  
-//不管customer表中的记录是否符合条件都返回，右连接同理
-	ON c.customer_id = o.customer_id
+&#x2F;&#x2F;不管customer表中的记录是否符合条件都返回，右连接同理
+	ON c.customer_id &#x3D; o.customer_id
 ORDER BY c.customer_id</code></pre>
 <h3 id="多表外连接"><a href="#多表外连接" class="headerlink" title="多表外连接"></a>多表外连接</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT 
 	c.customer_id,
@@ -283,10 +283,10 @@ ORDER BY c.customer_id</code></pre>
 	o._order_id
 FROM customers c
 LEFT JOIN orders o  
-//不管customer表中的记录是否符合条件都返回，右连接同理
-	ON c.customer_id = o.customer_id
+&#x2F;&#x2F;不管customer表中的记录是否符合条件都返回，右连接同理
+	ON c.customer_id &#x3D; o.customer_id
 LEFT JOIN shippers sh
-	ON o.shipper_id = sh.shipper_id
+	ON o.shipper_id &#x3D; sh.shipper_id
 ORDER BY c.customer_id</code></pre>
 <p>​        最好不要同时使用两种连接，只选择左连接，增强可读性。</p>
 <h3 id="自外连接"><a href="#自外连接" class="headerlink" title="自外连接"></a>自外连接</h3><p>​        自连接和外连接并不是不能同时出现，相反，有许多场景需要这么做，这时只需要加一个LEFT / RIGHT就行。</p>
@@ -294,15 +294,15 @@ ORDER BY c.customer_id</code></pre>
 SELECT *
 FROM employees e
 LEFT JOIN employees m 
-	ON e.reports_to = m.employee_id</code></pre>
+	ON e.reports_to &#x3D; m.employee_id</code></pre>
 <h3 id="USING语句"><a href="#USING语句" class="headerlink" title="USING语句"></a>USING语句</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT 
 	c.customer_id,
 	c.first_name,
 	o._order_id
 FROM customers c
 LEFT JOIN orders o  
-//不管customer表中的记录是否符合条件都返回，右连接同理
-	ON c.customer_id = o.customer_id
+&#x2F;&#x2F;不管customer表中的记录是否符合条件都返回，右连接同理
+	ON c.customer_id &#x3D; o.customer_id
 ORDER BY c.customer_id</code></pre>
 <p>​        在上面这串代码中，ON后的条件中，选择的两个表的字段都是customer_id，我们可以使用<strong>USING</strong>关键字来简化这一语句,内连接和外连接都可以使用，但只能在两表的字段完全相同时使用。</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT 
@@ -311,7 +311,7 @@ ORDER BY c.customer_id</code></pre>
 	o._order_id
 FROM customers c
 LEFT JOIN orders o  
-//不管customer表中的记录是否符合条件都返回，右连接同理
+&#x2F;&#x2F;不管customer表中的记录是否符合条件都返回，右连接同理
 	USING (customer_id)
 ORDER BY c.customer_id</code></pre>
 <p>​        之前我们遇到过复合主键的情况，USING也可以使用，只需要在USING后的括号中加入条件，并用逗号分割就行。如下：</p>
@@ -341,16 +341,16 @@ FROM orders o,customers c
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">SELECT 
 	order_id,
 	order_date,
-	'Active' AS status
+	&#39;Active&#39; AS status
 FROM orders
-WHERE order_date &gt;= '2019-01-01'
+WHERE order_date &gt;&#x3D; &#39;2019-01-01&#39;
 UNION
 SELECT 
 	order_id,
 	order_date.
-	'Archived' AS status
+	&#39;Archived&#39; AS status
 FROM orders
-WHERE order_date &lt; '2019-01-01'</code></pre>
+WHERE order_date &lt; &#39;2019-01-01&#39;</code></pre>
 <h3 id="列属性"><a href="#列属性" class="headerlink" title="列属性"></a>列属性</h3><p>​        每一个字段都有自己的数据类型(datatype)，例如,customer_id只接受INT类型的数据，name只接受VARCHAR类型的数据，在数据类型的后面，往往会跟有一个括号，表示这个数据类型最多能够容纳多少位该数据类型，当你的数据不足()中标识的容纳最大量，DBMS会为你自动填充。需要注意的是，一些数据类型不会为你填满，而是认为是可变的(variable)，例如VARCHAR(50),如果你输入5个字符，那就存5个字符，不会占用多余的空间，但如果是CHAR(50),那么DBMS会自动为你填充满50个字符。 </p>
 <p>​        以下是几种常见的列属性：</p>
 <div class="table-container">
@@ -398,12 +398,12 @@ WHERE order_date &lt; '2019-01-01'</code></pre>
 VALUES (每一列的值，如果启动AI，则可以不用输入该字段)
 ----
 INSERT INTO customers 
-//第一种，将记录中每一个字段的数据逐个列出
+&#x2F;&#x2F;第一种，将记录中每一个字段的数据逐个列出
 VALUES(DEFAULT,
-      'John',
-      'Smith',
-      '1990-01-01',
-      'NULL')
+      &#39;John&#39;,
+      &#39;Smith&#39;,
+      &#39;1990-01-01&#39;,
+      &#39;NULL&#39;)
 ----
 INSERT INTO customers(
 	first_name,
@@ -412,7 +412,7 @@ INSERT INTO customers(
     address,
     city,
     state)
-VALUES()//只需要给上述字段给定数据，按顺序陈列，其他能取默认值的数据都取默认值。</code></pre>
+VALUES()&#x2F;&#x2F;只需要给上述字段给定数据，按顺序陈列，其他能取默认值的数据都取默认值。</code></pre>
 <p>​        插入多行，只需要增加VALUES的括号数量。例如：</p>
 <pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">INSERT INTO customers(
 	first_name,
@@ -425,8 +425,8 @@ VAULES(),
 	  ()</code></pre>
 <p>​        插入分层行，也就是往多张表中插入数据，试想下面一个场景，我们有两个表,order和order_items,order表记录的是订单的顾客，订单号，状态等等，而order_items中包含着订单的具体信息，例如产品号，产品单价等等，一个订单号可以对应order_items中的多个记录，同一个订单号可以对应多个产品，可以想象他们是一对母子关系，这时候就需要往多张表中插入数据。请看以下的代码：</p>
 <pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">INSERT INTO orders (customers_id,order_date,status)
-VALUES(1,'1990-01-01',1)
-//这里可以使用MYSQL中的内置函数，LAST_INSERT_ID(),能够返回插入新行时MYSQL生成的ID。
+VALUES(1,&#39;1990-01-01&#39;,1)
+&#x2F;&#x2F;这里可以使用MYSQL中的内置函数，LAST_INSERT_ID(),能够返回插入新行时MYSQL生成的ID。
 INSERT INTO order_items
 VALUES(LAST_INSERT_ID(),1,1,2.95),
 	  (LAST_INSERT_ID(),2,1,3.95)</code></pre>
@@ -437,31 +437,31 @@ SELECT * FROM orders</code></pre>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">INSERT INTO orders_archived
 SELECT * 
 FROM orders
-WHERE order_date &lt; '2009-01-01'</code></pre>
+WHERE order_date &lt; &#39;2009-01-01&#39;</code></pre>
 <h3 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h3><p>​        更新记录可以使用<strong>UPDATE</strong> 和<strong>SET</strong>关键字，例如</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">UPDATE invoices
-SET payment_total = 10
-WHERE invoice_id = 1</code></pre>
+SET payment_total &#x3D; 10
+WHERE invoice_id &#x3D; 1</code></pre>
 <p>​        如果想要更新多行，语法是一样的，但是条件需要更加普遍，例如：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">UPDATE invoices
 SET 
-	payment_total = invoice_total * 0.5
+	payment_total &#x3D; invoice_total * 0.5
 WHERE
-	client_id = 3 //所有客户号为3的记录都被更新了
-WHERE client_id IN (3,4) //IN关键字也可以使用</code></pre>
+	client_id &#x3D; 3 &#x2F;&#x2F;所有客户号为3的记录都被更新了
+WHERE client_id IN (3,4) &#x2F;&#x2F;IN关键字也可以使用</code></pre>
 <h3 id="UPDATE子查询"><a href="#UPDATE子查询" class="headerlink" title="UPDATE子查询"></a>UPDATE子查询</h3><p>​        子查询一样可以应用在UPDATE中，当你不能直接知道条件的时候，就可以使用子查询，例如：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">UPDATE invoices
 SET 
-	payment_total = invoice_total * 0.5
-	payment_total = due_date
-WHERE client_id =
+	payment_total &#x3D; invoice_total * 0.5
+	payment_total &#x3D; due_date
+WHERE client_id &#x3D;
 	(SELECT client_id
      FROM clients
-     WHERE name = 'Myworks')
-     //作为WHERE的条件需要括起来</code></pre>
+     WHERE name &#x3D; &#39;Myworks&#39;)
+     &#x2F;&#x2F;作为WHERE的条件需要括起来</code></pre>
 <h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><p>​        很简单，但删除数据需要非常小心,同样也可以使用子查询，这里就不再赘述。</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">DELETE FROM invoices
-WHERE invoice_id = 1</code></pre>
+WHERE invoice_id &#x3D; 1</code></pre>
 <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>​        事务具有原子性，不可拆分。例如进行交易，付出去的钱和收到的钱是一样并且是同时进行的。这是事务的一致性。每个事务是不懂其他事务的状态的，这是隔离性，也读不到正在执行中的变化。成功就提交到数据库中保存，这是事务的持久性，ACID。</p>
 <p>​        事务有几个状态。活动状态，是初始状态，执行中。部分提交状态，最后一条语句执行后。失败状态，无法继续执行。终止状态，数据库回到开始之前的状态。最后是提交状态。</p>
-</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/SQL.html" title="SQL入门">http://example.com/post/SQL.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/%E9%93%BE%E8%A1%A82.html" rel="prev" title="几道Leetcode链表"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">几道Leetcode链表</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/2-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html" rel="next" title="两数相加"><span class="post-nav-text">两数相加</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/SQL.html" title="SQL入门">http://example.com/post/SQL.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF-1.html" rel="prev" title="SQL入门"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">SQL入门</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/2-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html" rel="next" title="两数相加"><span class="post-nav-text">两数相加</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
