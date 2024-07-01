@@ -1,0 +1,469 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="iroha"><meta name="copyright" content="iroha"><meta name="generator" content="Hexo 6.3.0"><meta name="theme" content="hexo-theme-yun"><title>Transformers中的DataCollator | iroha</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://fastly.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script type="module">import { renderKatex } from '/js/utils.js'
+document.addEventListener("DOMContentLoaded", () => {
+  renderKatex({
+    ...{},
+    ...true?.options,
+  });
+});</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="为什么要用DataCollator！！！以下的Transformers源码来自于4.41。 我们在使用Trainer时，需要传入一个DataCollator，如 trainer &#x3D; Trainer(     model&#x3D;model,     args&#x3D;training_args,     train_dataset&#x3D;ds_train,     eval_dataset&#x3D;ds_val,     to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformers中的DataCollator">
+<meta property="og:url" content="http://example.com/post/data_collator.html">
+<meta property="og:site_name" content="iroha">
+<meta property="og:description" content="为什么要用DataCollator！！！以下的Transformers源码来自于4.41。 我们在使用Trainer时，需要传入一个DataCollator，如 trainer &#x3D; Trainer(     model&#x3D;model,     args&#x3D;training_args,     train_dataset&#x3D;ds_train,     eval_dataset&#x3D;ds_val,     to">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-01T17:07:23.496Z">
+<meta property="article:author" content="iroha">
+<meta property="article:tag" content="大模型">
+<meta name="twitter:card" content="summary"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8DataCollator"><span class="toc-number">1.</span> <span class="toc-text">为什么要用DataCollator</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%84%E7%A7%8DDataCollator"><span class="toc-number">2.</span> <span class="toc-text">各种DataCollator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DefaultDataCollator"><span class="toc-number">2.1.</span> <span class="toc-text">DefaultDataCollator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataCollatorWithPadding"><span class="toc-number">2.2.</span> <span class="toc-text">DataCollatorWithPadding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataCollatorForLanguageModeling"><span class="toc-number">2.3.</span> <span class="toc-text">DataCollatorForLanguageModeling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataCollatorForWholeWordMask"><span class="toc-number">2.4.</span> <span class="toc-text">DataCollatorForWholeWordMask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataCollatorForTokenClassification"><span class="toc-number">2.5.</span> <span class="toc-text">DataCollatorForTokenClassification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataCollatorForSeq2Seq"><span class="toc-number">2.6.</span> <span class="toc-text">DataCollatorForSeq2Seq</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/data_collator.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Transformers中的DataCollator</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2024-07-01T00:00:00+08:00">2024-07-01</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-02 01:07:23" itemprop="dateModified" datetime="2024-07-02T01:07:23+08:00">2024-07-02</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="为什么要用DataCollator"><a href="#为什么要用DataCollator" class="headerlink" title="为什么要用DataCollator"></a>为什么要用DataCollator</h1><p>！！！以下的Transformers源码来自于4.41。</p>
+<p>我们在使用Trainer时，需要传入一个DataCollator，如</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=ds_train,
+    eval_dataset=ds_val,
+    tokenizer=tokenizer,
+    data_collator=data_collator,
+)</code></pre>
+<p>什么是DataCollator？我们先看官方的定义。</p>
+<p>Data collators are objects that will form a batch by using a list of dataset elements as input. These elements are of the same type as the elements of <code>train_dataset</code> or <code>eval_dataset</code>.</p>
+<p>通过这句话可以知道，DataCollator的作用是将在数据集中的样本根据需求整合成一个Batch作为训练的输入。</p>
+<h1 id="各种DataCollator"><a href="#各种DataCollator" class="headerlink" title="各种DataCollator"></a>各种DataCollator</h1><p>在使用Huggingface的Trainer进行训练or微调时，我们需要传入一个<code>data_collator: Optional[DataCollator] = None</code>作为Trainer的数据的批量整合器。由于是Optinal，当然也可以不指定，我们看源码</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">default_collator = (
+    DataCollatorWithPadding(tokenizer)
+    if tokenizer is not None and isinstance(tokenizer, (PreTrainedTokenizerBase, SequenceFeatureExtractor))
+    else default_data_collator
+)
+self.data_collator = data_collator if data_collator is not None else default_collator</code></pre>
+<p>所以，若不指定DataCollator的话，在初始化Trainer时若传入了Tokenizer，那么会用<code>DataCollatorWithPadding</code>，否则使用<code>default_data_collator</code>。</p>
+<h2 id="DefaultDataCollator"><a href="#DefaultDataCollator" class="headerlink" title="DefaultDataCollator"></a>DefaultDataCollator</h2><p>我们先来看<code>default_data_collator</code>，只用于处理Dict-like的对象。且默认所有样本的长度相同，不一样则报错。一般不用。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def torch_default_data_collator(features: List[InputDataClass]) -&gt; Dict[str, Any]:
+    import torch
+	# 1
+    if not isinstance(features[0], Mapping):
+        features = [vars(f) for f in features]
+    first = features[0]
+    # 2
+    batch = {}
+
+
+    # 3
+    if "label" in first and first["label"] is not None:
+        label = first["label"].item() if isinstance(first["label"], torch.Tensor) else first["label"]
+        dtype = torch.long if isinstance(label, int) else torch.float
+        batch["labels"] = torch.tensor([f["label"] for f in features], dtype=dtype)
+    # 4
+    elif "label_ids" in first and first["label_ids"] is not None:
+        if isinstance(first["label_ids"], torch.Tensor):
+            batch["labels"] = torch.stack([f["label_ids"] for f in features])
+        else:
+            dtype = torch.long if isinstance(first["label_ids"][0], int) else torch.float
+            batch["labels"] = torch.tensor([f["label_ids"] for f in features], dtype=dtype)
+
+    #5. Handling of all other possible keys.
+    # Again, we will use the first element to figure out which key/values are not None for this model.
+    for k, v in first.items():
+        if k not in ("label", "label_ids") and v is not None and not isinstance(v, str):
+            if isinstance(v, torch.Tensor):
+                batch[k] = torch.stack([f[k] for f in features])
+            elif isinstance(v, np.ndarray):
+                batch[k] = torch.tensor(np.stack([f[k] for f in features]))
+            else:
+                batch[k] = torch.tensor([f[k] for f in features])
+
+    return batch</code></pre>
+<p>简单来说，会帮你做这些事：</p>
+<ol>
+<li>首先检查样本是否是Mapping对象，若不是则用vars函数返回样本的字典形式，也就是返回obj.__dict__，即所有的属性名和值的Dict。</li>
+<li>初始化一个Batch字典用于返回。</li>
+<li>检查样本是否含有label键，有的话提取所有样本的label值并添加到batch字典中。</li>
+<li>若没有label键，但有label_ids，则将所有的label_ids堆叠成一个新的tensor。</li>
+</ol>
+<p>这里有一个问题，为什么处理label是直接将所有样本的label组成一个新的tensor list，而label_ids则是用了stack函数？答案是在约定俗成的命名规则中，label是单标签样本，本身label是一个单独的值，而label_<strong>ids</strong>，意味着这是一个多标签样本，那么labels本身是一个List，所以需要用stack函数，而不是直接组成一个dim只有1的Tensor。同样我们注意到，batch的标签键最后都被命名为<code>label</code>。</p>
+<p>举一个例子，假设样本是双标签，label1=[0,1]，label2=[1,0]经过stack后会变成[[0,1],[1,0]]。最终会变成一个Shape是(样本数,标签数)的tensor。</p>
+<p>   5.处理完了label和label_ids，剩下的键值对中只处理数值类型的。所以这里的样本应该是经过tokenizer过或数据预处理过的。将剩下的数值类型的值进行堆叠。</p>
+<h2 id="DataCollatorWithPadding"><a href="#DataCollatorWithPadding" class="headerlink" title="DataCollatorWithPadding"></a>DataCollatorWithPadding</h2><p>若指定了tokenizer但没有指定DataCollator，那么就会调用<code>DataCollatorWithPadding</code>来作为数据批量处理器。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">class DataCollatorWithPadding:
+    """
+    Data collator that will dynamically pad the inputs received.
+
+    Args:
+        tokenizer ([`PreTrainedTokenizer`] or [`PreTrainedTokenizerFast`]):
+            The tokenizer used for encoding the data.
+        padding (`bool`, `str` or [`~utils.PaddingStrategy`], *optional*, defaults to `True`):
+            Select a strategy to pad the returned sequences (according to the model's padding side and padding index)
+            among:
+
+            - `True` or `'longest'` (default): Pad to the longest sequence in the batch (or no padding if only a single
+              sequence is provided).
+            - `'max_length'`: Pad to a maximum length specified with the argument `max_length` or to the maximum
+              acceptable input length for the model if that argument is not provided.
+            - `False` or `'do_not_pad'`: No padding (i.e., can output a batch with sequences of different lengths).
+        max_length (`int`, *optional*):
+            Maximum length of the returned list and optionally padding length (see above).
+        pad_to_multiple_of (`int`, *optional*):
+            If set will pad the sequence to a multiple of the provided value.
+
+            This is especially useful to enable the use of Tensor Cores on NVIDIA hardware with compute capability &gt;=
+            7.5 (Volta).
+        return_tensors (`str`, *optional*, defaults to `"pt"`):
+            The type of Tensor to return. Allowable values are "np", "pt" and "tf".
+    """
+
+    tokenizer: PreTrainedTokenizerBase
+    padding: Union[bool, str, PaddingStrategy] = True 
+    max_length: Optional[int] = None
+    pad_to_multiple_of: Optional[int] = None
+    return_tensors: str = "pt"
+
+    def __call__(self, features: List[Dict[str, Any]]) -&gt; Dict[str, Any]:
+        batch = pad_without_fast_tokenizer_warning(
+            self.tokenizer,
+            features,
+            padding=self.padding,
+            max_length=self.max_length,
+            pad_to_multiple_of=self.pad_to_multiple_of,
+            return_tensors=self.return_tensors,
+        )
+        if "label" in batch:
+            batch["labels"] = batch["label"]
+            del batch["label"]
+        if "label_ids" in batch:
+            batch["labels"] = batch["label_ids"]
+            del batch["label_ids"]
+        return batch</code></pre>
+<p>从名字可以看到，这个整合器应该是做了pad的任务，调用了一个Call函数来返回处理后的样本。实际上就一句比较重要的语句.</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def pad_without_fast_tokenizer_warning(tokenizer, *pad_args, **pad_kwargs):
+    padded = tokenizer.pad(*pad_args, **pad_kwargs)</code></pre>
+<p>也就是调用了pad函数，返回padding之后的tensor。</p>
+<p>总之，<code>DataCollatorWithPadding</code>会为tokenize后的序列添加pad，使得整个batch的序列长度一致，如果选择<code>padding=longest</code>，那么会根据最长的序列来进行padding。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import DefaultDataCollator,DataCollatorWithPadding,DataCollatorForLanguageModeling,AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained('/data/wtf/model/llama-2-7b-hf',padding_side='left')
+input_text = ["hello world","hello hello hello hello","hello,My name is "]
+
+c1 = DefaultDataCollator()
+c2 = DataCollatorWithPadding(tokenizer)
+c3 = DataCollatorForLanguageModeling(tokenizer,mlm=False)
+# 直接调用tokenizer的话，每一个样本的长度不同
+tokenizer(input_text) # {'input_ids': [[1, 22172, 3186], [1, 22172, 22172, 22172, 22172], [1, 22172, 29892, 3421, 1024, 338, 29871]], 'attention_mask': [[1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]]}
+
+c1(input_text) # 直接报错
+tok_input = tokenizer(input_text)
+c2(input_text)
+--------可以看到对齐了
+{'input_ids': tensor([[    0,     0,     0,     0,     1, 22172,  3186],
+        [    0,     0,     1, 22172, 22172, 22172, 22172],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), 'attention_mask': tensor([[0, 0, 0, 0, 1, 1, 1],
+        [0, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1]])}
+decode后的结果：
+['&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello world',
+ '&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello hello hello hello',
+ '&lt;s&gt; hello,My name is ']</code></pre>
+<p>我们看一个例子：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import DefaultDataCollator,DataCollatorWithPadding,DataCollatorForLanguageModeling,AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained('/data/wtf/model/llama-2-7b-hf',padding_side='left')
+input_text = ["hello world","hello hello hello hello","hello,My name is "]
+
+c1 = DefaultDataCollator()
+c2 = DataCollatorWithPadding(tokenizer)
+c3 = DataCollatorForLanguageModeling(tokenizer,mlm=False)
+# 直接调用tokenizer的话，每一个样本的长度不同
+tokenizer(input_text) 
+"""
+{'input_ids': [[1, 22172, 3186], [1, 22172, 22172, 22172, 22172], [1, 22172, 29892, 3421, 1024, 338, 29871]], 'attention_mask': [[1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]]}
+""" 
+c1(input_text) # 直接报错
+"""
+DataCollatorWithPadding的输入是整个tokenizers.Encoding对象，可以把tokenizer处理后的对象直接放进去
+"""
+tok_input = tokenizer(input_text)
+c2(input_text)
+"""返回对齐后的结果
+{'input_ids': tensor([[    0,     0,     0,     0,     1, 22172,  3186],
+        [    0,     0,     1, 22172, 22172, 22172, 22172],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), 'attention_mask': tensor([[0, 0, 0, 0, 1, 1, 1],
+        [0, 0, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1]])}
+decode回去，可以看到长度相同
+['&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello world',
+ '&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello hello hello hello',
+ '&lt;s&gt; hello,My name is ']
+        
+"""</code></pre>
+<h2 id="DataCollatorForLanguageModeling"><a href="#DataCollatorForLanguageModeling" class="headerlink" title="DataCollatorForLanguageModeling"></a>DataCollatorForLanguageModeling</h2><p>接下来常用的<code>DataCollatorForLanguageModeling</code>。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">class DataCollatorForLanguageModeling(DataCollatorMixin):
+    """
+    Data collator used for language modeling. Inputs are dynamically padded to the maximum length of a batch if they
+    are not all of the same length.
+
+    Args:
+        tokenizer ([`PreTrainedTokenizer`] or [`PreTrainedTokenizerFast`]):
+            The tokenizer used for encoding the data.
+        mlm (`bool`, *optional*, defaults to `True`):
+            Whether or not to use masked language modeling. If set to `False`, the labels are the same as the inputs
+            with the padding tokens ignored (by setting them to -100). Otherwise, the labels are -100 for non-masked
+            tokens and the value to predict for the masked token.
+        mlm_probability (`float`, *optional*, defaults to 0.15):
+            The probability with which to (randomly) mask tokens in the input, when `mlm` is set to `True`.
+        pad_to_multiple_of (`int`, *optional*):
+            If set will pad the sequence to a multiple of the provided value.
+        return_tensors (`str`):
+            The type of Tensor to return. Allowable values are "np", "pt" and "tf".</code></pre>
+<p>参数列表中带有MLM，说明可以用于MLM任务。若mlm=True，那么除了需要预测的标签，其余标签都不参与损失的计算，label全都设置为-100，被mask的则是正常的标签值。若mlm=False，pad的laebl值设置为-100。当mlm=True的情况下，tokenizer需要设置mask_token。</p>
+<p>接下来我们看主要的几个函数。</p>
+<p><code>torch_call</code>是处理函数，首先也会判断样本是否是字典形式，然后做pad并返回tensor形式的样本，这一段和<code>DataCollatorWithPadding</code>所做的一模一样，只是没有删除label键。然后取出mask_token，然后是否采取了mlm策略来处理样本的<code>input_ids</code>，最终返回处理后的tensor。若不采取mlm策略，那么就把padtoken的位置用-100替代，表示不计算损失。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def torch_call(self, examples: List[Union[List[int], Any, Dict[str, Any]]]) -&gt; Dict[str, Any]:
+    # Handle dict or lists with proper padding and conversion to tensor.
+    if isinstance(examples[0], Mapping):
+        batch = pad_without_fast_tokenizer_warning(
+            self.tokenizer, examples, return_tensors="pt", pad_to_multiple_of=self.pad_to_multiple_of
+        )
+    else:
+        batch = {
+            "input_ids": _torch_collate_batch(examples, self.tokenizer, pad_to_multiple_of=self.pad_to_multiple_of)
+        }
+
+    # If special token mask has been preprocessed, pop it from the dict.
+    special_tokens_mask = batch.pop("special_tokens_mask", None)
+    if self.mlm:
+        batch["input_ids"], batch["labels"] = self.torch_mask_tokens(
+            batch["input_ids"], special_tokens_mask=special_tokens_mask
+        )
+    else:
+        labels = batch["input_ids"].clone()
+        if self.tokenizer.pad_token_id is not None:
+            labels[labels == self.tokenizer.pad_token_id] = -100
+        batch["labels"] = labels
+    return batch</code></pre>
+<p><code>torch_mask_tokens</code>接收<code>input_ids</code>和<code>mask_token</code>，做了以下的工作。</p>
+<ol>
+<li>创建概率矩阵，和输入同形状。</li>
+<li>若没有输入mask token，那么首先回生成一个mask列表。<code>special_tokens_mask = [1 if token in all_special_ids else 0 for token in token_ids_0]</code>。所以1表示特殊符号，正常token以0填充。最后转换为bool形式的tensor。若输入了，则直接返回他的bool形式。</li>
+<li>概率矩阵的特殊符号位置以0填充，不参与损失计算。</li>
+<li>按伯努利分布生成mask索引。</li>
+<li>概率矩阵非mask的索引位置全部用-100填充，表示不计算损失。</li>
+<li>默认情况下 (其实就是bert的操作)，80%的mask索引，其索引的值被替换成mask_token。要求预测原token。10%被替换成随机token。剩下10%不变。</li>
+</ol>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def torch_mask_tokens(self, inputs: Any, special_tokens_mask: Optional[Any] = None) -&gt; Tuple[Any, Any]:
+    """
+    Prepare masked tokens inputs/labels for masked language modeling: 80% MASK, 10% random, 10% original.
+    """
+    import torch
+
+    labels = inputs.clone()
+    # We sample a few tokens in each sequence for MLM training (with probability `self.mlm_probability`)
+    probability_matrix = torch.full(labels.shape, self.mlm_probability)
+    # 生成mask list。
+    if special_tokens_mask is None:
+        special_tokens_mask = [
+            self.tokenizer.get_special_tokens_mask(val, already_has_special_tokens=True) for val in labels.tolist()
+        ]
+        special_tokens_mask = torch.tensor(special_tokens_mask, dtype=torch.bool)
+    else:
+        special_tokens_mask = special_tokens_mask.bool()
+		
+    probability_matrix.masked_fill_(special_tokens_mask, value=0.0)
+    masked_indices = torch.bernoulli(probability_matrix).bool()
+    labels[~masked_indices] = -100  # We only compute loss on masked tokens
+
+    # 80% of the time, we replace masked input tokens with tokenizer.mask_token ([MASK])
+    indices_replaced = torch.bernoulli(torch.full(labels.shape, 0.8)).bool() &amp; masked_indices
+    inputs[indices_replaced] = self.tokenizer.convert_tokens_to_ids(self.tokenizer.mask_token)
+
+    # 10% of the time, we replace masked input tokens with random word
+    indices_random = torch.bernoulli(torch.full(labels.shape, 0.5)).bool() &amp; masked_indices &amp; ~indices_replaced
+    random_words = torch.randint(len(self.tokenizer), labels.shape, dtype=torch.long)
+    inputs[indices_random] = random_words[indices_random]
+
+    # The rest of the time (10% of the time) we keep the masked input tokens unchanged
+    return inputs, labels</code></pre>
+<p>综上，相比于<code>DataCollatorWithPadding</code>，<code>DataCollatorForLanguageModeling</code>具备以下功能：</p>
+<ol>
+<li>可以做MLM任务。</li>
+<li><code>DataCollatorWithPadding</code>并没有对pad的token进行特殊操作，而<code>DataCollatorForLanguageModeling</code>则将padtoken通过设置为-100从而不计算损失。</li>
+</ol>
+<p>还是看一个例子：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import DefaultDataCollator,DataCollatorWithPadding,DataCollatorForLanguageModeling,AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained('/data/wtf/model/llama-2-7b-hf',padding_side='left')
+
+input_text = ["hello world","hello hello hello hello","hello,My name is "]
+
+c3 = DataCollatorForLanguageModeling(tokenizer,mlm=False)</code></pre>
+<p>注意，输入不可以是tokenizers.Encoding对象，而是要把<code>input_ids</code>单独拿出来，否则会报错<code>'tokenizers.Encoding' object has no attribute 'size'</code>。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tok_text = tokenizer(input_text)
+# dc = c3(tok_text) 会报错
+dc = c3(tok_text['input_ids'])
+print(dc)
+------------------------
+"""结果，可以看到在mlm=False的情况下，pad_id由于是特殊token，直接置为-100，不计算损失
+{'input_ids': tensor([[    0,     0,     0,     0,     1, 22172,  3186],
+        [    0,     0,     1, 22172, 22172, 22172, 22172],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), 'labels': tensor([[ -100,  -100,  -100,  -100,     1, 22172,  3186],
+        [ -100,  -100,     1, 22172, 22172, 22172, 22172],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]])}
+"""</code></pre>
+<p>若<code>mlm=True</code>，在tokenizer没有mask_token的情况下，需要指定。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer.mask_token = "&lt;mask&gt;"
+c3 = DataCollatorForLanguageModeling(tokenizer,mlm=True)
+tok_text = tokenizer(input_text)
+t = tokenizer.batch_decode(tok_text['input_ids'])
+dc = c3(tok_text['input_ids'])
+------------------
+"""labels不等于-100的就是被mask的token
+{'input_ids': tensor([[    0,     0,     0,     0,     1,     0,  3186],
+        [    0,     0,     1, 22172, 22172, 22172, 22172],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), 'labels': tensor([[ -100,  -100,  -100,  -100,  -100, 22172,  -100],
+        [ -100,  -100,  -100, 22172, 22172,  -100,  -100],
+        [ -100,  -100,  -100,  -100,  -100,  -100,  -100]])}
+"""</code></pre>
+<h2 id="DataCollatorForWholeWordMask"><a href="#DataCollatorForWholeWordMask" class="headerlink" title="DataCollatorForWholeWordMask"></a>DataCollatorForWholeWordMask</h2><p><code>DataCollatorForWholeWordMask</code>继承了<code>DataCollatorForLanguageModeling</code>。由于tokenizer几乎都采用BPE OR BBPE的分词方式，导致很多时候并不是把整个词汇给mask，而是把词根词缀给mask。<code>DataCollatorForWholeWordMask</code>就解决了这个问题，能把整个词汇给mask了。</p>
+<h2 id="DataCollatorForTokenClassification"><a href="#DataCollatorForTokenClassification" class="headerlink" title="DataCollatorForTokenClassification"></a>DataCollatorForTokenClassification</h2><p>待更</p>
+<h2 id="DataCollatorForSeq2Seq"><a href="#DataCollatorForSeq2Seq" class="headerlink" title="DataCollatorForSeq2Seq"></a>DataCollatorForSeq2Seq</h2><p>待更</p>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/data_collator.html" title="Transformers中的DataCollator">http://example.com/post/data_collator.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/post/infer_optim.html" rel="next" title="大模型推理优化笔记"><span class="post-nav-text">大模型推理优化笔记</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
