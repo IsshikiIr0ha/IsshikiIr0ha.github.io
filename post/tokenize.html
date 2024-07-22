@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
     window.Yun = {}
     window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
-  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="tokenize分类内容参考了huggingface关于tokenize的文档。 tokenize算法主要有三种粒度，word，subword，character。 word粒度下，文本被划分为单独的词汇，常见的分词方法有空格分隔和基于词典的分词。易于理解，能够保留词汇的完整语义。词汇量大，难以处理未登录词(OOV)和词形变化，可能会导致词汇量爆炸的问题，且可能没办法学习词和词缀之间的关系(如词语">
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="tokenize分类 内容参考了huggingface关于tokenize的文档。 tokenize算法主要有三种粒度，word，subword，character。 word粒度下，文本被划分为单独的词汇，常见的分词方法有空格分隔和基于词典的分词。易于理解，能够保留词汇的完整语义。词汇量大，难以处理未登录词(OOV)和词形变化，可能会导致词汇量爆炸的问题，且可能没办法学习词和词缀之间的关系">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tokenize算法">
 <meta property="og:url" content="http://example.com/post/tokenize.html">
 <meta property="og:site_name" content="iroha">
-<meta property="og:description" content="tokenize分类内容参考了huggingface关于tokenize的文档。 tokenize算法主要有三种粒度，word，subword，character。 word粒度下，文本被划分为单独的词汇，常见的分词方法有空格分隔和基于词典的分词。易于理解，能够保留词汇的完整语义。词汇量大，难以处理未登录词(OOV)和词形变化，可能会导致词汇量爆炸的问题，且可能没办法学习词和词缀之间的关系(如词语">
+<meta property="og:description" content="tokenize分类 内容参考了huggingface关于tokenize的文档。 tokenize算法主要有三种粒度，word，subword，character。 word粒度下，文本被划分为单独的词汇，常见的分词方法有空格分隔和基于词典的分词。易于理解，能够保留词汇的完整语义。词汇量大，难以处理未登录词(OOV)和词形变化，可能会导致词汇量爆炸的问题，且可能没办法学习词和词缀之间的关系">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-20T04:00:00.000Z">
 <meta property="article:modified_time" content="2024-05-20T09:39:15.952Z">
@@ -35,119 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
 IconifyProviders = {
   // Empty prefix: overwrite default API provider configuration
   '': {
@@ -158,18 +46,22 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tokenize%E5%88%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">tokenize分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BPE"><span class="toc-number">1.1.</span> <span class="toc-text">BPE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WordPiece"><span class="toc-number">1.2.</span> <span class="toc-text">WordPiece</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unigram"><span class="toc-number">1.3.</span> <span class="toc-text">Unigram</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/tokenize.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">tokenize算法</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-05-20 12:00:00" itemprop="dateCreated datePublished" datetime="2024-05-20T12:00:00+08:00">2024-05-20</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="tokenize分类"><a href="#tokenize分类" class="headerlink" title="tokenize分类"></a>tokenize分类</h1><p>内容参考了huggingface关于tokenize的<a target="_blank" rel="noopener" href="https://huggingface.co/learn/nlp-course/zh-CN/chapter6/5?fw=pt">文档</a>。</p>
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tokenize%E5%88%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">tokenize分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bpe"><span class="toc-number">1.1.</span> <span class="toc-text">BPE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wordpiece"><span class="toc-number">1.2.</span> <span class="toc-text">WordPiece</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unigram"><span class="toc-number">1.3.</span> <span class="toc-text">Unigram</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/tokenize.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">tokenize算法</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-05-20 12:00:00" itemprop="dateCreated datePublished" datetime="2024-05-20T12:00:00+08:00">2024-05-20</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="tokenize分类">tokenize分类</h1>
+<p>内容参考了huggingface关于tokenize的<a target="_blank" rel="noopener" href="https://huggingface.co/learn/nlp-course/zh-CN/chapter6/5?fw=pt">文档</a>。</p>
 <p>tokenize算法主要有三种粒度，word，subword，character。</p>
-<p>word粒度下，文本被划分为单独的词汇，常见的分词方法有空格分隔和基于词典的分词。易于理解，能够保留词汇的完整语义。词汇量大，难以处理未登录词(OOV)和词形变化，可能会导致词汇量爆炸的问题，且可能没办法学习词和词缀之间的关系(如词语的比较级)。例子：”This is an example.” -&gt; [“This”, “is”, “an”, “example”]。</p>
-<p>subword粒度下，将词进一步划分为更小的单元，如词干、前缀、后缀或其他常见的字符序列。常见方法包括BPE，BBPE和WordPiece。能够有效处理未登录词，词汇量较小，适合处理词形变化和复合词。但可能会生成较多的子词，导致tokenizer处理后的序列长度增加，如词“unhappiness”可能被拆分为“un”, “happi”, “ness”三个子词，可能会加剧模型的长距离依赖问题。</p>
+<p>word粒度下，文本被划分为单独的词汇，常见的分词方法有空格分隔和基于词典的分词。易于理解，能够保留词汇的完整语义。词汇量大，难以处理未登录词(OOV)和词形变化，可能会导致词汇量爆炸的问题，且可能没办法学习词和词缀之间的关系(如词语的比较级)。例子："This
+is an example." -&gt; ["This", "is", "an", "example"]。</p>
+<p>subword粒度下，将词进一步划分为更小的单元，如词干、前缀、后缀或其他常见的字符序列。常见方法包括BPE，BBPE和WordPiece。能够有效处理未登录词，词汇量较小，适合处理词形变化和复合词。但可能会生成较多的子词，导致tokenizer处理后的序列长度增加，如词“unhappiness”可能被拆分为“un”,
+“happi”, “ness”三个子词，可能会加剧模型的长距离依赖问题。</p>
 <p>character粒度，按英文来说就是英文字母加标点符号等特殊符号。最细粒度的分词方法，不存在未登录词OOV的问题，词汇量最小(对于英文来说)。但序列长度大大增加，可能导致计算复杂性增加，语义信息较为分散。</p>
 <p>word粒度有OOV和词表过大的问题，character粒度可以解决这两个问题，但过细也会导致tokenize后的序列过长。所以subword粒度成为现在的主流。</p>
 <p>subword还有一个好处，如今模型的词表中有许多国家的语言，词表越来越大，但一些国家使用的符号(如拉丁字母语言)是相同的，subword有许多重合(比如词缀)，能够一定程度上减少词表的大小。</p>
 <p>下面介绍几种比较重要的分词算法。</p>
-<h2 id="BPE"><a href="#BPE" class="headerlink" title="BPE"></a>BPE</h2><p>BPE原本是数据压缩的一种算法，后被用来进行构建词表和tokenize。</p>
+<h2 id="bpe">BPE</h2>
+<p>BPE原本是数据压缩的一种算法，后被用来进行构建词表和tokenize。</p>
 <p>首先根据空格划分成word，并在每个词后添加结束符。然后统计所有词的词频。</p>
-<pre class="line-numbers language-none"><code class="language-none">vocab = {'l o w &lt;/w&gt;': 5, 'l o w e r &lt;/w&gt;': 2, 'n e w e s t &lt;/w&gt;': 6, 'w i d e s t &lt;/w&gt;': 3}</code></pre>
-<p>接下来将每个word拆分为character并计算它们的出现次数。初始token将是所有字符和“&lt;/w&gt;”标记的集合。</p>
+<pre class="line-numbers language-none"><code class="language-none">vocab &#x3D; &#123;&#39;l o w &lt;&#x2F;w&gt;&#39;: 5, &#39;l o w e r &lt;&#x2F;w&gt;&#39;: 2, &#39;n e w e s t &lt;&#x2F;w&gt;&#39;: 6, &#39;w i d e s t &lt;&#x2F;w&gt;&#39;: 3&#125;</code></pre>
+<p>接下来将每个word拆分为character并计算它们的出现次数。初始token将是所有字符和“</w>”标记的集合。</p>
 <pre class="line-numbers language-none"><code class="language-none">l:7
 o:7
 w:16
@@ -180,8 +72,9 @@ s:9
 t:9
 i:3
 d:3
-&lt;/w&gt;:16</code></pre>
-<p>然后寻找最频繁的字符对，合并它们，并一次又一次地执行相同的迭代，直到达到词表大小限制或迭代次数限制。首先是e与s，共同出现了9次。于是变更词表。将e和s的次数减去9，添加新的token es，频率为9。</p>
+&lt;&#x2F;w&gt;:16</code></pre>
+<p>然后寻找最频繁的字符对，合并它们，并一次又一次地执行相同的迭代，直到达到词表大小限制或迭代次数限制。首先是e与s，共同出现了9次。于是变更词表。将e和s的次数减去9，添加新的token
+es，频率为9。</p>
 <pre class="line-numbers language-none"><code class="language-none">l:7
 o:7
 w:16
@@ -192,7 +85,7 @@ es:9
 t:9
 i:3
 d:3
-&lt;/w&gt;:16</code></pre>
+&lt;&#x2F;w&gt;:16</code></pre>
 <p>然后是es与t，也一共出现了9次。</p>
 <pre class="line-numbers language-none"><code class="language-none">l:7
 o:7
@@ -203,72 +96,79 @@ n:6
 est:9
 i:3
 d:3
-&lt;/w&gt;:16</code></pre>
-<p>之后是est与&lt;/w&gt;，也一共出现了9次。</p>
+&lt;&#x2F;w&gt;:16</code></pre>
+<p>之后是est与</w>，也一共出现了9次。</p>
 <pre class="line-numbers language-none"><code class="language-none">l:7
 o:7
 w:16
 e:8
 r:2
 n:6
-est&lt;/w&gt;:9
+est&lt;&#x2F;w&gt;:9
 i:3
 d:3
-&lt;/w&gt;:7</code></pre>
-<p>为什么需要将结束符也进行合并？这是因为有些后词缀也可能正常出现在单词内部而非结束位置，如estimate中也含有est，但显然不newest中最高级的含义，所以est和est&lt;/w&gt;需要单独处理。</p>
+&lt;&#x2F;w&gt;:7</code></pre>
+<p>为什么需要将结束符也进行合并？这是因为有些后词缀也可能正常出现在单词内部而非结束位置，如estimate中也含有est，但显然不newest中最高级的含义，所以est和est</w>需要单独处理。</p>
 <p>随后先合并l和o，共同出现了7次，再合并lo与w，也共同出现了7次。然后合并出现了6次的new，最后合并low与结束符。(过程不再详细描述)</p>
-<pre class="line-numbers language-none"><code class="language-none">low&lt;/w&gt;:5
+<pre class="line-numbers language-none"><code class="language-none">low&lt;&#x2F;w&gt;:5
 low:2
 w:3
 e:2
 r:2
 new:6
-est&lt;/w&gt;:9
+est&lt;&#x2F;w&gt;:9
 i:3
 d:3
-&lt;/w&gt;:2</code></pre>
-<p>最后合并wid与er&lt;/w&gt;。</p>
-<pre class="line-numbers language-none"><code class="language-none">low&lt;/w&gt;:5
+&lt;&#x2F;w&gt;:2</code></pre>
+<p>最后合并wid与er</w>。</p>
+<pre class="line-numbers language-none"><code class="language-none">low&lt;&#x2F;w&gt;:5
 low:2
 wid:3
-er&lt;/w&gt;:2
+er&lt;&#x2F;w&gt;:2
 new:6
-est&lt;/w&gt;:9</code></pre>
+est&lt;&#x2F;w&gt;:9</code></pre>
 <p>词表构建结束。</p>
 <p>BBPE与BPE的区别在于BPE的最小单位是character，而在Unicode流行的现在，BBPE使用字节作为最小处理单位，这使得BBPE可以处理任何语言，包括那些使用多字节字符的语言，如中文、日文和韩文。一般汉字由两个字节组成，所以汉字在预分词中会被分为两个字节的Unicode。</p>
-<h2 id="WordPiece"><a href="#WordPiece" class="headerlink" title="WordPiece"></a>WordPiece</h2><p>WordPiece是另一种subword方法。每个单词最初是通过将该前缀添加到单词内的所有字符来拆分的。如hug会被拆分为:h,##u,##g。##代表前缀。</p>
-<p>WordPiece首先通过训练语料获得或者最初的英文中26个字母加上各种符号以及常见中文字符，这些作为初始词表。通过计算subword的分数来不断合并subword pair。</p>
+<h2 id="wordpiece">WordPiece</h2>
+<p>WordPiece是另一种subword方法。每个单词最初是通过将该前缀添加到单词内的所有字符来拆分的。如hug会被拆分为:h,##u,##g。##代表前缀。</p>
+<p>WordPiece首先通过训练语料获得或者最初的英文中26个字母加上各种符号以及常见中文字符，这些作为初始词表。通过计算subword的分数来不断合并subword
+pair。</p>
 <p>下面是一个例子。括号中代表单词和词频。</p>
-<pre class="line-numbers language-none"><code class="language-none">("hug", 10), ("pug", 5), ("pun", 12), ("bun", 4), ("hugs", 5)</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">(&quot;hug&quot;, 10), (&quot;pug&quot;, 5), (&quot;pun&quot;, 12), (&quot;bun&quot;, 4), (&quot;hugs&quot;, 5)</code></pre>
 <p>对语料进行拆分。</p>
-<pre class="line-numbers language-none"><code class="language-none">("h" "##u" "##g", 10), ("p" "##u" "##g", 5), ("p" "##u" "##n", 12), ("b" "##u" "##n", 4), ("h" "##u" "##g" "##s", 5)</code></pre>
-<p>所以最初的词汇将是 <code>["b", "h", "p", "##g", "##n", "##s", "##u"]</code>。最频繁的pair是##u和##g，共出现20次，若是BPE算法，我们此时应该将u与g合并成一个subword。我们计算pair的分数：</p>
-<script type="math/tex; mode=display">
-score(p,q)=\frac{count(p,q)}{count(p)·count(q)}</script><p>得到分数为1/36，但实际上分数最高的是##g与##s。这是因为u单独出现了非常多次，拉低了分数。所以我们将##gs加入到词表。</p>
-<pre class="line-numbers language-none"><code class="language-none">Vocabulary: ["b", "h", "p", "##g", "##n", "##s", "##u", "##gs"]
-Corpus: ("h" "##u" "##g", 10), ("p" "##u" "##g", 5), ("p" "##u" "##n", 12), ("b" "##u" "##n", 4), ("h" "##u" "##gs", 5)</code></pre>
-<p>之后根据规则重复。可以看到WordPiece不一定会合并出现频率高的subword pair，而是优先合并关联比较强的词汇，所以一些罕见的词汇很有可能会被完全加入词表，因为词中的序列单独出现的概率很低。而一些常用词缀会被保留下来。</p>
-<h2 id="Unigram"><a href="#Unigram" class="headerlink" title="Unigram"></a>Unigram</h2><p>和上面两种从基本词汇开始扩大词汇表的方法不同。Unigram从一个较大的词汇表开始，然后从中删除词汇，直到达到所需的词汇表大小。Unigram假设所有词汇都是独立的。</p>
+<pre class="line-numbers language-none"><code class="language-none">(&quot;h&quot; &quot;##u&quot; &quot;##g&quot;, 10), (&quot;p&quot; &quot;##u&quot; &quot;##g&quot;, 5), (&quot;p&quot; &quot;##u&quot; &quot;##n&quot;, 12), (&quot;b&quot; &quot;##u&quot; &quot;##n&quot;, 4), (&quot;h&quot; &quot;##u&quot; &quot;##g&quot; &quot;##s&quot;, 5)</code></pre>
+<p>所以最初的词汇将是
+<code>["b", "h", "p", "##g", "##n", "##s", "##u"]</code>。最频繁的pair是##u和##g，共出现20次，若是BPE算法，我们此时应该将u与g合并成一个subword。我们计算pair的分数：
+<span class="math display">\[
+score(p,q)=\frac{count(p,q)}{count(p)·count(q)}
+\]</span>
+得到分数为1/36，但实际上分数最高的是##g与##s。这是因为u单独出现了非常多次，拉低了分数。所以我们将##gs加入到词表。</p>
+<pre class="line-numbers language-none"><code class="language-none">Vocabulary: [&quot;b&quot;, &quot;h&quot;, &quot;p&quot;, &quot;##g&quot;, &quot;##n&quot;, &quot;##s&quot;, &quot;##u&quot;, &quot;##gs&quot;]
+Corpus: (&quot;h&quot; &quot;##u&quot; &quot;##g&quot;, 10), (&quot;p&quot; &quot;##u&quot; &quot;##g&quot;, 5), (&quot;p&quot; &quot;##u&quot; &quot;##n&quot;, 12), (&quot;b&quot; &quot;##u&quot; &quot;##n&quot;, 4), (&quot;h&quot; &quot;##u&quot; &quot;##gs&quot;, 5)</code></pre>
+<p>之后根据规则重复。可以看到WordPiece不一定会合并出现频率高的subword
+pair，而是优先合并关联比较强的词汇，所以一些罕见的词汇很有可能会被完全加入词表，因为词中的序列单独出现的概率很低。而一些常用词缀会被保留下来。</p>
+<h2 id="unigram">Unigram</h2>
+<p>和上面两种从基本词汇开始扩大词汇表的方法不同。Unigram从一个较大的词汇表开始，然后从中删除词汇，直到达到所需的词汇表大小。Unigram假设所有词汇都是独立的。</p>
 <p>对于词汇表中的每个符号,算法计算如果删除该符号,整体损失会增加多少,并寻找增加最少的符号。这说明如果删除这个词汇，对整体影响很小。</p>
 <p>下面是例子。</p>
-<pre class="line-numbers language-none"><code class="language-none">("hug", 10), ("pug", 5), ("pun", 12), ("bun", 4), ("hugs", 5)
-Vocab:["h", "u", "g", "hu", "ug", "p", "pu", "n", "un", "b", "bu", "s", "hug", "gs", "ugs"]</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">(&quot;hug&quot;, 10), (&quot;pug&quot;, 5), (&quot;pun&quot;, 12), (&quot;bun&quot;, 4), (&quot;hugs&quot;, 5)
+Vocab:[&quot;h&quot;, &quot;u&quot;, &quot;g&quot;, &quot;hu&quot;, &quot;ug&quot;, &quot;p&quot;, &quot;pu&quot;, &quot;n&quot;, &quot;un&quot;, &quot;b&quot;, &quot;bu&quot;, &quot;s&quot;, &quot;hug&quot;, &quot;gs&quot;, &quot;ugs&quot;]</code></pre>
 <p>可以看到词汇表是当前语料库中的所有子串。我们统计他们的频率：</p>
-<pre class="line-numbers language-none"><code class="language-none">("h", 15) ("u", 36) ("g", 20) ("hu", 15) ("ug", 20) ("p", 17) ("pu", 17) ("n", 16)
-("un", 16) ("b", 4) ("bu", 4) ("s", 5) ("hug", 15) ("gs", 5) ("ugs", 5)</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">(&quot;h&quot;, 15) (&quot;u&quot;, 36) (&quot;g&quot;, 20) (&quot;hu&quot;, 15) (&quot;ug&quot;, 20) (&quot;p&quot;, 17) (&quot;pu&quot;, 17) (&quot;n&quot;, 16)
+(&quot;un&quot;, 16) (&quot;b&quot;, 4) (&quot;bu&quot;, 4) (&quot;s&quot;, 5) (&quot;hug&quot;, 15) (&quot;gs&quot;, 5) (&quot;ugs&quot;, 5)</code></pre>
 <p>Unigram使用Viterbi算法来寻找最佳分数。</p>
-<pre class="line-numbers language-none"><code class="language-none">Character 0 (u): "u" (score 0.171429)
-Character 1 (n): "un" (score 0.076191)
-Character 2 (h): "un" "h" (score 0.005442)
-Character 3 (u): "un" "hu" (score 0.005442)
-Character 4 (g): "un" "hug" (score 0.005442)</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">Character 0 (u): &quot;u&quot; (score 0.171429)
+Character 1 (n): &quot;un&quot; (score 0.076191)
+Character 2 (h): &quot;un&quot; &quot;h&quot; (score 0.005442)
+Character 3 (u): &quot;un&quot; &quot;hu&quot; (score 0.005442)
+Character 4 (g): &quot;un&quot; &quot;hug&quot; (score 0.005442)</code></pre>
 <p>可以看到un与h的概率断崖式下跌，所以unhug应该被分为un和hug。损失函数就是所有概率的负对数和。</p>
-<pre class="line-numbers language-none"><code class="language-none">"hug": ["hug"] (score 0.071428)
-"pug": ["pu", "g"] (score 0.007710)
-"pun": ["pu", "n"] (score 0.006168)
-"bun": ["bu", "n"] (score 0.001451)
-"hugs": ["hug", "s"] (score 0.001701)
+<pre class="line-numbers language-none"><code class="language-none">&quot;hug&quot;: [&quot;hug&quot;] (score 0.071428)
+&quot;pug&quot;: [&quot;pu&quot;, &quot;g&quot;] (score 0.007710)
+&quot;pun&quot;: [&quot;pu&quot;, &quot;n&quot;] (score 0.006168)
+&quot;bun&quot;: [&quot;bu&quot;, &quot;n&quot;] (score 0.001451)
+&quot;hugs&quot;: [&quot;hug&quot;, &quot;s&quot;] (score 0.001701)
 ------
-loss = 10 * (-log(0.071428)) + 5 * (-log(0.007710)) + 12 * (-log(0.006168)) + 4 * (-log(0.001451)) + 5 * (-log(0.001701)) = 169.8</code></pre>
+loss &#x3D; 10 * (-log(0.071428)) + 5 * (-log(0.007710)) + 12 * (-log(0.006168)) + 4 * (-log(0.001451)) + 5 * (-log(0.001701)) &#x3D; 169.8</code></pre>
 <p>计算删除某词汇后整体的损失，来决定是否要删除该词汇。</p>
 </div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/tokenize.html" title="tokenize算法">http://example.com/post/tokenize.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/infer_optim.html" rel="prev" title="大模型推理优化笔记"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">大模型推理优化笔记</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/bce_ce.html" rel="next" title="BCE和CE的实现"><span class="post-nav-text">BCE和CE的实现</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>

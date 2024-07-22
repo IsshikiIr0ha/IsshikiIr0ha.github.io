@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
     window.Yun = {}
     window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
-  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="回溯之组合问题 首先我们从题出发，题目来自leetcode77题： 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n &#x3D; 4, k &#x3D; 2 输出： [   [2,4],   [3,4],   [2,3],   [1,2],   [1,3],   [1,4], ] 我们知道，回溯本身就是一种暴力搜索的方法，在组合问">
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="回溯之组合问题 首先我们从题出发，题目来自leetcode77题： 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n &#x3D; 4, k &#x3D; 2 输出： [   [2,4],   [3,4],   [2,3],   [1,2],   [1,3],   [1,4], ] 我们知道，回溯本身就是一种暴力">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回溯之组合问题">
 <meta property="og:url" content="http://example.com/post/backtrace.html">
 <meta property="og:site_name" content="iroha">
-<meta property="og:description" content="回溯之组合问题 首先我们从题出发，题目来自leetcode77题： 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n &#x3D; 4, k &#x3D; 2 输出： [   [2,4],   [3,4],   [2,3],   [1,2],   [1,3],   [1,4], ] 我们知道，回溯本身就是一种暴力搜索的方法，在组合问">
+<meta property="og:description" content="回溯之组合问题 首先我们从题出发，题目来自leetcode77题： 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 输入：n &#x3D; 4, k &#x3D; 2 输出： [   [2,4],   [3,4],   [2,3],   [1,2],   [1,3],   [1,4], ] 我们知道，回溯本身就是一种暴力">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/image-20240407200750593.png">
 <meta property="og:image" content="http://example.com/images/image-20240407211747380.png">
@@ -39,119 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
 IconifyProviders = {
   // Empty prefix: overwrite default API provider configuration
   '': {
@@ -162,12 +50,12 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF%E4%B9%8B%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">回溯之组合问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%93%E9%94%99"><span class="toc-number">3.</span> <span class="toc-text">易错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D"><span class="toc-number">4.</span> <span class="toc-text">剪枝</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%A2%98%E7%9B%AE"><span class="toc-number">5.</span> <span class="toc-text">其他题目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#leetcode-216"><span class="toc-number">5.1.</span> <span class="toc-text">Leetcode 216</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/backtrace.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">回溯之组合问题</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-04-08 01:07:00" itemprop="dateCreated datePublished" datetime="2024-04-08T01:07:00+08:00">2024-04-08</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-22 17:15:04" itemprop="dateModified" datetime="2024-07-22T17:15:04+08:00">2024-07-22</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E7%AE%97%E6%B3%95/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">算法</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%9B%9E%E6%BA%AF/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">回溯</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="回溯之组合问题">回溯之组合问题</h1>
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><a class="site-name" href="/about/site.html">iroha</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF%E4%B9%8B%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">回溯之组合问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%98%93%E9%94%99"><span class="toc-number">3.</span> <span class="toc-text">易错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D"><span class="toc-number">4.</span> <span class="toc-text">剪枝</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%A2%98%E7%9B%AE"><span class="toc-number">5.</span> <span class="toc-text">其他题目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#leetcode-216"><span class="toc-number">5.1.</span> <span class="toc-text">Leetcode 216</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/backtrace.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">回溯之组合问题</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-04-08 01:07:00" itemprop="dateCreated datePublished" datetime="2024-04-08T01:07:00+08:00">2024-04-08</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-22 17:15:04" itemprop="dateModified" datetime="2024-07-22T17:15:04+08:00">2024-07-22</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E7%AE%97%E6%B3%95/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">算法</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%9B%9E%E6%BA%AF/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">回溯</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="回溯之组合问题">回溯之组合问题</h1>
 <p>首先我们从题出发，题目来自leetcode77题：</p>
 <p>给定两个整数 <code>n</code> 和 <code>k</code>，返回范围
 <code>[1, n]</code> 中所有可能的 <code>k</code> 个数的组合。</p>
 <p>你可以按 <strong>任何顺序</strong> 返回答案。</p>
-<pre class="line-numbers language-none"><code class="language-none">输入：n = 4, k = 2
+<pre class="line-numbers language-none"><code class="language-none">输入：n &#x3D; 4, k &#x3D; 2
 输出：
 [
   [2,4],
@@ -181,20 +69,22 @@ IconifyProviders = {
 <pre class="line-numbers language-none"><code class="language-none">for i in range(1,n+1):
 	for j in range(i+1,n+1):
 		res.append([i,j])</code></pre>
-<p>但for循环的层数会随着k的增大而变多，若k为10，就需要十层for循环来遍历各种组合，这显然非常麻烦，并且在数据量上去后计算复杂度非常恐怖。时间复杂度为<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.865ex" height="2.497ex" role="img" focusable="false" viewBox="0 -853.7 2592.4 1103.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(633,363) scale(0.707)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g><g data-mml-node="mo" transform="translate(2203.4,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>。</p>
+<p>但for循环的层数会随着k的增大而变多，若k为10，就需要十层for循环来遍历各种组合，这显然非常麻烦，并且在数据量上去后计算复杂度非常恐怖。时间复杂度为<span
+class="math inline">\(O(n^k)\)</span>。</p>
 <p>所有的回溯算法都可以抽象成一个树形结构。这里借用一下代码随想录在题解中的图。</p>
 <figure>
-<img src="../images/image-20240407200750593.png" alt="image-20240407200750593" loading="lazy">
+<img src="../images/image-20240407200750593.png"
+alt="image-20240407200750593" />
 <figcaption aria-hidden="true">image-20240407200750593</figcaption>
 </figure>
 <p>每一条路径都是一个组合，结果存储在叶子结点。树的深度在这里就代表K，而n则代表树的宽度。</p>
 <h1 id="实现">实现</h1>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">class Solution:
     def combine(self, n: int, k: int) -&gt; List[List[int]]:
-        res = []
-        path = []
+        res &#x3D; []
+        path &#x3D; []
         def backtrace(n,k,start):
-            if len(path) == k:
+            if len(path) &#x3D;&#x3D; k:
                 res.append(path[:])
                 return
             for i in range(start,n+1):
@@ -204,11 +94,11 @@ IconifyProviders = {
         backtrace(n,k,1)
         return res</code></pre>
 <p>接下来逐步分析这段代码。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">res = []
-path = []</code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">res &#x3D; []
+path &#x3D; []</code></pre>
 <p>这一段定义了两个变量，res存储所有组合的结果，path则代表某一条路径的结果，也就是某个组合。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def backtrace(n,k,start):
-    if len(path) == k:
+    if len(path) &#x3D;&#x3D; k:
         res.append(path[:])
         return</code></pre>
 <p>这一段定义了一个closure函数，实现了递归的结束，也就是当path中的元素已经达到k个的时候，当前path递归结束。</p>
@@ -218,7 +108,8 @@ path = []</code></pre>
       path.pop()</code></pre>
 <p>这一段主要实现了同层递归的逻辑，保证从初始数组中从start开始左向右取数字。首先我们将当前的元素加入栈中，然后以此为根向下递归，递归函数的start需要比上一层大1，直到深度达到k时递归返回。之后将当前的根pop出去，保证路径不会重复取到。举一个例子，假设当前的start为2，先把2push进path中，此时path=[2]，这是第一层递归。然后继续往下，此时的start为3，同样push进path，path=[2,3]，这是第二层递归。继续递归到第三层，此时start=4，path里已经有两个元素，所以递归返回至第二层，此时path=[2,3]，那么会pop出3。继续for循环，此时i=4，递归为第三层，path长度为2，返回至第二层，继续pop出4。for循环完毕，函数结束返回至第一层，path为[2]，由于递归结束，那么会继续pop出2，之后就从3开始。如果觉得很复杂的话，用一张图来解释。</p>
 <figure>
-<img src="../images/image-20240407211747380.png" alt="image-20240407211747380" loading="lazy">
+<img src="../images/image-20240407211747380.png"
+alt="image-20240407211747380" />
 <figcaption aria-hidden="true">image-20240407211747380</figcaption>
 </figure>
 <h1 id="易错">易错</h1>
@@ -229,7 +120,8 @@ path = []</code></pre>
 <h1 id="剪枝">剪枝</h1>
 <p>这里还是借用一下代码随想录中题解的图。</p>
 <figure>
-<img src="../images/image-20240407213717949.png" alt="image-20240407213717949" loading="lazy">
+<img src="../images/image-20240407213717949.png"
+alt="image-20240407213717949" />
 <figcaption aria-hidden="true">image-20240407213717949</figcaption>
 </figure>
 <p>而原本的for循环为：</p>
