@@ -9,21 +9,21 @@ document.addEventListener("pjax:success", initScrollReveal);
 document.addEventListener("DOMContentLoaded", () => {
   renderKatex({
     ...{},
-    ...true?.options,
+    ...undefined?.options,
   });
 });</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
     window.Yun = {}
     window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
-  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="我们以下面的这一句语句作为开始，以从本地加载模型为例。 model &#x3D; AutoModelForSeq2SeqLM.from_pretrained(&quot;bigscience&#x2F;T0_3B&quot;) inputs &#x3D; tokenizer.encode(q.strip()+&quot; ? To answer this question, we need to know&quot;, return_tensors&#x3D;&quot;pt&quot;) ou">
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="我们以下面的这一句语句作为开始，以从本地加载模型为例。 model &#x3D; AutoModelForSeq2SeqLM.from_pretrained(&quot;bigscience&#x2F;T0_3B&quot;) inputs &#x3D; tokenizer.encode(q.strip()+&quot; ? To answer this question, we need to know&quot;, return_tensors&#x3D;&quot;pt&quot;) o">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Huggingface的模型加载流程">
 <meta property="og:url" content="http://example.com/post/model_load.html">
 <meta property="og:site_name" content="iroha">
-<meta property="og:description" content="我们以下面的这一句语句作为开始，以从本地加载模型为例。 model &#x3D; AutoModelForSeq2SeqLM.from_pretrained(&quot;bigscience&#x2F;T0_3B&quot;) inputs &#x3D; tokenizer.encode(q.strip()+&quot; ? To answer this question, we need to know&quot;, return_tensors&#x3D;&quot;pt&quot;) ou">
+<meta property="og:description" content="我们以下面的这一句语句作为开始，以从本地加载模型为例。 model &#x3D; AutoModelForSeq2SeqLM.from_pretrained(&quot;bigscience&#x2F;T0_3B&quot;) inputs &#x3D; tokenizer.encode(q.strip()+&quot; ? To answer this question, we need to know&quot;, return_tensors&#x3D;&quot;pt&quot;) o">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/image-20240422014943359.png">
 <meta property="article:published_time" content="2024-04-11T08:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-12T06:11:16.642Z">
+<meta property="article:modified_time" content="2024-07-22T09:14:59.982Z">
 <meta property="article:author" content="iroha">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary">
@@ -160,11 +160,12 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">加载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E8%AF%8D"><span class="toc-number">2.</span> <span class="toc-text">分词</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">生成</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/model_load.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Huggingface的模型加载流程</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-04-11 16:00:00" itemprop="dateCreated datePublished" datetime="2024-04-11T16:00:00+08:00">2024-04-11</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-06-12 14:11:16" itemprop="dateModified" datetime="2024-06-12T14:11:16+08:00">2024-06-12</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><p>我们以下面的这一句语句作为开始，以从本地加载模型为例。</p>
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">加载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E8%AF%8D"><span class="toc-number">2.</span> <span class="toc-text">分词</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">生成</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/model_load.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Huggingface的模型加载流程</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-04-11 16:00:00" itemprop="dateCreated datePublished" datetime="2024-04-11T16:00:00+08:00">2024-04-11</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-22 17:14:59" itemprop="dateModified" datetime="2024-07-22T17:14:59+08:00">2024-07-22</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><p>我们以下面的这一句语句作为开始，以从本地加载模型为例。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">model = AutoModelForSeq2SeqLM.from_pretrained("bigscience/T0_3B")
 inputs = tokenizer.encode(q.strip()+" ? To answer this question, we need to know", return_tensors="pt")
 outputs = model.generate(inputs.cuda(), max_new_tokens=100, do_sample=False, top_k=50)</code></pre>
-<h1 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h1><p>AutoModelForSeq2SeqLM继承了_BaseAutoModelClass，这个类是所有AutoModel的基类，保存在transformers/models/auto/auto_factory.py中。调用的from_pretrained方法实际上就来自于这个基类。我们假设模型保存在本地，一些下载的逻辑不看，且kwargs和config为None。最终会得到模型的哈希值。</p>
+<h1 id="加载">加载</h1>
+<p>AutoModelForSeq2SeqLM继承了_BaseAutoModelClass，这个类是所有AutoModel的基类，保存在transformers/models/auto/auto_factory.py中。调用的from_pretrained方法实际上就来自于这个基类。我们假设模型保存在本地，一些下载的逻辑不看，且kwargs和config为None。最终会得到模型的哈希值。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">if not isinstance(config, PretrainedConfig):
     # We make a call to the config file first (which may be absent) to get the commit hash as soon as possible
     resolved_config_file = cached_file(
@@ -253,14 +254,25 @@ MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING = _LazyAutoMapping(
 )
 </code></pre>
 <p><code>CONFIG_MAPPING_NAMES</code>是根据你传入的路径来匹配，而<code>MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING_NAMES</code>同理，也有和下图类似的字典。本例中<code>CONFIG_MAPPING_NAMES="T5Config"</code>，<code>MODEL_FOR_SEQ_TO_SEQ_CAUSAL_LM_MAPPING_NAMES=T5ForConditionalGeneration</code>，和config.json中的一样。</p>
-<p><img src="../images/image-20240422014943359.png" alt="image-20240422014943359" loading="lazy"></p>
+<figure>
+<img src="../images/image-20240422014943359.png" alt="image-20240422014943359" loading="lazy">
+<figcaption aria-hidden="true">image-20240422014943359</figcaption>
+</figure>
 <p><code>model_class.from_pretrained</code>中的<code>from_pretrained</code>来自于PretrainedModel类，这是所有模型的基类(注意不是AutoModel)。这个函数是本篇的核心。返回的模型实例默认是开启model.eval()模式，若要微调or训练模型，需要手动指定model.train()。</p>
 <p>这里顺便提一嘴model.train和eval下的区别：</p>
-<ol>
-<li>Dropout 和 BatchNorm 行为。model.train()下 Dropout 层会随机丢弃一部分神经元, BatchNorm 层会计算当前 batch 的统计量。<br>model.eval()下Dropout 层会全部保留神经元, BatchNorm 层会使用训练好的滑动平均统计量。</li>
-<li>梯度与优化器。model.train()会计算梯度并更新模型参数。model.eval()不会计算梯度, 也不会更新模型参数。</li>
-<li>数据增强。model.train()通常会应用一些数据增强技术, 如翻转、旋转等。model.eval()一般不需要数据增强, 直接使用原始的输入数据。</li>
-<li>内存与计算开销。model.train()需要保存中间激活值用于反向传播, 计算开销相对更大。model.eval()只需要前向传播, 不需要保存中间激活值, 计算开销相对更小。</li>
+<ol type="1">
+<li>Dropout 和 BatchNorm 行为。model.train()下 Dropout
+层会随机丢弃一部分神经元, BatchNorm 层会计算当前 batch 的统计量。
+model.eval()下Dropout 层会全部保留神经元, BatchNorm
+层会使用训练好的滑动平均统计量。</li>
+<li>梯度与优化器。model.train()会计算梯度并更新模型参数。model.eval()不会计算梯度,
+也不会更新模型参数。</li>
+<li>数据增强。model.train()通常会应用一些数据增强技术,
+如翻转、旋转等。model.eval()一般不需要数据增强,
+直接使用原始的输入数据。</li>
+<li>内存与计算开销。model.train()需要保存中间激活值用于反向传播,
+计算开销相对更大。model.eval()只需要前向传播, 不需要保存中间激活值,
+计算开销相对更小。</li>
 </ol>
 <p>下面看几个比较关键的参数。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">@classmethod
@@ -279,23 +291,38 @@ def from_pretrained(
     **kwargs,
 ):</code></pre>
 <ul>
-<li><p>pretrained_model_name_or_path，模型的路径or在huggingface中的名字。</p>
-</li>
-<li><p>force_download，不论有没有下载好模型，都下载，若存在则覆盖。</p>
-</li>
-<li><p>torch_dtype，<code>torch.float16</code> or <code>torch.bfloat16</code> or <code>torch.float</code>，指定模型参数的载入精度，不指定则默认为<code>torch.float</code>。也就是说，<code>config.json</code> 中的 <code>torch_dtype</code> 设置拥有最高优先级。如果 <code>torch_dtype</code> 参数被设置为 <code>"auto"</code>，那么它会首先使用 <code>config.json</code> 中的设置。只有当 <code>config.json</code> 中没有找到 <code>torch_dtype</code> 且 <code>torch_dtype</code> 参数被设置为 <code>"auto"</code>时，它才会回退到使用权重checkpoint中的数据类型，查看第一个数据是什么类型就用什么类型。若根本没有设置该参数，则使用torch.float。</p>
-</li>
-<li><p>device_map，可以传入三种类型的参数。<strong>字符串类型</strong>，如果传入一个字符串类型的设备名称(例如 “cpu”, “cuda:1”, “mps”)，那么整个模型会被分配到指定的设备上，如果传入 “auto”，Accelerate 库会自动计算出最优的设备分布。<strong>字典类型</strong>，这种情况下 device_map 是一个字典,键是模型的子模块名称,值是对应的设备编号或设备名称，这允许用户手动指定模型的各个子模块应该分布在哪些设备上，只需要指定到模块名称的级别,子模块会自动分配到同一设备，如</p>
+<li><p>pretrained_model_name_or_path，模型的路径or在huggingface中的名字。</p></li>
+<li><p>force_download，不论有没有下载好模型，都下载，若存在则覆盖。</p></li>
+<li><p>torch_dtype，<code>torch.float16</code> or
+<code>torch.bfloat16</code> or
+<code>torch.float</code>，指定模型参数的载入精度，不指定则默认为<code>torch.float</code>。也就是说，<code>config.json</code>
+中的 <code>torch_dtype</code> 设置拥有最高优先级。如果
+<code>torch_dtype</code> 参数被设置为
+<code>"auto"</code>，那么它会首先使用 <code>config.json</code>
+中的设置。只有当 <code>config.json</code> 中没有找到
+<code>torch_dtype</code> 且 <code>torch_dtype</code> 参数被设置为
+<code>"auto"</code>时，它才会回退到使用权重checkpoint中的数据类型，查看第一个数据是什么类型就用什么类型。若根本没有设置该参数，则使用torch.float。</p></li>
+<li><p>device_map，可以传入三种类型的参数。<strong>字符串类型</strong>，如果传入一个字符串类型的设备名称(例如
+"cpu", "cuda:1", "mps")，那么整个模型会被分配到指定的设备上，如果传入
+"auto"，Accelerate
+库会自动计算出最优的设备分布。<strong>字典类型</strong>，这种情况下
+device_map
+是一个字典,键是模型的子模块名称,值是对应的设备编号或设备名称，这允许用户手动指定模型的各个子模块应该分布在哪些设备上，只需要指定到模块名称的级别,子模块会自动分配到同一设备，如</p>
 <pre class="line-numbers language-none"><code class="language-none">device_map = {
     "transformer.encoder": "cuda:0",
     "transformer.decoder": "cuda:1",
     "transformer.pooler": "cuda:0",
     "lm_head": "cuda:1"
 }</code></pre>
-<p>还可以传入整数或<code>torch.device</code>，代表将整个模型放在指定编号的 GPU 上。如<code>device = torch.device("cuda:1"),device_map = deveice</code>。只要指定了device_map，那么都会让 <code>low_cpu_mem_usage=True</code>。不指定就用cpu。</p>
-</li>
-<li><p>quantization_config，指定模型的量化策略。可以是一个字典或者继承自 <code>QuantizationConfigMixin</code> 的对象，它用于配置模型的量化参数。除了 <code>quantization_config</code> 之外,还可以使用 <code>load_in_4bit</code> 和 <code>load_in_8bit</code> 等参数来指定量化方式,但这种方式不被推荐，只量化了参数，并不量化梯度。但推理阶段无所谓。下面是一个例子。</p>
-</li>
+<p>还可以传入整数或<code>torch.device</code>，代表将整个模型放在指定编号的
+GPU
+上。如<code>device = torch.device("cuda:1"),device_map = deveice</code>。只要指定了device_map，那么都会让
+<code>low_cpu_mem_usage=True</code>。不指定就用cpu。</p></li>
+<li><p>quantization_config，指定模型的量化策略。可以是一个字典或者继承自
+<code>QuantizationConfigMixin</code>
+的对象，它用于配置模型的量化参数。除了 <code>quantization_config</code>
+之外,还可以使用 <code>load_in_4bit</code> 和 <code>load_in_8bit</code>
+等参数来指定量化方式,但这种方式不被推荐，只量化了参数，并不量化梯度。但推理阶段无所谓。下面是一个例子。</p></li>
 </ul>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">import bitsandbytes as bnb
 from transformers import QuantizationConfig
@@ -312,7 +339,8 @@ model = AutoModelForSeq2SeqLM.from_pretrained(
 )</code></pre>
 <ul>
 <li>local_files_only，如果是True，则不会从Hub上下载。</li>
-<li>low_cpu_mem_usage，作用是尝试在加载模型时不使用超过模型大小 1 倍的 CPU 内存(包括峰值内存)。</li>
+<li>low_cpu_mem_usage，作用是尝试在加载模型时不使用超过模型大小 1 倍的
+CPU 内存(包括峰值内存)。</li>
 <li>attn_implementation，可以选择<code>flash_attention_2</code>,<code>sdpa(default)</code>,<code>eager(手动实现)</code></li>
 </ul>
 <p>之后看几处比较关键的源码。</p>
@@ -426,7 +454,7 @@ use_keep_in_fp32_modules = (cls._keep_in_fp32_modules is not None) and (
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">with ContextManagers(init_contexts):
     # Let's make sure we don't run the init function of buffer modules
     model = cls(config, *model_args, **model_kwargs)</code></pre>
-<p>来看device_map的逻辑。首先是字符串的情况，必须要是<code>"auto", "balanced", "balanced_low_0", "sequential"</code>这几种，否则报错。”auto”会自动操作，尽可能均匀地分配计算负载。<code>balanced</code>则是平均分配模型层中的参数给不同的卡。<code>balanced_low_0</code>则是少给0分一些，因为0往往还有其他事情要做。<code>sequential</code>则是按模型层的顺序来分配给不同的卡，保持模型层的拓扑结构,减少跨设备的数据传输，如attention一张卡，MLP一张卡。</p>
+<p>来看device_map的逻辑。首先是字符串的情况，必须要是<code>"auto", "balanced", "balanced_low_0", "sequential"</code>这几种，否则报错。"auto"会自动操作，尽可能均匀地分配计算负载。<code>balanced</code>则是平均分配模型层中的参数给不同的卡。<code>balanced_low_0</code>则是少给0分一些，因为0往往还有其他事情要做。<code>sequential</code>则是按模型层的顺序来分配给不同的卡，保持模型层的拓扑结构,减少跨设备的数据传输，如attention一张卡，MLP一张卡。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">if device_map not in ["auto", "balanced", "balanced_low_0", "sequential"]:
         raise ValueError
 if device_map != "sequential":
@@ -503,7 +531,7 @@ elif isinstance(device_map, int):# 小于0报错
     return model, loading_info</code></pre>
 <p>总结，根据最常用的方法，主要是做以下几个操作。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">model = AutoModelForSeq2SeqLM.from_pretrained("bigscience/T0_3B",device_map="auto")</code></pre>
-<ol>
+<ol type="1">
 <li>根据输入路径拿到config.json，加载到Config。</li>
 <li>根据输入路径拿到权重文件pytorch_model.bin，由torch.load加载模型结构和权重参数。。</li>
 <li>决定权重的数据类型，未指定则是float32。</li>
@@ -514,8 +542,10 @@ elif isinstance(device_map, int):# 小于0报错
 <li>返回模型实例。</li>
 </ol>
 <p>所以，实际上会调用两个不同的<code>from_pretrained</code>方法，第一个是AutoModel基类_BaseAutoModelClass的，在最后调用<code>get_model_class</code>方法得到模型本身的类，本例中是<code>T5ForConditionalGeneration</code>，然后再调用这个类的<code>from_pretrained</code>，而这个类的<code>from_pretrained</code>在其基类<code>PreTrainedModel</code>实现，所以再会调用<code>PreTrainedModel</code>的<code>from_pretrained</code>方法。分析完毕。</p>
-<h1 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h1><p>后续更新，挖坑</p>
-<h1 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h1><p>并不是每一个模型都可以使用.generate()进行序列生成，需要通过函数判断是否能够进行序列生成任务，所以每一个模型都需要重写<code>prepare_inputs_for_generation</code>方法。</p>
+<h1 id="分词">分词</h1>
+<p>后续更新，挖坑</p>
+<h1 id="生成">生成</h1>
+<p>并不是每一个模型都可以使用.generate()进行序列生成，需要通过函数判断是否能够进行序列生成任务，所以每一个模型都需要重写<code>prepare_inputs_for_generation</code>方法。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin, PushToHubMixin, PeftAdapterMixin):
 	    @classmethod
     def can_generate(cls) -&gt; bool:
@@ -555,32 +585,55 @@ You do not need to call any of the above methods directly. Pass custom parameter
 more about decoding strategies refer to the [text generation strategies guide](../generation_strategies).</code></pre>
 <p>就不看详细的实现，先看<code>GenerationConfig</code>的生成策略。若不用GenerationConfig，也可以直接输入kwargs。</p>
 <ul>
-<li>greedy decoding贪婪解码，<code>num_beams=1</code>且<code>do_sample=False</code>，会一直选择概率最高的token，一条路走到黑。</li>
-<li>Contrastive search对比搜索，在NIPS22被提出，能在保持流畅性的前提下，鼓励多样性生成，减少重复输出。需要<code>penalty_alpha&gt;0</code> and <code>top_k&gt;1</code>。一个候选token与当前token非常相似(相似度得分高)，那么它的概率就会被较多地降低。这样做的目的是鼓励生成更加多样化的文本，避免同类型的token过于集中出现。最后,算法在经过调整的 <code>scores</code> 向量上取Top-1。核心公式<code>scores = (1.0 - alpha) * next_top_k_probs - alpha * scores</code>。<code>next_top_k_probs</code>是当前token的Top-k概率分布，等式右边的<code>scores</code>是当前token和下一个token之间的相似度分数。所以当前token与next token越相似，惩罚就越大。</li>
-<li>multinomial sampling，<code>num_beams=1</code> and<code>do_sample=True</code>。和贪婪解码的区别不一定选择概率最高的token，而是根据概率分布来采样。</li>
-<li>beam-search，<code>num_beams&gt;1</code> and<code>do_sample=False</code>，保留top-k个得分最高的候选序列，称为”beam”。这里选择不采样，是选择得分最高的2*num_beams个token。</li>
-<li>diverse beam-search，<code>num_beams&gt;1</code> and <code>num_beam_groups&gt;1</code>，通过分组机制，确保了不同beam之间的差异性。</li>
+<li>greedy
+decoding贪婪解码，<code>num_beams=1</code>且<code>do_sample=False</code>，会一直选择概率最高的token，一条路走到黑。</li>
+<li>Contrastive
+search对比搜索，在NIPS22被提出，能在保持流畅性的前提下，鼓励多样性生成，减少重复输出。需要<code>penalty_alpha&gt;0</code>
+and
+<code>top_k&gt;1</code>。一个候选token与当前token非常相似(相似度得分高)，那么它的概率就会被较多地降低。这样做的目的是鼓励生成更加多样化的文本，避免同类型的token过于集中出现。最后,算法在经过调整的
+<code>scores</code>
+向量上取Top-1。核心公式<code>scores = (1.0 - alpha) * next_top_k_probs - alpha * scores</code>。<code>next_top_k_probs</code>是当前token的Top-k概率分布，等式右边的<code>scores</code>是当前token和下一个token之间的相似度分数。所以当前token与next
+token越相似，惩罚就越大。</li>
+<li>multinomial sampling，<code>num_beams=1</code>
+and<code>do_sample=True</code>。和贪婪解码的区别不一定选择概率最高的token，而是根据概率分布来采样。</li>
+<li>beam-search，<code>num_beams&gt;1</code>
+and<code>do_sample=False</code>，保留top-k个得分最高的候选序列，称为"beam"。这里选择不采样，是选择得分最高的2*num_beams个token。</li>
+<li>diverse beam-search，<code>num_beams&gt;1</code> and
+<code>num_beam_groups&gt;1</code>，通过分组机制，确保了不同beam之间的差异性。</li>
 </ul>
 <p>接下来介绍一些比较常用的参数。</p>
 <ul>
 <li><code>do_sample</code>，是否根据概率分布采样。</li>
-<li><code>temperature</code>，默认1.0。小于1时，当 <code>temperature &lt; 1.0</code> 时, 生成概率分布会被”平滑”(峰值变得更陡峭)，使得模型更倾向于选择概率较高的token，生成的文本会更加集中和保守。当<code>temperature &gt; 1.0</code>时， 生成概率分布会被”拉平”(峰值变得更平缓)，使得模型会选择概率较低的token，生成的文本会更加多样和探索性。</li>
-<li><code>top_k</code>，选择下一个token时，只保留概率最高的前 <code>top_k</code> 个token，有效地避免模型选择概率很低的不合理token。</li>
-<li><code>top_p</code>，动态地选择概率总和达到 top_p 阈值的最小token集合。</li>
-<li><code>num_return_sequences</code> ，指定要生成的独立序列数量。默认为1，即只生成1个序列。</li>
+<li><code>temperature</code>，默认1.0。小于1时，当
+<code>temperature &lt; 1.0</code> 时,
+生成概率分布会被"平滑"(峰值变得更陡峭)，使得模型更倾向于选择概率较高的token，生成的文本会更加集中和保守。当<code>temperature &gt; 1.0</code>时，
+生成概率分布会被"拉平"(峰值变得更平缓)，使得模型会选择概率较低的token，生成的文本会更加多样和探索性。</li>
+<li><code>top_k</code>，选择下一个token时，只保留概率最高的前
+<code>top_k</code>
+个token，有效地避免模型选择概率很低的不合理token。</li>
+<li><code>top_p</code>，动态地选择概率总和达到 top_p
+阈值的最小token集合。</li>
+<li><code>num_return_sequences</code>
+，指定要生成的独立序列数量。默认为1，即只生成1个序列。</li>
 <li><code>output_scores</code>是否输出每个token的预测分数。</li>
 <li><code>output_logits</code>是否输出未经处理的原始预测logits。</li>
 <li><code>pad_token_id,bos_token_id,eos_token_id</code>，需要根据模型的词表来看。不设置则为None。</li>
-<li><code>max_length</code>: 最大输出长度,包括prompt和生成的新tokens。默认是20</li>
-<li><code>max_new_tokens</code>: 最大生成新tokens数量,不包括prompt长度。</li>
-<li><code>min_length</code>: 最小输出长度,包括prompt和生成的新tokens。</li>
-<li><code>min_new_tokens</code>: 最小生成新tokens数量,不包括prompt长度。</li>
-<li><code>early_stopping</code>: 控制beam search停止的条件。可选值为:<ul>
-<li><code>True</code>: 当生成了 <code>num_beams</code> 个完整候选序列时立即停止。</li>
-<li><code>False</code>: 根据启发式停止,即当很难找到更好的候选时停止。</li>
+<li><code>max_length</code>:
+最大输出长度,包括prompt和生成的新tokens。默认是20</li>
+<li><code>max_new_tokens</code>:
+最大生成新tokens数量,不包括prompt长度。</li>
+<li><code>min_length</code>:
+最小输出长度,包括prompt和生成的新tokens。</li>
+<li><code>min_new_tokens</code>:
+最小生成新tokens数量,不包括prompt长度。</li>
+<li><code>early_stopping</code>: 控制beam search停止的条件。可选值为:
+<ul>
+<li><code>True</code>: 当生成了 <code>num_beams</code>
+个完整候选序列时立即停止。</li>
+<li><code>False</code>:
+根据启发式停止,即当很难找到更好的候选时停止。</li>
 <li><code>"never"</code>: 一直运行直到无法找到更好的候选为止。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>接下来解析generate函数主要做了哪些。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">@torch.no_grad()
@@ -620,8 +673,10 @@ if generation_config.pad_token_id is None and generation_config.eos_token_id is 
         eos_token_id = eos_token_id[0]
     logger.warning(f"Setting `pad_token_id` to `eos_token_id`:{eos_token_id} for open-end generation.")
     generation_config.pad_token_id = eos_token_id</code></pre>
-<p>这一段说明确说明如果你没有传入<code>pad_token_id</code>，那么会以<code>eos_token_id</code>替代。若你没有传入<code>attention_mask</code>，会警告你传入，Attention Mask中值为0的位置对应的Attention权重设为非常小的负值，通常是-1e9。</p>
-<p>接下来就是处理模型的输入。获取输入的tensor和batch_size。<code>_prepare_model_inputs</code>方法过滤掉 model_kwargs中非空且不是模型主要输入的参数。对于文本生成模型，要看模型的encoder是否支持直接输入embedding，否则一律设置成input_ids。</p>
+<p>这一段说明确说明如果你没有传入<code>pad_token_id</code>，那么会以<code>eos_token_id</code>替代。若你没有传入<code>attention_mask</code>，会警告你传入，Attention
+Mask中值为0的位置对应的Attention权重设为非常小的负值，通常是-1e9。</p>
+<p>接下来就是处理模型的输入。获取输入的tensor和batch_size。<code>_prepare_model_inputs</code>方法过滤掉
+model_kwargs中非空且不是模型主要输入的参数。对于文本生成模型，要看模型的encoder是否支持直接输入embedding，否则一律设置成input_ids。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"># 3. Define model inputs
 # inputs_tensor has to be defined
 # model_input_name is defined if model-specific keyword input is passed
@@ -631,7 +686,9 @@ inputs_tensor, model_input_name, model_kwargs = self._prepare_model_inputs(
     inputs, generation_config.bos_token_id, model_kwargs
 )
 batch_size = inputs_tensor.shape[0]</code></pre>
-<p>decode-only的模型应该使用左对齐。使用右对齐会警告，初始化 tokenizer 时设置 <code>padding_side='left'</code>以确保正确的生成结果。接下来的逻辑都不看了，无非就是处理一些模型生成参数，如max_length。根据不同的生成策略，会运行不同的生成函数，就看一个简单的贪婪解码的部分代码。</p>
+<p>decode-only的模型应该使用左对齐。使用右对齐会警告，初始化 tokenizer
+时设置
+<code>padding_side='left'</code>以确保正确的生成结果。接下来的逻辑都不看了，无非就是处理一些模型生成参数，如max_length。根据不同的生成策略，会运行不同的生成函数，就看一个简单的贪婪解码的部分代码。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">        if generation_mode == GenerationMode.GREEDY_SEARCH:
             # 11. run greedy search
             result = self._greedy_search(
