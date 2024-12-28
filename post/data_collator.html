@@ -13,13 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
     window.Yun = {}
-    window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
-  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="为什么要用DataCollator ！！！以下的Transformers源码来自于4.41。 我们在使用Trainer时，需要传入一个DataCollator，如 trainer &#x3D; Trainer(     model&#x3D;model,     args&#x3D;training_args,     train_dataset&#x3D;ds_train,     eva">
+    window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js" defer></script><script src="/js/load-aplayer.js" defer></script><meta name="description" content="为什么要用DataCollator ！！！以下的Transformers源码来自于4.41。 我们在使用Trainer时，需要传入一个DataCollator，如 trainer &#x3D; Trainer(     model&#x3D;model,     args&#x3D;training_args,     train_dataset&#x3D;ds_train,     eval_dataset&#x3D;ds_val,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transformers中的DataCollator">
 <meta property="og:url" content="http://example.com/post/data_collator.html">
 <meta property="og:site_name" content="iroha">
-<meta property="og:description" content="为什么要用DataCollator ！！！以下的Transformers源码来自于4.41。 我们在使用Trainer时，需要传入一个DataCollator，如 trainer &#x3D; Trainer(     model&#x3D;model,     args&#x3D;training_args,     train_dataset&#x3D;ds_train,     eva">
+<meta property="og:description" content="为什么要用DataCollator ！！！以下的Transformers源码来自于4.41。 我们在使用Trainer时，需要传入一个DataCollator，如 trainer &#x3D; Trainer(     model&#x3D;model,     args&#x3D;training_args,     train_dataset&#x3D;ds_train,     eval_dataset&#x3D;ds_val,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-30T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-22T09:15:15.971Z">
@@ -46,17 +46,17 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8datacollator"><span class="toc-number">1.</span> <span class="toc-text">为什么要用DataCollator</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%84%E7%A7%8Ddatacollator"><span class="toc-number">2.</span> <span class="toc-text">各种DataCollator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#defaultdatacollator"><span class="toc-number">2.1.</span> <span class="toc-text">DefaultDataCollator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorwithpadding"><span class="toc-number">2.2.</span> <span class="toc-text">DataCollatorWithPadding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorforlanguagemodeling"><span class="toc-number">2.3.</span> <span class="toc-text">DataCollatorForLanguageModeling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorforwholewordmask"><span class="toc-number">2.4.</span> <span class="toc-text">DataCollatorForWholeWordMask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorfortokenclassification"><span class="toc-number">2.5.</span> <span class="toc-text">DataCollatorForTokenClassification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorforseq2seq"><span class="toc-number">2.6.</span> <span class="toc-text">DataCollatorForSeq2Seq</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/data_collator.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Transformers中的DataCollator</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2024-07-01T00:00:00+08:00">2024-07-01</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-22 17:15:15" itemprop="dateModified" datetime="2024-07-22T17:15:15+08:00">2024-07-22</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="为什么要用datacollator">为什么要用DataCollator</h1>
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">17</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8datacollator"><span class="toc-number">1.</span> <span class="toc-text">为什么要用DataCollator</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%84%E7%A7%8Ddatacollator"><span class="toc-number">2.</span> <span class="toc-text">各种DataCollator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#defaultdatacollator"><span class="toc-number">2.1.</span> <span class="toc-text">DefaultDataCollator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorwithpadding"><span class="toc-number">2.2.</span> <span class="toc-text">DataCollatorWithPadding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorforlanguagemodeling"><span class="toc-number">2.3.</span> <span class="toc-text">DataCollatorForLanguageModeling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorforwholewordmask"><span class="toc-number">2.4.</span> <span class="toc-text">DataCollatorForWholeWordMask</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorfortokenclassification"><span class="toc-number">2.5.</span> <span class="toc-text">DataCollatorForTokenClassification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datacollatorforseq2seq"><span class="toc-number">2.6.</span> <span class="toc-text">DataCollatorForSeq2Seq</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/data_collator.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Transformers中的DataCollator</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-07-01 00:00:00" itemprop="dateCreated datePublished" datetime="2024-07-01T00:00:00+08:00">2024-07-01</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-22 17:15:15" itemprop="dateModified" datetime="2024-07-22T17:15:15+08:00">2024-07-22</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="为什么要用datacollator">为什么要用DataCollator</h1>
 <p>！！！以下的Transformers源码来自于4.41。</p>
 <p>我们在使用Trainer时，需要传入一个DataCollator，如</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">trainer &#x3D; Trainer(
-    model&#x3D;model,
-    args&#x3D;training_args,
-    train_dataset&#x3D;ds_train,
-    eval_dataset&#x3D;ds_val,
-    tokenizer&#x3D;tokenizer,
-    data_collator&#x3D;data_collator,
-)</code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">trainer <span class="token operator">=</span> Trainer<span class="token punctuation">(</span>
+    model<span class="token operator">=</span>model<span class="token punctuation">,</span>
+    args<span class="token operator">=</span>training_args<span class="token punctuation">,</span>
+    train_dataset<span class="token operator">=</span>ds_train<span class="token punctuation">,</span>
+    eval_dataset<span class="token operator">=</span>ds_val<span class="token punctuation">,</span>
+    tokenizer<span class="token operator">=</span>tokenizer<span class="token punctuation">,</span>
+    data_collator<span class="token operator">=</span>data_collator<span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>什么是DataCollator？我们先看官方的定义。</p>
 <p>Data collators are objects that will form a batch by using a list of
 dataset elements as input. These elements are of the same type as the
@@ -64,50 +64,50 @@ elements of <code>train_dataset</code> or <code>eval_dataset</code>.</p>
 <p>通过这句话可以知道，DataCollator的作用是将在数据集中的样本根据需求整合成一个Batch作为训练的输入。</p>
 <h1 id="各种datacollator">各种DataCollator</h1>
 <p>在使用Huggingface的Trainer进行训练or微调时，我们需要传入一个<code>data_collator: Optional[DataCollator] = None</code>作为Trainer的数据的批量整合器。由于是Optinal，当然也可以不指定，我们看源码</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">default_collator &#x3D; (
-    DataCollatorWithPadding(tokenizer)
-    if tokenizer is not None and isinstance(tokenizer, (PreTrainedTokenizerBase, SequenceFeatureExtractor))
-    else default_data_collator
-)
-self.data_collator &#x3D; data_collator if data_collator is not None else default_collator</code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">default_collator <span class="token operator">=</span> <span class="token punctuation">(</span>
+    DataCollatorWithPadding<span class="token punctuation">(</span>tokenizer<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> tokenizer <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span> <span class="token keyword">and</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">,</span> <span class="token punctuation">(</span>PreTrainedTokenizerBase<span class="token punctuation">,</span> SequenceFeatureExtractor<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span> default_data_collator
+<span class="token punctuation">)</span>
+self<span class="token punctuation">.</span>data_collator <span class="token operator">=</span> data_collator <span class="token keyword">if</span> data_collator <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span> <span class="token keyword">else</span> default_collator<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>所以，若不指定DataCollator的话，在初始化Trainer时若传入了Tokenizer，那么会用<code>DataCollatorWithPadding</code>，否则使用<code>default_data_collator</code>。</p>
 <h2 id="defaultdatacollator">DefaultDataCollator</h2>
 <p>我们先来看<code>default_data_collator</code>，只用于处理Dict-like的对象。且默认所有样本的长度相同，不一样则报错。一般不用。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def torch_default_data_collator(features: List[InputDataClass]) -&gt; Dict[str, Any]:
-    import torch
-	# 1
-    if not isinstance(features[0], Mapping):
-        features &#x3D; [vars(f) for f in features]
-    first &#x3D; features[0]
-    # 2
-    batch &#x3D; &#123;&#125;
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">torch_default_data_collator</span><span class="token punctuation">(</span>features<span class="token punctuation">:</span> List<span class="token punctuation">[</span>InputDataClass<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token keyword">import</span> torch
+	<span class="token comment"># 1</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>features<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> Mapping<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        features <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token builtin">vars</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token keyword">for</span> f <span class="token keyword">in</span> features<span class="token punctuation">]</span>
+    first <span class="token operator">=</span> features<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token comment"># 2</span>
+    batch <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 
 
-    # 3
-    if &quot;label&quot; in first and first[&quot;label&quot;] is not None:
-        label &#x3D; first[&quot;label&quot;].item() if isinstance(first[&quot;label&quot;], torch.Tensor) else first[&quot;label&quot;]
-        dtype &#x3D; torch.long if isinstance(label, int) else torch.float
-        batch[&quot;labels&quot;] &#x3D; torch.tensor([f[&quot;label&quot;] for f in features], dtype&#x3D;dtype)
-    # 4
-    elif &quot;label_ids&quot; in first and first[&quot;label_ids&quot;] is not None:
-        if isinstance(first[&quot;label_ids&quot;], torch.Tensor):
-            batch[&quot;labels&quot;] &#x3D; torch.stack([f[&quot;label_ids&quot;] for f in features])
-        else:
-            dtype &#x3D; torch.long if isinstance(first[&quot;label_ids&quot;][0], int) else torch.float
-            batch[&quot;labels&quot;] &#x3D; torch.tensor([f[&quot;label_ids&quot;] for f in features], dtype&#x3D;dtype)
+    <span class="token comment"># 3</span>
+    <span class="token keyword">if</span> <span class="token string">"label"</span> <span class="token keyword">in</span> first <span class="token keyword">and</span> first<span class="token punctuation">[</span><span class="token string">"label"</span><span class="token punctuation">]</span> <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        label <span class="token operator">=</span> first<span class="token punctuation">[</span><span class="token string">"label"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>first<span class="token punctuation">[</span><span class="token string">"label"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">)</span> <span class="token keyword">else</span> first<span class="token punctuation">[</span><span class="token string">"label"</span><span class="token punctuation">]</span>
+        dtype <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">long</span> <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>label<span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token keyword">else</span> torch<span class="token punctuation">.</span><span class="token builtin">float</span>
+        batch<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span>f<span class="token punctuation">[</span><span class="token string">"label"</span><span class="token punctuation">]</span> <span class="token keyword">for</span> f <span class="token keyword">in</span> features<span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>dtype<span class="token punctuation">)</span>
+    <span class="token comment"># 4</span>
+    <span class="token keyword">elif</span> <span class="token string">"label_ids"</span> <span class="token keyword">in</span> first <span class="token keyword">and</span> first<span class="token punctuation">[</span><span class="token string">"label_ids"</span><span class="token punctuation">]</span> <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>first<span class="token punctuation">[</span><span class="token string">"label_ids"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            batch<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>stack<span class="token punctuation">(</span><span class="token punctuation">[</span>f<span class="token punctuation">[</span><span class="token string">"label_ids"</span><span class="token punctuation">]</span> <span class="token keyword">for</span> f <span class="token keyword">in</span> features<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            dtype <span class="token operator">=</span> torch<span class="token punctuation">.</span><span class="token builtin">long</span> <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>first<span class="token punctuation">[</span><span class="token string">"label_ids"</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token keyword">else</span> torch<span class="token punctuation">.</span><span class="token builtin">float</span>
+            batch<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span>f<span class="token punctuation">[</span><span class="token string">"label_ids"</span><span class="token punctuation">]</span> <span class="token keyword">for</span> f <span class="token keyword">in</span> features<span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>dtype<span class="token punctuation">)</span>
 
-    #5. Handling of all other possible keys.
-    # Again, we will use the first element to figure out which key&#x2F;values are not None for this model.
-    for k, v in first.items():
-        if k not in (&quot;label&quot;, &quot;label_ids&quot;) and v is not None and not isinstance(v, str):
-            if isinstance(v, torch.Tensor):
-                batch[k] &#x3D; torch.stack([f[k] for f in features])
-            elif isinstance(v, np.ndarray):
-                batch[k] &#x3D; torch.tensor(np.stack([f[k] for f in features]))
-            else:
-                batch[k] &#x3D; torch.tensor([f[k] for f in features])
+    <span class="token comment">#5. Handling of all other possible keys.</span>
+    <span class="token comment"># Again, we will use the first element to figure out which key/values are not None for this model.</span>
+    <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> first<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> k <span class="token keyword">not</span> <span class="token keyword">in</span> <span class="token punctuation">(</span><span class="token string">"label"</span><span class="token punctuation">,</span> <span class="token string">"label_ids"</span><span class="token punctuation">)</span> <span class="token keyword">and</span> v <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span> <span class="token keyword">and</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> torch<span class="token punctuation">.</span>Tensor<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                batch<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>stack<span class="token punctuation">(</span><span class="token punctuation">[</span>f<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token keyword">for</span> f <span class="token keyword">in</span> features<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> np<span class="token punctuation">.</span>ndarray<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                batch<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span>np<span class="token punctuation">.</span>stack<span class="token punctuation">(</span><span class="token punctuation">[</span>f<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token keyword">for</span> f <span class="token keyword">in</span> features<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                batch<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span>f<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token keyword">for</span> f <span class="token keyword">in</span> features<span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-    return batch</code></pre>
+    <span class="token keyword">return</span> batch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>简单来说，会帮你做这些事：</p>
 <ol type="1">
 <li>首先检查样本是否是Mapping对象，若不是则用vars函数返回样本的字典形式，也就是返回obj.__dict__，即所有的属性名和值的Dict。</li>
@@ -121,163 +121,163 @@ list，而label_ids则是用了stack函数？答案是在约定俗成的命名�
 <p>5.处理完了label和label_ids，剩下的键值对中只处理数值类型的。所以这里的样本应该是经过tokenizer过或数据预处理过的。将剩下的数值类型的值进行堆叠。</p>
 <h2 id="datacollatorwithpadding">DataCollatorWithPadding</h2>
 <p>若指定了tokenizer但没有指定DataCollator，那么就会调用<code>DataCollatorWithPadding</code>来作为数据批量处理器。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">class DataCollatorWithPadding:
-    &quot;&quot;&quot;
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">DataCollatorWithPadding</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
     Data collator that will dynamically pad the inputs received.
 
     Args:
-        tokenizer ([&#96;PreTrainedTokenizer&#96;] or [&#96;PreTrainedTokenizerFast&#96;]):
+        tokenizer ([`PreTrainedTokenizer`] or [`PreTrainedTokenizerFast`]):
             The tokenizer used for encoding the data.
-        padding (&#96;bool&#96;, &#96;str&#96; or [&#96;~utils.PaddingStrategy&#96;], *optional*, defaults to &#96;True&#96;):
-            Select a strategy to pad the returned sequences (according to the model&#39;s padding side and padding index)
+        padding (`bool`, `str` or [`~utils.PaddingStrategy`], *optional*, defaults to `True`):
+            Select a strategy to pad the returned sequences (according to the model's padding side and padding index)
             among:
 
-            - &#96;True&#96; or &#96;&#39;longest&#39;&#96; (default): Pad to the longest sequence in the batch (or no padding if only a single
+            - `True` or `'longest'` (default): Pad to the longest sequence in the batch (or no padding if only a single
               sequence is provided).
-            - &#96;&#39;max_length&#39;&#96;: Pad to a maximum length specified with the argument &#96;max_length&#96; or to the maximum
+            - `'max_length'`: Pad to a maximum length specified with the argument `max_length` or to the maximum
               acceptable input length for the model if that argument is not provided.
-            - &#96;False&#96; or &#96;&#39;do_not_pad&#39;&#96;: No padding (i.e., can output a batch with sequences of different lengths).
-        max_length (&#96;int&#96;, *optional*):
+            - `False` or `'do_not_pad'`: No padding (i.e., can output a batch with sequences of different lengths).
+        max_length (`int`, *optional*):
             Maximum length of the returned list and optionally padding length (see above).
-        pad_to_multiple_of (&#96;int&#96;, *optional*):
+        pad_to_multiple_of (`int`, *optional*):
             If set will pad the sequence to a multiple of the provided value.
 
-            This is especially useful to enable the use of Tensor Cores on NVIDIA hardware with compute capability &gt;&#x3D;
+            This is especially useful to enable the use of Tensor Cores on NVIDIA hardware with compute capability >=
             7.5 (Volta).
-        return_tensors (&#96;str&#96;, *optional*, defaults to &#96;&quot;pt&quot;&#96;):
-            The type of Tensor to return. Allowable values are &quot;np&quot;, &quot;pt&quot; and &quot;tf&quot;.
-    &quot;&quot;&quot;
+        return_tensors (`str`, *optional*, defaults to `"pt"`):
+            The type of Tensor to return. Allowable values are "np", "pt" and "tf".
+    """</span>
 
-    tokenizer: PreTrainedTokenizerBase
-    padding: Union[bool, str, PaddingStrategy] &#x3D; True 
-    max_length: Optional[int] &#x3D; None
-    pad_to_multiple_of: Optional[int] &#x3D; None
-    return_tensors: str &#x3D; &quot;pt&quot;
+    tokenizer<span class="token punctuation">:</span> PreTrainedTokenizerBase
+    padding<span class="token punctuation">:</span> Union<span class="token punctuation">[</span><span class="token builtin">bool</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">,</span> PaddingStrategy<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">True</span> 
+    max_length<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    pad_to_multiple_of<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    return_tensors<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">"pt"</span>
 
-    def __call__(self, features: List[Dict[str, Any]]) -&gt; Dict[str, Any]:
-        batch &#x3D; pad_without_fast_tokenizer_warning(
-            self.tokenizer,
-            features,
-            padding&#x3D;self.padding,
-            max_length&#x3D;self.max_length,
-            pad_to_multiple_of&#x3D;self.pad_to_multiple_of,
-            return_tensors&#x3D;self.return_tensors,
-        )
-        if &quot;label&quot; in batch:
-            batch[&quot;labels&quot;] &#x3D; batch[&quot;label&quot;]
-            del batch[&quot;label&quot;]
-        if &quot;label_ids&quot; in batch:
-            batch[&quot;labels&quot;] &#x3D; batch[&quot;label_ids&quot;]
-            del batch[&quot;label_ids&quot;]
-        return batch</code></pre>
+    <span class="token keyword">def</span> <span class="token function">__call__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> features<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        batch <span class="token operator">=</span> pad_without_fast_tokenizer_warning<span class="token punctuation">(</span>
+            self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">,</span>
+            features<span class="token punctuation">,</span>
+            padding<span class="token operator">=</span>self<span class="token punctuation">.</span>padding<span class="token punctuation">,</span>
+            max_length<span class="token operator">=</span>self<span class="token punctuation">.</span>max_length<span class="token punctuation">,</span>
+            pad_to_multiple_of<span class="token operator">=</span>self<span class="token punctuation">.</span>pad_to_multiple_of<span class="token punctuation">,</span>
+            return_tensors<span class="token operator">=</span>self<span class="token punctuation">.</span>return_tensors<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token string">"label"</span> <span class="token keyword">in</span> batch<span class="token punctuation">:</span>
+            batch<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> batch<span class="token punctuation">[</span><span class="token string">"label"</span><span class="token punctuation">]</span>
+            <span class="token keyword">del</span> batch<span class="token punctuation">[</span><span class="token string">"label"</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> <span class="token string">"label_ids"</span> <span class="token keyword">in</span> batch<span class="token punctuation">:</span>
+            batch<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> batch<span class="token punctuation">[</span><span class="token string">"label_ids"</span><span class="token punctuation">]</span>
+            <span class="token keyword">del</span> batch<span class="token punctuation">[</span><span class="token string">"label_ids"</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> batch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>从名字可以看到，这个整合器应该是做了pad的任务，调用了一个Call函数来返回处理后的样本。实际上就一句比较重要的语句.</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def pad_without_fast_tokenizer_warning(tokenizer, *pad_args, **pad_kwargs):
-    padded &#x3D; tokenizer.pad(*pad_args, **pad_kwargs)</code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">pad_without_fast_tokenizer_warning</span><span class="token punctuation">(</span>tokenizer<span class="token punctuation">,</span> <span class="token operator">*</span>pad_args<span class="token punctuation">,</span> <span class="token operator">**</span>pad_kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    padded <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>pad<span class="token punctuation">(</span><span class="token operator">*</span>pad_args<span class="token punctuation">,</span> <span class="token operator">**</span>pad_kwargs<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>也就是调用了pad函数，返回padding之后的tensor。</p>
 <p>总之，<code>DataCollatorWithPadding</code>会为tokenize后的序列添加pad，使得整个batch的序列长度一致，如果选择<code>padding=longest</code>，那么会根据最长的序列来进行padding。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import DefaultDataCollator,DataCollatorWithPadding,DataCollatorForLanguageModeling,AutoTokenizer
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> DefaultDataCollator<span class="token punctuation">,</span>DataCollatorWithPadding<span class="token punctuation">,</span>DataCollatorForLanguageModeling<span class="token punctuation">,</span>AutoTokenizer
 
-tokenizer &#x3D; AutoTokenizer.from_pretrained(&#39;&#x2F;data&#x2F;wtf&#x2F;model&#x2F;llama-2-7b-hf&#39;,padding_side&#x3D;&#39;left&#39;)
-input_text &#x3D; [&quot;hello world&quot;,&quot;hello hello hello hello&quot;,&quot;hello,My name is &quot;]
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">'/data/wtf/model/llama-2-7b-hf'</span><span class="token punctuation">,</span>padding_side<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
+input_text <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"hello world"</span><span class="token punctuation">,</span><span class="token string">"hello hello hello hello"</span><span class="token punctuation">,</span><span class="token string">"hello,My name is "</span><span class="token punctuation">]</span>
 
-c1 &#x3D; DefaultDataCollator()
-c2 &#x3D; DataCollatorWithPadding(tokenizer)
-c3 &#x3D; DataCollatorForLanguageModeling(tokenizer,mlm&#x3D;False)
-# 直接调用tokenizer的话，每一个样本的长度不同
-tokenizer(input_text) # &#123;&#39;input_ids&#39;: [[1, 22172, 3186], [1, 22172, 22172, 22172, 22172], [1, 22172, 29892, 3421, 1024, 338, 29871]], &#39;attention_mask&#39;: [[1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]]&#125;
+c1 <span class="token operator">=</span> DefaultDataCollator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+c2 <span class="token operator">=</span> DataCollatorWithPadding<span class="token punctuation">(</span>tokenizer<span class="token punctuation">)</span>
+c3 <span class="token operator">=</span> DataCollatorForLanguageModeling<span class="token punctuation">(</span>tokenizer<span class="token punctuation">,</span>mlm<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+<span class="token comment"># 直接调用tokenizer的话，每一个样本的长度不同</span>
+tokenizer<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span> <span class="token comment"># &#123;'input_ids': [[1, 22172, 3186], [1, 22172, 22172, 22172, 22172], [1, 22172, 29892, 3421, 1024, 338, 29871]], 'attention_mask': [[1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]]&#125;</span>
 
-c1(input_text) # 直接报错
-tok_input &#x3D; tokenizer(input_text)
-c2(input_text)
---------可以看到对齐了
-&#123;&#39;input_ids&#39;: tensor([[    0,     0,     0,     0,     1, 22172,  3186],
-        [    0,     0,     1, 22172, 22172, 22172, 22172],
-        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), &#39;attention_mask&#39;: tensor([[0, 0, 0, 0, 1, 1, 1],
-        [0, 0, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1]])&#125;
+c1<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span> <span class="token comment"># 直接报错</span>
+tok_input <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span>
+c2<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>可以看到对齐了
+<span class="token punctuation">&#123;</span><span class="token string">'input_ids'</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span>    <span class="token number">0</span><span class="token punctuation">,</span>     <span class="token number">0</span><span class="token punctuation">,</span>     <span class="token number">0</span><span class="token punctuation">,</span>     <span class="token number">0</span><span class="token punctuation">,</span>     <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">22172</span><span class="token punctuation">,</span>  <span class="token number">3186</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>    <span class="token number">0</span><span class="token punctuation">,</span>     <span class="token number">0</span><span class="token punctuation">,</span>     <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">22172</span><span class="token punctuation">,</span> <span class="token number">22172</span><span class="token punctuation">,</span> <span class="token number">22172</span><span class="token punctuation">,</span> <span class="token number">22172</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>    <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">22172</span><span class="token punctuation">,</span> <span class="token number">29892</span><span class="token punctuation">,</span>  <span class="token number">3421</span><span class="token punctuation">,</span>  <span class="token number">1024</span><span class="token punctuation">,</span>   <span class="token number">338</span><span class="token punctuation">,</span> <span class="token number">29871</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'attention_mask'</span><span class="token punctuation">:</span> tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
 decode后的结果：
-[&#39;&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello world&#39;,
- &#39;&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello hello hello hello&#39;,
- &#39;&lt;s&gt; hello,My name is &#39;]</code></pre>
+<span class="token punctuation">[</span><span class="token string">'&lt;unk>&lt;unk>&lt;unk>&lt;unk>&lt;s> hello world'</span><span class="token punctuation">,</span>
+ <span class="token string">'&lt;unk>&lt;unk>&lt;s> hello hello hello hello'</span><span class="token punctuation">,</span>
+ <span class="token string">'&lt;s> hello,My name is '</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们看一个例子：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import DefaultDataCollator,DataCollatorWithPadding,DataCollatorForLanguageModeling,AutoTokenizer
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> DefaultDataCollator<span class="token punctuation">,</span>DataCollatorWithPadding<span class="token punctuation">,</span>DataCollatorForLanguageModeling<span class="token punctuation">,</span>AutoTokenizer
 
-tokenizer &#x3D; AutoTokenizer.from_pretrained(&#39;&#x2F;data&#x2F;wtf&#x2F;model&#x2F;llama-2-7b-hf&#39;,padding_side&#x3D;&#39;left&#39;)
-input_text &#x3D; [&quot;hello world&quot;,&quot;hello hello hello hello&quot;,&quot;hello,My name is &quot;]
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">'/data/wtf/model/llama-2-7b-hf'</span><span class="token punctuation">,</span>padding_side<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
+input_text <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"hello world"</span><span class="token punctuation">,</span><span class="token string">"hello hello hello hello"</span><span class="token punctuation">,</span><span class="token string">"hello,My name is "</span><span class="token punctuation">]</span>
 
-c1 &#x3D; DefaultDataCollator()
-c2 &#x3D; DataCollatorWithPadding(tokenizer)
-c3 &#x3D; DataCollatorForLanguageModeling(tokenizer,mlm&#x3D;False)
-# 直接调用tokenizer的话，每一个样本的长度不同
-tokenizer(input_text) 
-&quot;&quot;&quot;
-&#123;&#39;input_ids&#39;: [[1, 22172, 3186], [1, 22172, 22172, 22172, 22172], [1, 22172, 29892, 3421, 1024, 338, 29871]], &#39;attention_mask&#39;: [[1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]]&#125;
-&quot;&quot;&quot; 
-c1(input_text) # 直接报错
-&quot;&quot;&quot;
+c1 <span class="token operator">=</span> DefaultDataCollator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+c2 <span class="token operator">=</span> DataCollatorWithPadding<span class="token punctuation">(</span>tokenizer<span class="token punctuation">)</span>
+c3 <span class="token operator">=</span> DataCollatorForLanguageModeling<span class="token punctuation">(</span>tokenizer<span class="token punctuation">,</span>mlm<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+<span class="token comment"># 直接调用tokenizer的话，每一个样本的长度不同</span>
+tokenizer<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span> 
+<span class="token triple-quoted-string string">"""
+&#123;'input_ids': [[1, 22172, 3186], [1, 22172, 22172, 22172, 22172], [1, 22172, 29892, 3421, 1024, 338, 29871]], 'attention_mask': [[1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]]&#125;
+"""</span> 
+c1<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span> <span class="token comment"># 直接报错</span>
+<span class="token triple-quoted-string string">"""
 DataCollatorWithPadding的输入是整个tokenizers.Encoding对象，可以把tokenizer处理后的对象直接放进去
-&quot;&quot;&quot;
-tok_input &#x3D; tokenizer(input_text)
-c2(input_text)
-&quot;&quot;&quot;返回对齐后的结果
-&#123;&#39;input_ids&#39;: tensor([[    0,     0,     0,     0,     1, 22172,  3186],
+"""</span>
+tok_input <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span>
+c2<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">"""返回对齐后的结果
+&#123;'input_ids': tensor([[    0,     0,     0,     0,     1, 22172,  3186],
         [    0,     0,     1, 22172, 22172, 22172, 22172],
-        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), &#39;attention_mask&#39;: tensor([[0, 0, 0, 0, 1, 1, 1],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), 'attention_mask': tensor([[0, 0, 0, 0, 1, 1, 1],
         [0, 0, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1]])&#125;
 decode回去，可以看到长度相同
-[&#39;&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello world&#39;,
- &#39;&lt;unk&gt;&lt;unk&gt;&lt;s&gt; hello hello hello hello&#39;,
- &#39;&lt;s&gt; hello,My name is &#39;]
+['&lt;unk>&lt;unk>&lt;unk>&lt;unk>&lt;s> hello world',
+ '&lt;unk>&lt;unk>&lt;s> hello hello hello hello',
+ '&lt;s> hello,My name is ']
         
-&quot;&quot;&quot;</code></pre>
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2
 id="datacollatorforlanguagemodeling">DataCollatorForLanguageModeling</h2>
 <p>接下来常用的<code>DataCollatorForLanguageModeling</code>。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">class DataCollatorForLanguageModeling(DataCollatorMixin):
-    &quot;&quot;&quot;
-    Data collator used for language modeling. Inputs are dynamically padded to the maximum length of a batch if they
-    are not all of the same length.
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">DataCollatorForLanguageModeling</span><span class="token punctuation">(</span>DataCollatorMixin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token string">""</span>"
+    Data collator used <span class="token keyword">for</span> language modeling<span class="token punctuation">.</span> Inputs are dynamically padded to the maximum length of a batch <span class="token keyword">if</span> they
+    are <span class="token keyword">not</span> <span class="token builtin">all</span> of the same length<span class="token punctuation">.</span>
 
-    Args:
-        tokenizer ([&#96;PreTrainedTokenizer&#96;] or [&#96;PreTrainedTokenizerFast&#96;]):
-            The tokenizer used for encoding the data.
-        mlm (&#96;bool&#96;, *optional*, defaults to &#96;True&#96;):
-            Whether or not to use masked language modeling. If set to &#96;False&#96;, the labels are the same as the inputs
-            with the padding tokens ignored (by setting them to -100). Otherwise, the labels are -100 for non-masked
-            tokens and the value to predict for the masked token.
-        mlm_probability (&#96;float&#96;, *optional*, defaults to 0.15):
-            The probability with which to (randomly) mask tokens in the input, when &#96;mlm&#96; is set to &#96;True&#96;.
-        pad_to_multiple_of (&#96;int&#96;, *optional*):
-            If set will pad the sequence to a multiple of the provided value.
-        return_tensors (&#96;str&#96;):
-            The type of Tensor to return. Allowable values are &quot;np&quot;, &quot;pt&quot; and &quot;tf&quot;.</code></pre>
+    Args<span class="token punctuation">:</span>
+        tokenizer <span class="token punctuation">(</span><span class="token punctuation">[</span>`PreTrainedTokenizer`<span class="token punctuation">]</span> <span class="token keyword">or</span> <span class="token punctuation">[</span>`PreTrainedTokenizerFast`<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            The tokenizer used <span class="token keyword">for</span> encoding the data<span class="token punctuation">.</span>
+        mlm <span class="token punctuation">(</span>`<span class="token builtin">bool</span>`<span class="token punctuation">,</span> <span class="token operator">*</span>optional<span class="token operator">*</span><span class="token punctuation">,</span> defaults to `<span class="token boolean">True</span>`<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            Whether <span class="token keyword">or</span> <span class="token keyword">not</span> to use masked language modeling<span class="token punctuation">.</span> If <span class="token builtin">set</span> to `<span class="token boolean">False</span>`<span class="token punctuation">,</span> the labels are the same <span class="token keyword">as</span> the inputs
+            <span class="token keyword">with</span> the padding tokens ignored <span class="token punctuation">(</span>by setting them to <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">.</span> Otherwise<span class="token punctuation">,</span> the labels are <span class="token operator">-</span><span class="token number">100</span> <span class="token keyword">for</span> non<span class="token operator">-</span>masked
+            tokens <span class="token keyword">and</span> the value to predict <span class="token keyword">for</span> the masked token<span class="token punctuation">.</span>
+        mlm_probability <span class="token punctuation">(</span>`<span class="token builtin">float</span>`<span class="token punctuation">,</span> <span class="token operator">*</span>optional<span class="token operator">*</span><span class="token punctuation">,</span> defaults to <span class="token number">0.15</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            The probability <span class="token keyword">with</span> which to <span class="token punctuation">(</span>randomly<span class="token punctuation">)</span> mask tokens <span class="token keyword">in</span> the <span class="token builtin">input</span><span class="token punctuation">,</span> when `mlm` <span class="token keyword">is</span> <span class="token builtin">set</span> to `<span class="token boolean">True</span>`<span class="token punctuation">.</span>
+        pad_to_multiple_of <span class="token punctuation">(</span>`<span class="token builtin">int</span>`<span class="token punctuation">,</span> <span class="token operator">*</span>optional<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            If <span class="token builtin">set</span> will pad the sequence to a multiple of the provided value<span class="token punctuation">.</span>
+        return_tensors <span class="token punctuation">(</span>`<span class="token builtin">str</span>`<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            The <span class="token builtin">type</span> of Tensor to <span class="token keyword">return</span><span class="token punctuation">.</span> Allowable values are <span class="token string">"np"</span><span class="token punctuation">,</span> <span class="token string">"pt"</span> <span class="token keyword">and</span> <span class="token string">"tf"</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参数列表中带有MLM，说明可以用于MLM任务。若mlm=True，那么除了需要预测的标签，其余标签都不参与损失的计算，label全都设置为-100，被mask的则是正常的标签值。若mlm=False，pad的laebl值设置为-100。当mlm=True的情况下，tokenizer需要设置mask_token。</p>
 <p>接下来我们看主要的几个函数。</p>
 <p><code>torch_call</code>是处理函数，首先也会判断样本是否是字典形式，然后做pad并返回tensor形式的样本，这一段和<code>DataCollatorWithPadding</code>所做的一模一样，只是没有删除label键。然后取出mask_token，然后是否采取了mlm策略来处理样本的<code>input_ids</code>，最终返回处理后的tensor。若不采取mlm策略，那么就把padtoken的位置用-100替代，表示不计算损失。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def torch_call(self, examples: List[Union[List[int], Any, Dict[str, Any]]]) -&gt; Dict[str, Any]:
-    # Handle dict or lists with proper padding and conversion to tensor.
-    if isinstance(examples[0], Mapping):
-        batch &#x3D; pad_without_fast_tokenizer_warning(
-            self.tokenizer, examples, return_tensors&#x3D;&quot;pt&quot;, pad_to_multiple_of&#x3D;self.pad_to_multiple_of
-        )
-    else:
-        batch &#x3D; &#123;
-            &quot;input_ids&quot;: _torch_collate_batch(examples, self.tokenizer, pad_to_multiple_of&#x3D;self.pad_to_multiple_of)
-        &#125;
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">torch_call</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> examples<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Union<span class="token punctuation">[</span>List<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">,</span> Any<span class="token punctuation">,</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token comment"># Handle dict or lists with proper padding and conversion to tensor.</span>
+    <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>examples<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> Mapping<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        batch <span class="token operator">=</span> pad_without_fast_tokenizer_warning<span class="token punctuation">(</span>
+            self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">,</span> examples<span class="token punctuation">,</span> return_tensors<span class="token operator">=</span><span class="token string">"pt"</span><span class="token punctuation">,</span> pad_to_multiple_of<span class="token operator">=</span>self<span class="token punctuation">.</span>pad_to_multiple_of
+        <span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        batch <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">"input_ids"</span><span class="token punctuation">:</span> _torch_collate_batch<span class="token punctuation">(</span>examples<span class="token punctuation">,</span> self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">,</span> pad_to_multiple_of<span class="token operator">=</span>self<span class="token punctuation">.</span>pad_to_multiple_of<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
 
-    # If special token mask has been preprocessed, pop it from the dict.
-    special_tokens_mask &#x3D; batch.pop(&quot;special_tokens_mask&quot;, None)
-    if self.mlm:
-        batch[&quot;input_ids&quot;], batch[&quot;labels&quot;] &#x3D; self.torch_mask_tokens(
-            batch[&quot;input_ids&quot;], special_tokens_mask&#x3D;special_tokens_mask
-        )
-    else:
-        labels &#x3D; batch[&quot;input_ids&quot;].clone()
-        if self.tokenizer.pad_token_id is not None:
-            labels[labels &#x3D;&#x3D; self.tokenizer.pad_token_id] &#x3D; -100
-        batch[&quot;labels&quot;] &#x3D; labels
-    return batch</code></pre>
+    <span class="token comment"># If special token mask has been preprocessed, pop it from the dict.</span>
+    special_tokens_mask <span class="token operator">=</span> batch<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">"special_tokens_mask"</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>mlm<span class="token punctuation">:</span>
+        batch<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> batch<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>torch_mask_tokens<span class="token punctuation">(</span>
+            batch<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> special_tokens_mask<span class="token operator">=</span>special_tokens_mask
+        <span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        labels <span class="token operator">=</span> batch<span class="token punctuation">[</span><span class="token string">"input_ids"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>clone<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">.</span>pad_token_id <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            labels<span class="token punctuation">[</span>labels <span class="token operator">==</span> self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">.</span>pad_token_id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">100</span>
+        batch<span class="token punctuation">[</span><span class="token string">"labels"</span><span class="token punctuation">]</span> <span class="token operator">=</span> labels
+    <span class="token keyword">return</span> batch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>torch_mask_tokens</code>接收<code>input_ids</code>和<code>mask_token</code>，做了以下的工作。</p>
 <ol type="1">
 <li>创建概率矩阵，和输入同形状。</li>
@@ -289,79 +289,79 @@ token，那么首先回生成一个mask列表。<code>special_tokens_mask = [1 i
 <li>默认情况下
 (其实就是bert的操作)，80%的mask索引，其索引的值被替换成mask_token。要求预测原token。10%被替换成随机token。剩下10%不变。</li>
 </ol>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def torch_mask_tokens(self, inputs: Any, special_tokens_mask: Optional[Any] &#x3D; None) -&gt; Tuple[Any, Any]:
-    &quot;&quot;&quot;
-    Prepare masked tokens inputs&#x2F;labels for masked language modeling: 80% MASK, 10% random, 10% original.
-    &quot;&quot;&quot;
-    import torch
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">torch_mask_tokens</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> inputs<span class="token punctuation">:</span> Any<span class="token punctuation">,</span> special_tokens_mask<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span>Any<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Tuple<span class="token punctuation">[</span>Any<span class="token punctuation">,</span> Any<span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Prepare masked tokens inputs/labels for masked language modeling: 80% MASK, 10% random, 10% original.
+    """</span>
+    <span class="token keyword">import</span> torch
 
-    labels &#x3D; inputs.clone()
-    # We sample a few tokens in each sequence for MLM training (with probability &#96;self.mlm_probability&#96;)
-    probability_matrix &#x3D; torch.full(labels.shape, self.mlm_probability)
-    # 生成mask list。
-    if special_tokens_mask is None:
-        special_tokens_mask &#x3D; [
-            self.tokenizer.get_special_tokens_mask(val, already_has_special_tokens&#x3D;True) for val in labels.tolist()
-        ]
-        special_tokens_mask &#x3D; torch.tensor(special_tokens_mask, dtype&#x3D;torch.bool)
-    else:
-        special_tokens_mask &#x3D; special_tokens_mask.bool()
+    labels <span class="token operator">=</span> inputs<span class="token punctuation">.</span>clone<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># We sample a few tokens in each sequence for MLM training (with probability `self.mlm_probability`)</span>
+    probability_matrix <span class="token operator">=</span> torch<span class="token punctuation">.</span>full<span class="token punctuation">(</span>labels<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> self<span class="token punctuation">.</span>mlm_probability<span class="token punctuation">)</span>
+    <span class="token comment"># 生成mask list。</span>
+    <span class="token keyword">if</span> special_tokens_mask <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        special_tokens_mask <span class="token operator">=</span> <span class="token punctuation">[</span>
+            self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">.</span>get_special_tokens_mask<span class="token punctuation">(</span>val<span class="token punctuation">,</span> already_has_special_tokens<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token keyword">for</span> val <span class="token keyword">in</span> labels<span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">]</span>
+        special_tokens_mask <span class="token operator">=</span> torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span>special_tokens_mask<span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span><span class="token builtin">bool</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        special_tokens_mask <span class="token operator">=</span> special_tokens_mask<span class="token punctuation">.</span><span class="token builtin">bool</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 		
-    probability_matrix.masked_fill_(special_tokens_mask, value&#x3D;0.0)
-    masked_indices &#x3D; torch.bernoulli(probability_matrix).bool()
-    labels[~masked_indices] &#x3D; -100  # We only compute loss on masked tokens
+    probability_matrix<span class="token punctuation">.</span>masked_fill_<span class="token punctuation">(</span>special_tokens_mask<span class="token punctuation">,</span> value<span class="token operator">=</span><span class="token number">0.0</span><span class="token punctuation">)</span>
+    masked_indices <span class="token operator">=</span> torch<span class="token punctuation">.</span>bernoulli<span class="token punctuation">(</span>probability_matrix<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">bool</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    labels<span class="token punctuation">[</span><span class="token operator">~</span>masked_indices<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">100</span>  <span class="token comment"># We only compute loss on masked tokens</span>
 
-    # 80% of the time, we replace masked input tokens with tokenizer.mask_token ([MASK])
-    indices_replaced &#x3D; torch.bernoulli(torch.full(labels.shape, 0.8)).bool() &amp; masked_indices
-    inputs[indices_replaced] &#x3D; self.tokenizer.convert_tokens_to_ids(self.tokenizer.mask_token)
+    <span class="token comment"># 80% of the time, we replace masked input tokens with tokenizer.mask_token ([MASK])</span>
+    indices_replaced <span class="token operator">=</span> torch<span class="token punctuation">.</span>bernoulli<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>full<span class="token punctuation">(</span>labels<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> <span class="token number">0.8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">bool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> masked_indices
+    inputs<span class="token punctuation">[</span>indices_replaced<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">.</span>convert_tokens_to_ids<span class="token punctuation">(</span>self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">.</span>mask_token<span class="token punctuation">)</span>
 
-    # 10% of the time, we replace masked input tokens with random word
-    indices_random &#x3D; torch.bernoulli(torch.full(labels.shape, 0.5)).bool() &amp; masked_indices &amp; ~indices_replaced
-    random_words &#x3D; torch.randint(len(self.tokenizer), labels.shape, dtype&#x3D;torch.long)
-    inputs[indices_random] &#x3D; random_words[indices_random]
+    <span class="token comment"># 10% of the time, we replace masked input tokens with random word</span>
+    indices_random <span class="token operator">=</span> torch<span class="token punctuation">.</span>bernoulli<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>full<span class="token punctuation">(</span>labels<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">bool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> masked_indices <span class="token operator">&amp;</span> <span class="token operator">~</span>indices_replaced
+    random_words <span class="token operator">=</span> torch<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>tokenizer<span class="token punctuation">)</span><span class="token punctuation">,</span> labels<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span><span class="token builtin">long</span><span class="token punctuation">)</span>
+    inputs<span class="token punctuation">[</span>indices_random<span class="token punctuation">]</span> <span class="token operator">=</span> random_words<span class="token punctuation">[</span>indices_random<span class="token punctuation">]</span>
 
-    # The rest of the time (10% of the time) we keep the masked input tokens unchanged
-    return inputs, labels</code></pre>
+    <span class="token comment"># The rest of the time (10% of the time) we keep the masked input tokens unchanged</span>
+    <span class="token keyword">return</span> inputs<span class="token punctuation">,</span> labels<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>综上，相比于<code>DataCollatorWithPadding</code>，<code>DataCollatorForLanguageModeling</code>具备以下功能：</p>
 <ol type="1">
 <li>可以做MLM任务。</li>
 <li><code>DataCollatorWithPadding</code>并没有对pad的token进行特殊操作，而<code>DataCollatorForLanguageModeling</code>则将padtoken通过设置为-100从而不计算损失。</li>
 </ol>
 <p>还是看一个例子：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import DefaultDataCollator,DataCollatorWithPadding,DataCollatorForLanguageModeling,AutoTokenizer
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> transformers <span class="token keyword">import</span> DefaultDataCollator<span class="token punctuation">,</span>DataCollatorWithPadding<span class="token punctuation">,</span>DataCollatorForLanguageModeling<span class="token punctuation">,</span>AutoTokenizer
 
-tokenizer &#x3D; AutoTokenizer.from_pretrained(&#39;&#x2F;data&#x2F;wtf&#x2F;model&#x2F;llama-2-7b-hf&#39;,padding_side&#x3D;&#39;left&#39;)
+tokenizer <span class="token operator">=</span> AutoTokenizer<span class="token punctuation">.</span>from_pretrained<span class="token punctuation">(</span><span class="token string">'/data/wtf/model/llama-2-7b-hf'</span><span class="token punctuation">,</span>padding_side<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
 
-input_text &#x3D; [&quot;hello world&quot;,&quot;hello hello hello hello&quot;,&quot;hello,My name is &quot;]
+input_text <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"hello world"</span><span class="token punctuation">,</span><span class="token string">"hello hello hello hello"</span><span class="token punctuation">,</span><span class="token string">"hello,My name is "</span><span class="token punctuation">]</span>
 
-c3 &#x3D; DataCollatorForLanguageModeling(tokenizer,mlm&#x3D;False)</code></pre>
+c3 <span class="token operator">=</span> DataCollatorForLanguageModeling<span class="token punctuation">(</span>tokenizer<span class="token punctuation">,</span>mlm<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意，输入不可以是tokenizers.Encoding对象，而是要把<code>input_ids</code>单独拿出来，否则会报错<code>'tokenizers.Encoding' object has no attribute 'size'</code>。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">tok_text &#x3D; tokenizer(input_text)
-# dc &#x3D; c3(tok_text) 会报错
-dc &#x3D; c3(tok_text[&#39;input_ids&#39;])
-print(dc)
-------------------------
-&quot;&quot;&quot;结果，可以看到在mlm&#x3D;False的情况下，pad_id由于是特殊token，直接置为-100，不计算损失
-&#123;&#39;input_ids&#39;: tensor([[    0,     0,     0,     0,     1, 22172,  3186],
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tok_text <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span>
+<span class="token comment"># dc = c3(tok_text) 会报错</span>
+dc <span class="token operator">=</span> c3<span class="token punctuation">(</span>tok_text<span class="token punctuation">[</span><span class="token string">'input_ids'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dc<span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>
+<span class="token triple-quoted-string string">"""结果，可以看到在mlm=False的情况下，pad_id由于是特殊token，直接置为-100，不计算损失
+&#123;'input_ids': tensor([[    0,     0,     0,     0,     1, 22172,  3186],
         [    0,     0,     1, 22172, 22172, 22172, 22172],
-        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), &#39;labels&#39;: tensor([[ -100,  -100,  -100,  -100,     1, 22172,  3186],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), 'labels': tensor([[ -100,  -100,  -100,  -100,     1, 22172,  3186],
         [ -100,  -100,     1, 22172, 22172, 22172, 22172],
         [    1, 22172, 29892,  3421,  1024,   338, 29871]])&#125;
-&quot;&quot;&quot;</code></pre>
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>若<code>mlm=True</code>，在tokenizer没有mask_token的情况下，需要指定。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer.mask_token &#x3D; &quot;&lt;mask&gt;&quot;
-c3 &#x3D; DataCollatorForLanguageModeling(tokenizer,mlm&#x3D;True)
-tok_text &#x3D; tokenizer(input_text)
-t &#x3D; tokenizer.batch_decode(tok_text[&#39;input_ids&#39;])
-dc &#x3D; c3(tok_text[&#39;input_ids&#39;])
-------------------
-&quot;&quot;&quot;labels不等于-100的就是被mask的token
-&#123;&#39;input_ids&#39;: tensor([[    0,     0,     0,     0,     1,     0,  3186],
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer<span class="token punctuation">.</span>mask_token <span class="token operator">=</span> <span class="token string">"&lt;mask>"</span>
+c3 <span class="token operator">=</span> DataCollatorForLanguageModeling<span class="token punctuation">(</span>tokenizer<span class="token punctuation">,</span>mlm<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+tok_text <span class="token operator">=</span> tokenizer<span class="token punctuation">(</span>input_text<span class="token punctuation">)</span>
+t <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>batch_decode<span class="token punctuation">(</span>tok_text<span class="token punctuation">[</span><span class="token string">'input_ids'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+dc <span class="token operator">=</span> c3<span class="token punctuation">(</span>tok_text<span class="token punctuation">[</span><span class="token string">'input_ids'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span>
+<span class="token triple-quoted-string string">"""labels不等于-100的就是被mask的token
+&#123;'input_ids': tensor([[    0,     0,     0,     0,     1,     0,  3186],
         [    0,     0,     1, 22172, 22172, 22172, 22172],
-        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), &#39;labels&#39;: tensor([[ -100,  -100,  -100,  -100,  -100, 22172,  -100],
+        [    1, 22172, 29892,  3421,  1024,   338, 29871]]), 'labels': tensor([[ -100,  -100,  -100,  -100,  -100, 22172,  -100],
         [ -100,  -100,  -100, 22172, 22172,  -100,  -100],
         [ -100,  -100,  -100,  -100,  -100,  -100,  -100]])&#125;
-&quot;&quot;&quot;</code></pre>
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="datacollatorforwholewordmask">DataCollatorForWholeWordMask</h2>
 <p><code>DataCollatorForWholeWordMask</code>继承了<code>DataCollatorForLanguageModeling</code>。由于tokenizer几乎都采用BPE
 OR
@@ -371,4 +371,4 @@ id="datacollatorfortokenclassification">DataCollatorForTokenClassification</h2>
 <p>待更</p>
 <h2 id="datacollatorforseq2seq">DataCollatorForSeq2Seq</h2>
 <p>待更</p>
-</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/data_collator.html" title="Transformers中的DataCollator">http://example.com/post/data_collator.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/llama.html" rel="prev" title="llama结构浅析"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">llama结构浅析</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/infer_optim.html" rel="next" title="大模型推理优化笔记"><span class="post-nav-text">大模型推理优化笔记</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/data_collator.html" title="Transformers中的DataCollator">http://example.com/post/data_collator.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/llama.html" rel="prev" title="llama结构浅析"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">llama结构浅析</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/infer_optim.html" rel="next" title="大模型推理优化笔记"><span class="post-nav-text">大模型推理优化笔记</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>

@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });</script><link rel="icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
     window.Yun = {}
-    window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.9","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
-  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><meta name="description" content="代码总览 class Transformer(nn.Module):      def __init__(self, src_pad_idx, trg_pad_idx, trg_sos_idx, enc_voc_size, dec_voc_size, d_model, n_head, max_len,                  ffn_hidden, n_layers, drop_pro">
+    window.CONFIG = {"hostname":"example.com","root":"/","title":"不想摆烂","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js" defer></script><script src="/js/load-aplayer.js" defer></script><meta name="description" content="代码总览 class Transformer(nn.Module):      def __init__(self, src_pad_idx, trg_pad_idx, trg_sos_idx, enc_voc_size, dec_voc_size, d_model, n_head, max_len,                  ffn_hidden, n_layers, drop_pro">
 <meta property="og:type" content="article">
 <meta property="og:title" content="transformer结构与代码">
 <meta property="og:url" content="http://example.com/post/transformer.html">
@@ -50,53 +50,53 @@ IconifyProviders = {
     // Wait for 1 second before switching API hosts
     rotate: 1000,
   },
-};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%80%BB%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">代码总览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#embedding"><span class="toc-number">2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#encoder"><span class="toc-number">3.</span> <span class="toc-text">Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#multiheadattention"><span class="toc-number">3.1.</span> <span class="toc-text">MultiHeadAttention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#scaled-dot-product-attention"><span class="toc-number">3.1.1.</span> <span class="toc-text">Scaled Dot-Product Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#add-norm"><span class="toc-number">3.2.</span> <span class="toc-text">ADD &amp; NORM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#position-wise-feed-forward-networks"><span class="toc-number">3.3.</span> <span class="toc-text">Position-wise Feed-Forward
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="iroha"><img width="96" loading="lazy" src="/yun.png" alt="iroha"><span class="site-author-status" title="永远相信美好的事情即将发生">😊</span></a><div class="site-author-name"><a href="/about/">iroha</a></div><span class="site-name">iroha</span><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">17</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">2</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="友链" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%80%BB%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">代码总览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#embedding"><span class="toc-number">2.</span> <span class="toc-text">Embedding</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#encoder"><span class="toc-number">3.</span> <span class="toc-text">Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#multiheadattention"><span class="toc-number">3.1.</span> <span class="toc-text">MultiHeadAttention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#scaled-dot-product-attention"><span class="toc-number">3.1.1.</span> <span class="toc-text">Scaled Dot-Product Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#add-norm"><span class="toc-number">3.2.</span> <span class="toc-text">ADD &amp; NORM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#position-wise-feed-forward-networks"><span class="toc-number">3.3.</span> <span class="toc-text">Position-wise Feed-Forward
 Networks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#add-norm-1"><span class="toc-number">3.4.</span> <span class="toc-text">ADD &amp; Norm</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#decoder"><span class="toc-number">4.</span> <span class="toc-text">Decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#maskedmultiheadattention"><span class="toc-number">4.1.</span> <span class="toc-text">MaskedMultiHeadAttention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#multiheadattention-1"><span class="toc-number">4.2.</span> <span class="toc-text">MultiHeadAttention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#position-wise-feed-forward-networks-1"><span class="toc-number">4.3.</span> <span class="toc-text">Position-wise
 Feed-Forward Networks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#linear"><span class="toc-number">4.4.</span> <span class="toc-text">Linear</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#softmax"><span class="toc-number">4.5.</span> <span class="toc-text">softmax</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="http://example.com/post/transformer.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="iroha"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="iroha"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">transformer结构与代码</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-04-01 16:08:00" itemprop="dateCreated datePublished" datetime="2024-04-01T16:08:00+08:00">2024-04-01</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2024-07-22 17:15:38" itemprop="dateModified" datetime="2024-07-22T17:15:38+08:00">2024-07-22</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/NLP/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">NLP</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">大模型</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><h1 id="代码总览">代码总览</h1>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">class Transformer(nn.Module):
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Transformer</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-    def __init__(self, src_pad_idx, trg_pad_idx, trg_sos_idx, enc_voc_size, dec_voc_size, d_model, n_head, max_len,
-                 ffn_hidden, n_layers, drop_prob, device):
-        super().__init__()
-        self.src_pad_idx &#x3D; src_pad_idx
-        self.trg_pad_idx &#x3D; trg_pad_idx
-        self.trg_sos_idx &#x3D; trg_sos_idx
-        self.device &#x3D; device
-        self.encoder &#x3D; Encoder(d_model&#x3D;d_model,
-                               n_head&#x3D;n_head,
-                               max_len&#x3D;max_len,
-                               ffn_hidden&#x3D;ffn_hidden,
-                               enc_voc_size&#x3D;enc_voc_size,
-                               drop_prob&#x3D;drop_prob,
-                               n_layers&#x3D;n_layers,
-                               device&#x3D;device)
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> src_pad_idx<span class="token punctuation">,</span> trg_pad_idx<span class="token punctuation">,</span> trg_sos_idx<span class="token punctuation">,</span> enc_voc_size<span class="token punctuation">,</span> dec_voc_size<span class="token punctuation">,</span> d_model<span class="token punctuation">,</span> n_head<span class="token punctuation">,</span> max_len<span class="token punctuation">,</span>
+                 ffn_hidden<span class="token punctuation">,</span> n_layers<span class="token punctuation">,</span> drop_prob<span class="token punctuation">,</span> device<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>src_pad_idx <span class="token operator">=</span> src_pad_idx
+        self<span class="token punctuation">.</span>trg_pad_idx <span class="token operator">=</span> trg_pad_idx
+        self<span class="token punctuation">.</span>trg_sos_idx <span class="token operator">=</span> trg_sos_idx
+        self<span class="token punctuation">.</span>device <span class="token operator">=</span> device
+        self<span class="token punctuation">.</span>encoder <span class="token operator">=</span> Encoder<span class="token punctuation">(</span>d_model<span class="token operator">=</span>d_model<span class="token punctuation">,</span>
+                               n_head<span class="token operator">=</span>n_head<span class="token punctuation">,</span>
+                               max_len<span class="token operator">=</span>max_len<span class="token punctuation">,</span>
+                               ffn_hidden<span class="token operator">=</span>ffn_hidden<span class="token punctuation">,</span>
+                               enc_voc_size<span class="token operator">=</span>enc_voc_size<span class="token punctuation">,</span>
+                               drop_prob<span class="token operator">=</span>drop_prob<span class="token punctuation">,</span>
+                               n_layers<span class="token operator">=</span>n_layers<span class="token punctuation">,</span>
+                               device<span class="token operator">=</span>device<span class="token punctuation">)</span>
 
-        self.decoder &#x3D; Decoder(d_model&#x3D;d_model,
-                               n_head&#x3D;n_head,
-                               max_len&#x3D;max_len,
-                               ffn_hidden&#x3D;ffn_hidden,
-                               dec_voc_size&#x3D;dec_voc_size,
-                               drop_prob&#x3D;drop_prob,
-                               n_layers&#x3D;n_layers,
-                               device&#x3D;device)
+        self<span class="token punctuation">.</span>decoder <span class="token operator">=</span> Decoder<span class="token punctuation">(</span>d_model<span class="token operator">=</span>d_model<span class="token punctuation">,</span>
+                               n_head<span class="token operator">=</span>n_head<span class="token punctuation">,</span>
+                               max_len<span class="token operator">=</span>max_len<span class="token punctuation">,</span>
+                               ffn_hidden<span class="token operator">=</span>ffn_hidden<span class="token punctuation">,</span>
+                               dec_voc_size<span class="token operator">=</span>dec_voc_size<span class="token punctuation">,</span>
+                               drop_prob<span class="token operator">=</span>drop_prob<span class="token punctuation">,</span>
+                               n_layers<span class="token operator">=</span>n_layers<span class="token punctuation">,</span>
+                               device<span class="token operator">=</span>device<span class="token punctuation">)</span>
 
-    def forward(self, src, trg):
-        src_mask &#x3D; self.make_src_mask(src)
-        trg_mask &#x3D; self.make_trg_mask(trg)
-        enc_src &#x3D; self.encoder(src, src_mask)
-        output &#x3D; self.decoder(trg, enc_src, trg_mask, src_mask)
-        return output
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> src<span class="token punctuation">,</span> trg<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        src_mask <span class="token operator">=</span> self<span class="token punctuation">.</span>make_src_mask<span class="token punctuation">(</span>src<span class="token punctuation">)</span>
+        trg_mask <span class="token operator">=</span> self<span class="token punctuation">.</span>make_trg_mask<span class="token punctuation">(</span>trg<span class="token punctuation">)</span>
+        enc_src <span class="token operator">=</span> self<span class="token punctuation">.</span>encoder<span class="token punctuation">(</span>src<span class="token punctuation">,</span> src_mask<span class="token punctuation">)</span>
+        output <span class="token operator">=</span> self<span class="token punctuation">.</span>decoder<span class="token punctuation">(</span>trg<span class="token punctuation">,</span> enc_src<span class="token punctuation">,</span> trg_mask<span class="token punctuation">,</span> src_mask<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> output
 
-    def make_src_mask(self, src):
-        src_mask &#x3D; (src !&#x3D; self.src_pad_idx).unsqueeze(1).unsqueeze(2)
-        return src_mask
+    <span class="token keyword">def</span> <span class="token function">make_src_mask</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> src<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        src_mask <span class="token operator">=</span> <span class="token punctuation">(</span>src <span class="token operator">!=</span> self<span class="token punctuation">.</span>src_pad_idx<span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> src_mask
 
-    def make_trg_mask(self, trg):
-        trg_pad_mask &#x3D; (trg !&#x3D; self.trg_pad_idx).unsqueeze(1).unsqueeze(3)
-        trg_len &#x3D; trg.shape[1]
-        trg_sub_mask &#x3D; torch.tril(torch.ones(trg_len, trg_len)).type(torch.ByteTensor).to(self.device)
-        trg_mask &#x3D; trg_pad_mask &amp; trg_sub_mask
-        return trg_mask</code></pre>
+    <span class="token keyword">def</span> <span class="token function">make_trg_mask</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> trg<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        trg_pad_mask <span class="token operator">=</span> <span class="token punctuation">(</span>trg <span class="token operator">!=</span> self<span class="token punctuation">.</span>trg_pad_idx<span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+        trg_len <span class="token operator">=</span> trg<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        trg_sub_mask <span class="token operator">=</span> torch<span class="token punctuation">.</span>tril<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>ones<span class="token punctuation">(</span>trg_len<span class="token punctuation">,</span> trg_len<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">type</span><span class="token punctuation">(</span>torch<span class="token punctuation">.</span>ByteTensor<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">(</span>self<span class="token punctuation">.</span>device<span class="token punctuation">)</span>
+        trg_mask <span class="token operator">=</span> trg_pad_mask <span class="token operator">&amp;</span> trg_sub_mask
+        <span class="token keyword">return</span> trg_mask<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <figure>
 <img src="../images/image-20240316142251107.png"
 alt="image-20240316142251107" />
@@ -107,7 +107,7 @@ alt="image-20240316142251107" />
 Encoding，二者结果直接相加，之后先layernorm(原始transformer里没，bert有)再dropout。</p>
 <p>token Embedding的实现为</p>
 <pre class="line-numbers language-none"><code class="language-none">tok_emb &#x3D; nn.Embedding(vocab_size,d_model,pad_id)
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Pos emb稍微比较麻烦。Transformer用的是绝对位置编码，与token
 emb直接相加。其中i是 <span class="math display">\[
 \text{PE}_{(pos, 2i)} =
@@ -115,16 +115,16 @@ emb直接相加。其中i是 <span class="math display">\[
 \text{PE}_{(pos, 2i+1)} =
 \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
 \]</span></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">class PositionEncoding(nn.Module):
-	def __init__(self,d_model,max_len,device):
-        super().__init__()
-        self.encoding &#x3D; torch.zeros(max_len,d_model,device&#x3D;device)
-        self.encoding.requires_grad &#x3D; False
-        pos &#x3D; torch.arange(d_model,device&#x3D;device)
-        pos &#x3D; pos.float().unsqueeze(dim&#x3D;1)
-        _2i &#x3D; torch.arange(0,max_len,step&#x3D;2,device&#x3D;device).float() 
-        self.encoding[:,0::2] &#x3D; torch.sin(pos&#x2F;10000**(_2i&#x2F;d_model))
-        self.encoding[:,1::2] &#x3D; torch.cos(pos&#x2F;10000**(_2i&#x2F;d_model))</code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">PositionEncoding</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>d_model<span class="token punctuation">,</span>max_len<span class="token punctuation">,</span>device<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>encoding <span class="token operator">=</span> torch<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>max_len<span class="token punctuation">,</span>d_model<span class="token punctuation">,</span>device<span class="token operator">=</span>device<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>encoding<span class="token punctuation">.</span>requires_grad <span class="token operator">=</span> <span class="token boolean">False</span>
+        pos <span class="token operator">=</span> torch<span class="token punctuation">.</span>arange<span class="token punctuation">(</span>d_model<span class="token punctuation">,</span>device<span class="token operator">=</span>device<span class="token punctuation">)</span>
+        pos <span class="token operator">=</span> pos<span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>unsqueeze<span class="token punctuation">(</span>dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        _2i <span class="token operator">=</span> torch<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>max_len<span class="token punctuation">,</span>step<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>device<span class="token operator">=</span>device<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">float</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+        self<span class="token punctuation">.</span>encoding<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>pos<span class="token operator">/</span><span class="token number">10000</span><span class="token operator">**</span><span class="token punctuation">(</span>_2i<span class="token operator">/</span>d_model<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>encoding<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> torch<span class="token punctuation">.</span>cos<span class="token punctuation">(</span>pos<span class="token operator">/</span><span class="token number">10000</span><span class="token operator">**</span><span class="token punctuation">(</span>_2i<span class="token operator">/</span>d_model<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="encoder">Encoder</h1>
 <p>整个encoder层有两次残差连接，并且需要把被padding的部分带掩码上。被mask的地方可以设置为一个非常非常小的负数，让他对softmax贡献降低。</p>
 <figure>
@@ -133,35 +133,35 @@ alt="image-20240316154402911" />
 <figcaption aria-hidden="true">image-20240316154402911</figcaption>
 </figure>
 <h2 id="multiheadattention">MultiHeadAttention</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">class MultiHeadAttention(nn.Module):
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">MultiHeadAttention</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-    def __init__(self, d_model, n_head):
-        super(MultiHeadAttention, self).__init__()
-        self.n_head &#x3D; n_head
-        self.attention &#x3D; ScaleDotProductAttention()
-        self.w_q &#x3D; nn.Linear(d_model, d_model)
-        self.w_k &#x3D; nn.Linear(d_model, d_model)
-        self.w_v &#x3D; nn.Linear(d_model, d_model)
-        self.w_concat &#x3D; nn.Linear(d_model, d_model) #  Wo
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> d_model<span class="token punctuation">,</span> n_head<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>MultiHeadAttention<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>n_head <span class="token operator">=</span> n_head
+        self<span class="token punctuation">.</span>attention <span class="token operator">=</span> ScaleDotProductAttention<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>w_q <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>d_model<span class="token punctuation">,</span> d_model<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>w_k <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>d_model<span class="token punctuation">,</span> d_model<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>w_v <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>d_model<span class="token punctuation">,</span> d_model<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>w_concat <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>d_model<span class="token punctuation">,</span> d_model<span class="token punctuation">)</span> <span class="token comment">#  Wo</span>
 
-    def forward(self, q, k, v, mask&#x3D;None):
-        # 1. dot product with weight matrices
-        q, k, v &#x3D; self.w_q(q), self.w_k(k), self.w_v(v)
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> q<span class="token punctuation">,</span> k<span class="token punctuation">,</span> v<span class="token punctuation">,</span> mask<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 1. dot product with weight matrices</span>
+        q<span class="token punctuation">,</span> k<span class="token punctuation">,</span> v <span class="token operator">=</span> self<span class="token punctuation">.</span>w_q<span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>w_k<span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>w_v<span class="token punctuation">(</span>v<span class="token punctuation">)</span>
 
-        # 2. split tensor by number of heads
-        q, k, v &#x3D; self.split(q), self.split(k), self.split(v)
+        <span class="token comment"># 2. split tensor by number of heads</span>
+        q<span class="token punctuation">,</span> k<span class="token punctuation">,</span> v <span class="token operator">=</span> self<span class="token punctuation">.</span>split<span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>split<span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>split<span class="token punctuation">(</span>v<span class="token punctuation">)</span>
 
-        # 3. do scale dot product to compute similarity
-        out, attention &#x3D; self.attention(q, k, v, mask&#x3D;mask)
+        <span class="token comment"># 3. do scale dot product to compute similarity</span>
+        out<span class="token punctuation">,</span> attention <span class="token operator">=</span> self<span class="token punctuation">.</span>attention<span class="token punctuation">(</span>q<span class="token punctuation">,</span> k<span class="token punctuation">,</span> v<span class="token punctuation">,</span> mask<span class="token operator">=</span>mask<span class="token punctuation">)</span>
 
-        # 4. concat and pass to linear layer
-        out &#x3D; self.concat(out)
-        out &#x3D; self.w_concat(out)
+        <span class="token comment"># 4. concat and pass to linear layer</span>
+        out <span class="token operator">=</span> self<span class="token punctuation">.</span>concat<span class="token punctuation">(</span>out<span class="token punctuation">)</span>
+        out <span class="token operator">=</span> self<span class="token punctuation">.</span>w_concat<span class="token punctuation">(</span>out<span class="token punctuation">)</span>
 
-        # 5. visualize attention map
-        # TODO : we should implement visualization
+        <span class="token comment"># 5. visualize attention map</span>
+        <span class="token comment"># TODO : we should implement visualization</span>
 
-        return out</code></pre>
+        <span class="token keyword">return</span> out<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <figure>
 <img src="../images/image-20240315232326148.png"
 alt="image-20240315232326148" />
@@ -172,7 +172,7 @@ alt="image-20240315232326148" />
 <p>$ Attention(Q,K,V) = softmax()V$</p>
 <h3 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h3>
 <p>Q,K,V会经过一个线性层(d,d)，然后拆分送给多个Attention，这里请注意，是把序列给拆了！不是把tensor铺开来然后划分，所以需要坐transpose</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">tensor &#x3D; tensor.view(batch_size, length, self.n_head, d_tensor).transpose(1, 2)</code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tensor <span class="token operator">=</span> tensor<span class="token punctuation">.</span>view<span class="token punctuation">(</span>batch_size<span class="token punctuation">,</span> length<span class="token punctuation">,</span> self<span class="token punctuation">.</span>n_head<span class="token punctuation">,</span> d_tensor<span class="token punctuation">)</span><span class="token punctuation">.</span>transpose<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>之后将q,k,v传入点积attention</p>
 <pre class="line-numbers language-none"><code class="language-none">class ScaleDotProductAttention(nn.Module):
     &quot;&quot;&quot;
@@ -207,14 +207,14 @@ alt="image-20240315232326148" />
         v &#x3D; score @ v
 
         return v, score
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>每一个head并行计算完attention后，重新concat起来，Wo如果在head能被dmodel整除的情况下，拼起来就是一个512×512的矩阵。</p>
 <h2 id="add-norm">ADD &amp; NORM</h2>
 <pre class="line-numbers language-none"><code class="language-none">x &#x3D; self.attention(q&#x3D;x, k&#x3D;x, v&#x3D;x, mask&#x3D;src_mask)
 
 # 2. add and norm
 x &#x3D; self.dropout1(x)
-x &#x3D; self.norm1(x + _x)</code></pre>
+x &#x3D; self.norm1(x + _x)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="position-wise-feed-forward-networks">Position-wise Feed-Forward
 Networks</h2>
 <p>这个做法可以增加模型的表示能力，并且增加了模型学习的灵活性。通过将维度映射到更高的维度，模型能够学习更复杂的特征，然后通过第二个线性层将其映射回原始的维度，以保留原始输入的信息。这种设计可以帮助模型更好地学习输入序列之间的复杂关系，并且提高模型的性能。原始的隐藏层是2048</p>
@@ -232,7 +232,7 @@ Networks</h2>
         x &#x3D; self.relu(x)
         x &#x3D; self.dropout(x)
         x &#x3D; self.linear2(x)
-        return x</code></pre>
+        return x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="add-norm-1">ADD &amp; Norm</h2>
 <pre class="line-numbers language-none"><code class="language-none"># 3. positionwise feed forward network
 _x &#x3D; x
@@ -241,7 +241,7 @@ x &#x3D; self.ffn(x)
 # 4. add and norm
 x &#x3D; self.dropout2(x)
 x &#x3D; self.norm2(x + _x)
-return x</code></pre>
+return x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="decoder">Decoder</h1>
 <p>在训练时，Decoder的emb输入不是上一步生成的，而是目标序列。Decoder有三次残差</p>
 <pre class="line-numbers language-none"><code class="language-none">class Decoder(nn.Module):
@@ -269,7 +269,7 @@ return x</code></pre>
 
         # pass to LM head
         output &#x3D; self.linear(trg)
-        return output</code></pre>
+        return output<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="maskedmultiheadattention">MaskedMultiHeadAttention</h2>
 <p>整体实现和Encoder的一样，但需要带Masked，实际上，在Encoder中，被pad的地方也要被Masked。</p>
 <pre class="line-numbers language-none"><code class="language-none">class DecoderLayer(nn.Module):
@@ -287,7 +287,7 @@ return x</code></pre>
         self.ffn &#x3D; PositionwiseFeedForward(d_model&#x3D;d_model, hidden&#x3D;ffn_hidden, drop_prob&#x3D;drop_prob)
         self.norm3 &#x3D; LayerNorm(d_model&#x3D;d_model)
         self.dropout3 &#x3D; nn.Dropout(p&#x3D;drop_prob)
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Decoder的mask部分相对来说比较复杂。首先需要把被padding的部分先mask上，然后生成一个下三角矩阵。</p>
 <p>这里的QKV都来自于上一步，训练中则都是目标。</p>
 <h2 id="multiheadattention-1">MultiHeadAttention</h2>
@@ -304,7 +304,7 @@ Decoder 自身的前面层输出，因为 Decoder
 Feed-Forward Networks</h2>
 <p>同Encoder</p>
 <h2 id="linear">Linear</h2>
-<pre class="line-numbers language-none"><code class="language-none">self.linear &#x3D; nn.Linear(d_model, dec_voc_size)</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">self.linear &#x3D; nn.Linear(d_model, dec_voc_size)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="softmax">softmax</h2>
 <p>训练时不需要，推理时才需要</p>
-</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/transformer.html" title="transformer结构与代码">http://example.com/post/transformer.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/T5.html" rel="prev" title="T5及相关解析"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">T5及相关解析</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/PE.html" rel="next" title="Position Encoding"><span class="post-nav-text">Position Encoding</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.9</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
+</div></section><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>iroha</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://example.com/post/transformer.html" title="transformer结构与代码">http://example.com/post/transformer.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><span class="icon iconify" data-icon="ri:creative-commons-line"></span><span class="icon iconify" data-icon="ri:creative-commons-by-line"></span><span class="icon iconify" data-icon="ri:creative-commons-nc-line"></span><span class="icon iconify" data-icon="ri:creative-commons-sa-line"></span></a> 许可协议。</li></ul></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/post/T5.html" rel="prev" title="T5及相关解析"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">T5及相关解析</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/post/PE.html" rel="next" title="Position Encoding"><span class="post-nav-text">Position Encoding</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2024 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> iroha</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></body></html>
